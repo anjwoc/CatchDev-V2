@@ -1,0 +1,16 @@
+.main-page{   
+  padding: 16px 46px;
+  font-weight: 300;
+  max-width: 80% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+.bg-red {
+  background-color: red !important;
+  color: red !important;
+}
+.toolbar-btn{
+  font-size: 14px;
+  font-weight: 500 !important;
+  color: #252a33 !important;
+}
