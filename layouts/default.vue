@@ -21,11 +21,12 @@
           depressed
           outlined
           style="border: 1px solid grey"
+          href="/signup"
         >
           Sign up
         </v-btn>
 
-        <template v-slot:extension>
+        <template v-if="$route.name in ['login', 'signup']" v-slot:extension>
           <v-tabs class="pa-0 ma-0" v-model="tab">
             <v-tabs-slider color="primary"></v-tabs-slider>
             <v-tab v-for="tab in tabs" :key="tab" @change="onChangeTabs">

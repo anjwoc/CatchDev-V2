@@ -15,6 +15,22 @@
                 @submit.prevent="onSubmitForm"
               >
                 <v-text-field
+                  v-model="username"
+                  placeholder="Username"
+                  filled
+                  rounded
+                  required
+                >
+                  <v-icon
+                    small
+                    slot="prepend"
+                    color="primary"
+                    style="font-weight: 1200"
+                  >
+                    mdi-checkbox-blank-circle-outline
+                  </v-icon>
+                </v-text-field>
+                <v-text-field
                   v-model="email"
                   :rules="emailRules"
                   placeholder="Email"
