@@ -7,7 +7,7 @@
           style="cursor: pointer"
           @click="$router.push('/')"
         >
-          Study Platform
+          Catch Dev
         </v-toolbar-title>
 
         <v-spacer></v-spacer>

@@ -2,9 +2,9 @@
   <v-container class="fill-height background" fluid>
     <v-row class="mt-0 pt-0" justify="center">
       <v-col cols="12" sm="10" md="7" lg="6">
-        <v-card class="elevation-6" width="500">
+        <v-card class="elevation-6 pa-0" width="500">
           <v-card-text class="text-center mb-0 pb-0">
-            <div class="text-h5" style="font-weight: 500">Sign Up</div>
+            <div class="text-h5" style="font-weight: 500">Login</div>
           </v-card-text>
           <v-container>
             <v-card-text>
@@ -61,19 +61,19 @@
                     style="font-weight: bold; color: white"
                   >
                     <!-- :disabled="!valid" -->
-                    sign up
+                    Login
                   </v-btn>
                   <div
-                    class="ml-5 subtitle1 d-flex align-center"
-                    style="opacity: 0.7"
+                    class="ml-2 subtitle1 d-flex align-center"
+                    style="opacity: 0.7; word-break: all"
                   >
-                    Already Have account?
+                    Don't you have an account yet?
                     <span
                       class="blue--text font-weight-bold"
                       style="cursor: pointer"
                       to="/login"
                     >
-                      &nbsp;Login
+                      SignUp
                     </span>
                   </div>
                 </div>

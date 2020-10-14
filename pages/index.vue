@@ -4,7 +4,7 @@
       <div class="text-h5 font-weight-bold">최근 업데이트 된 강의</div>
     </div>
     <v-row>
-      <v-col v-for="n in 24" :key="n" md="4" lg="3" sm="6" xs="12">
+      <v-col v-for="n in 24" :key="n" md="4" sm="6" xs="12">
         <post-card height="200"></post-card>
       </v-col>
     </v-row>
