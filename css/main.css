@@ -23,3 +23,16 @@
 .text-end {
   text-align: end !important;
 }
+.position-absolute-top-right{ 
+  position: absolute !important;
+  top: 0;
+  right: 0;
+}
+.user {
+  padding-left: 15px;
+  background: url('/user.png') no-repeat left 3px/14px;
+}
+.star {
+  padding-left: 17px;
+  background: url('/star.png') no-repeat left 3px/13px;
+}

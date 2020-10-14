@@ -7,7 +7,7 @@
           style="cursor: pointer"
           @click="$router.push('/')"
         >
-          Catch Dev
+          Study Platform
         </v-toolbar-title>
 
         <v-spacer></v-spacer>
@@ -26,8 +26,8 @@
           Sign up
         </v-btn>
 
-        <template v-if="$route.name in ['login', 'signup']" v-slot:extension>
-          <v-tabs class="pa-0 ma-0" v-model="tab">
+        <template v-if="isAuth" v-slot:extension>
+          <v-tabs class="pa-0 ma-0" v-model="tab" grow slider-size="0">
             <v-tabs-slider color="primary"></v-tabs-slider>
             <v-tab v-for="tab in tabs" :key="tab" @change="onChangeTabs">
               <span class="text-capitalize">{{ tab }}</span>
@@ -36,7 +36,22 @@
         </template>
       </v-toolbar>
     </div>
-
+    <div>
+      <v-carousel
+        cycle
+        height="300"
+        hide-delimiter-background
+        show-arrows-on-hover
+      >
+        <v-carousel-item v-for="(slide, i) in slides" :key="i">
+          <v-sheet :color="colors[i]" height="100%">
+            <v-row class="fill-height" align="center" justify="center">
+              <div class="display-3">{{ slide }} Slide</div>
+            </v-row>
+          </v-sheet>
+        </v-carousel-item>
+      </v-carousel>
+    </div>
     <v-container>
       <nuxt />
     </v-container>
@@ -52,7 +67,15 @@ export default {
       fixed: false,
       tab: '',
       text: 'test',
-      tabs: ['web', 'shopping', 'videos', 'images', 'news'],
+      tabs: [
+        '전체',
+        '어학',
+        '고시/공무원',
+        '취미/교양',
+        '프로그래밍',
+        '자율',
+        '기타',
+      ],
       items: [
         {
           icon: 'mdi-apps',
@@ -65,6 +88,14 @@ export default {
           to: '/inspire',
         },
       ],
+      colors: [
+        'indigo',
+        'warning',
+        'pink darken-2',
+        'red lighten-1',
+        'deep-purple accent-4',
+      ],
+      slides: ['First', 'Second', 'Third', 'Fourth', 'Fifth'],
       miniVariant: false,
       right: true,
       rightDrawer: false,
@@ -74,6 +105,13 @@ export default {
   methods: {
     onChangeTabs() {
       console.log('change tab')
+    },
+  },
+  mounted() {},
+  computed: {
+    isAuth() {
+      const flag = this.$route.name in ['login', 'signup']
+      return !flag
     },
   },
 }
