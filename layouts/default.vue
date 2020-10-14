@@ -12,7 +12,7 @@
 
         <v-spacer></v-spacer>
 
-        <v-btn class="toolbar-btn text-capitalize" href="/login" depressed>
+        <v-btn class="toolbar-btn text-capitalize" to="/login" depressed>
           Sign in
         </v-btn>
 
@@ -21,12 +21,11 @@
           depressed
           outlined
           style="border: 1px solid grey"
-          href="/signup"
+          to="/signup"
         >
           Sign up
         </v-btn>
-
-        <template v-if="isAuth" v-slot:extension>
+        <template v-if="!isAuth" v-slot:extension>
           <v-tabs class="pa-0 ma-0" v-model="tab" grow slider-size="0">
             <v-tabs-slider color="primary"></v-tabs-slider>
             <v-tab v-for="tab in tabs" :key="tab" @change="onChangeTabs">
@@ -38,6 +37,7 @@
     </div>
     <div>
       <v-carousel
+        v-if="!isAuth"
         cycle
         height="300"
         hide-delimiter-background
@@ -110,8 +110,9 @@ export default {
   mounted() {},
   computed: {
     isAuth() {
-      const flag = this.$route.name in ['login', 'signup']
-      return !flag
+      const name = this.$route.name
+      const list = ['login', 'signup']
+      return list.includes(name)
     },
   },
 }
