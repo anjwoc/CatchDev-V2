@@ -117,6 +117,16 @@ export const actions = {
       console.error(err);
     }
   }, 2000),
+  // loadUser: throttle(async function ({commit, state}, payload) {
+  //   try {
+  //     const res = await this.$axios.get('/user', {
+  //       withCredentials: true,
+  //     });
+  //     commit('setMe', res.data);
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // }, 1000),
   async loadUser({state, commit}) {
     try {
       const res = await this.$axios.get('/user', {
@@ -154,6 +164,7 @@ export const actions = {
       });
   },
   async githubLogIn({commit}, payload) {
+    console.log(payload);
     await this.$axios
       .post(
         '/auth/githubLogin',
