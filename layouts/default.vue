@@ -12,19 +12,22 @@
 
         <v-spacer></v-spacer>
 
-        <v-btn class="toolbar-btn text-capitalize" to="/login" depressed>
-          Sign in
-        </v-btn>
+        <div v-if="!me">
+          <v-btn class="toolbar-btn text-capitalize" to="/login" depressed>
+            Sign in
+          </v-btn>
 
-        <v-btn
-          class="toolbar-btn text-capitalize"
-          depressed
-          outlined
-          style="border: 1px solid grey"
-          to="/signup"
-        >
-          Sign up
-        </v-btn>
+          <v-btn
+            class="toolbar-btn text-capitalize"
+            depressed
+            outlined
+            style="border: 1px solid grey"
+            to="/signup"
+          >
+            Sign up
+          </v-btn>
+        </div>
+        <div v-else>로그인 했음</div>
         <template v-if="!isAuth" v-slot:extension>
           <v-tabs class="pa-0 ma-0" v-model="tab" grow slider-size="0">
             <v-tabs-slider color="primary"></v-tabs-slider>
@@ -114,8 +117,10 @@ export default {
       const list = ['login', 'signup']
       return list.includes(name)
     },
+    me() {
+      return this.$store.state.users.me
+    },
   },
 }
 </script>
-<style  scoped>
-</style>
+<style scoped></style>
