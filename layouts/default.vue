@@ -1,49 +1,57 @@
 <template>
   <v-app>
-    <div :style="{'box-shadow': '0 1px 0 0 #e6e7eb'}">
-      <v-toolbar class="container pa-0" flat>
-        <v-toolbar-title class="font-weight-bold" style="cursor: pointer" @click="$router.push('/')"> Catch Dev </v-toolbar-title>
+    <header class="container" :style="{'box-shadow': '0 1px 0 0 #e6e7eb'}">
+      <v-toolbar class="pa-0" flat>
+        <v-toolbar-title class="font-weight-bold" style="cursor: pointer" @click="$router.push('/')">
+          Catch Dev
+        </v-toolbar-title>
 
         <v-spacer></v-spacer>
 
         <div v-if="!me">
           <v-btn class="toolbar-btn text-capitalize" to="/login" depressed> Sign in </v-btn>
 
-          <v-btn class="toolbar-btn text-capitalize" depressed outlined style="border: 1px solid grey" to="/signup"> Sign up </v-btn>
+          <v-btn class="toolbar-btn text-capitalize" depressed outlined style="border: 1px solid grey" to="/signup">
+            Sign up
+          </v-btn>
         </div>
         <div v-else>
-          <div>로그인 했음</div>
-          <v-btn @click="onLogout">로그아웃</v-btn>
+          <profile-card-list />
+          <!-- <div>로그인 했음</div> -->
         </div>
         <template v-if="!isAuth" v-slot:extension>
-          <v-tabs class="pa-0 ma-0" v-model="tab" grow slider-size="0">
-            <v-tabs-slider color="primary"></v-tabs-slider>
+          <v-tabs active-class="tab__active" class="pa-0 ma-0" v-model="tab" grow slider-size="0">
+            <v-tabs-slider></v-tabs-slider>
             <v-tab v-for="tab in tabs" :key="tab" @change="onChangeTabs">
               <span class="text-capitalize">{{ tab }}</span>
             </v-tab>
           </v-tabs>
         </template>
       </v-toolbar>
-    </div>
+    </header>
+
     <div>
-      <v-carousel v-if="!isAuth" cycle height="300" hide-delimiter-background show-arrows-on-hover>
-        <v-carousel-item v-for="(slide, i) in slides" :key="i">
-          <v-sheet :color="colors[i]" height="100%">
-            <v-row class="fill-height" align="center" justify="center">
-              <div class="display-3">{{ slide }} Slide</div>
-            </v-row>
-          </v-sheet>
-        </v-carousel-item>
-      </v-carousel>
-    </div>
-    <v-container>
       <nuxt />
-    </v-container>
+    </div>
+    <footer>
+      <v-row class="footer_content" style="height: 200px">
+        <v-container>
+          <h3 class="mb-2">CatchDev Platform</h3>
+          <p>github ID: anjwoc</p>
+          <p>gmail: anjwoc12@gmail.com</p>
+          <p>phone number: 010-4102-5826</p>
+        </v-container>
+      </v-row>
+    </footer>
   </v-app>
 </template>
 
 <script>
+  import ProfileCardList from '@/components/common/ProfileCardList';
   export default {
+    components: {
+      ProfileCardList,
+    },
     data() {
       return {
         clipped: false,
@@ -64,8 +72,7 @@
             to: '/inspire',
           },
         ],
-        colors: ['indigo', 'warning', 'pink darken-2', 'red lighten-1', 'deep-purple accent-4'],
-        slides: ['First', 'Second', 'Third', 'Fourth', 'Fifth'],
+
         miniVariant: false,
         right: true,
         rightDrawer: false,

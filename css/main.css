@@ -1,4 +1,4 @@
-.main-page{   
+.main-page {
   padding: 16px 46px;
   font-weight: 300;
   max-width: 80% !important;
@@ -9,7 +9,7 @@
   background-color: red !important;
   color: red !important;
 }
-.toolbar-btn{
+.toolbar-btn {
   font-size: 14px;
   font-weight: 500 !important;
   color: #252a33 !important;
@@ -23,7 +23,7 @@
 .text-end {
   text-align: end !important;
 }
-.position-absolute-top-right{ 
+.position-absolute-top-right {
   position: absolute !important;
   top: 0;
   right: 0;
@@ -35,4 +35,21 @@
 .star {
   padding-left: 17px;
   background: url('/star.png') no-repeat left 3px/13px;
+}
+
+.container {
+  width: 100%;
+  padding: 12px;
+  margin-right: auto;
+  margin-left: auto;
+}
+@media (min-width: 960px) {
+  .container {
+    max-width: 900px;
+  }
+}
+@media (min-width: 1264px) {
+  .container {
+    max-width: 1185px;
+  }
 }
