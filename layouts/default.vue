@@ -2,7 +2,7 @@
   <v-app>
     <header class="container" :style="{'box-shadow': '0 1px 0 0 #e6e7eb'}">
       <v-toolbar class="pa-0" flat>
-        <v-toolbar-title class="font-weight-bold" style="cursor: pointer" @click="$router.push('/')">
+        <v-toolbar-title class="font-weight-bold" style="cursor: pointer; font-size: 28px" @click="$router.push('/')">
           Catch Dev
         </v-toolbar-title>
 
@@ -16,7 +16,7 @@
           </v-btn>
         </div>
         <div v-else>
-          <profile-card-list />
+          <user-profile-menu />
           <!-- <div>로그인 했음</div> -->
         </div>
         <template v-if="!isAuth" v-slot:extension>
@@ -47,10 +47,10 @@
 </template>
 
 <script>
-  import ProfileCardList from '@/components/common/ProfileCardList';
+  import UserProfileMenu from '@/components/common/UserProfileMenu';
   export default {
     components: {
-      ProfileCardList,
+      UserProfileMenu,
     },
     data() {
       return {
