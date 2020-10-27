@@ -17,7 +17,7 @@ export default {
   css: ['~/css/main.css', '~/assets/variables.scss'],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
-  plugins: [],
+  plugins: ['~/plugins/TiptapVuetify'],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
   components: true,
@@ -65,9 +65,13 @@ export default {
   },
   env: {
     baseUrl: 'http://localhost:4000',
-    default_img: 'https://catchdev-bucket.s3.ap-northeast-2.amazonaws.com/default/default-profile-image.png',
-    no_img: 'https://catchdev-bucket.s3.ap-northeast-2.amazonaws.com/default/noimage.png',
+    default_img:
+      'https://catchdev-bucket.s3.ap-northeast-2.amazonaws.com/default/default-profile-image.png',
+    no_img:
+      'https://catchdev-bucket.s3.ap-northeast-2.amazonaws.com/default/noimage.png',
   },
   // Build Configuration (https://go.nuxtjs.dev/config-build)
-  build: {},
+  build: {
+    transpile: ['vuetify/lib', 'tiptap-vuetify'],
+  },
 };

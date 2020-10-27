@@ -18,6 +18,8 @@
     "lodash.throttle": "^4.1.1",
     "nuxt": "^2.14.6",
     "nuxt-material-design-icons": "^1.0.4",
+    "tiptap-extensions": "^1.33.2",
+    "tiptap-vuetify": "^2.24.0",
     "vue": "^2.6.12"
   },
   "devDependencies": {

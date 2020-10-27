@@ -12,6 +12,10 @@
 
 $menu-content-elevation: 0;
 
+.main-color {
+  color: #e91e63;
+}
+
 .container {
   width: 100%;
   padding: 12px;
@@ -64,7 +68,6 @@ $menu-content-elevation: 0;
 
 .profile_list {
   padding: 16px 0;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.04);
   background-color: #fff;
   font-size: 13px;
   li {
@@ -102,13 +105,13 @@ $menu-content-elevation: 0;
       font-weight: 900 !important;
     }
     .content {
-      display: flex;
-      flex-wrap: wrap;
+      // display: flex;
+      // flex-wrap: wrap;
       width: 50%;
-      box-sizing: border-box;
-      .details {
-        flex-basis: 100%;
-      }
+      // box-sizing: border-box;
+      // .details {
+      //   flex-basis: 100%;
+      // }
     }
   }
 }

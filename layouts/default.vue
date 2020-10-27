@@ -9,9 +9,15 @@
         <v-spacer></v-spacer>
 
         <div v-if="!me">
-          <v-btn class="toolbar-btn text-capitalize" to="/login" depressed> Sign in </v-btn>
+          <v-btn class="toolbar-btn text-capitalize font-weight-bold" to="/login" depressed> Sign in </v-btn>
 
-          <v-btn class="toolbar-btn text-capitalize" depressed outlined style="border: 1px solid grey" to="/signup">
+          <v-btn
+            class="toolbar-btn text-capitalize font-weight-bold"
+            depressed
+            outlined
+            style="border: 1px solid grey"
+            to="/signup"
+          >
             Sign up
           </v-btn>
         </div>
@@ -33,7 +39,7 @@
     <div>
       <nuxt />
     </div>
-    <footer>
+    <!-- <footer>
       <v-row class="footer_content" style="height: 200px">
         <v-container>
           <h3 class="mb-2">CatchDev Platform</h3>
@@ -42,7 +48,7 @@
           <p>phone number: 010-4102-5826</p>
         </v-container>
       </v-row>
-    </footer>
+    </footer> -->
   </v-app>
 </template>
 

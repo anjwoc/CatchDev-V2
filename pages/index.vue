@@ -1,7 +1,12 @@
 <template>
   <div>
     <div>
-      <v-carousel cycle height="300" hide-delimiter-background show-arrows-on-hover>
+      <v-carousel
+        cycle
+        height="300"
+        hide-delimiter-background
+        show-arrows-on-hover
+      >
         <v-carousel-item v-for="(slide, i) in slides" :key="i">
           <v-sheet :color="colors[i]" height="100%">
             <v-row class="fill-height" align="center" justify="center">
@@ -26,17 +31,23 @@
 
 <script>
   import PostCard from '@/components/common/PostCard';
+
   export default {
     components: {
       PostCard,
     },
     data() {
       return {
-        colors: ['indigo', 'warning', 'pink darken-2', 'red lighten-1', 'deep-purple accent-4'],
+        colors: [
+          'indigo',
+          'warning',
+          'pink darken-2',
+          'red lighten-1',
+          'deep-purple accent-4',
+        ],
         slides: ['First', 'Second', 'Third', 'Fourth', 'Fifth'],
       };
     },
-    methods: {},
   };
 </script>
 <style scoped></style>

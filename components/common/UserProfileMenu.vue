@@ -1,5 +1,5 @@
 <template>
-  <v-menu bottom left min-width="200px" rounded offset-y>
+  <v-menu class="elevation-0" bottom left min-width="200px" rounded offset-y>
     <template v-slot:activator="{on}">
       <v-btn icon x-large v-on="on">
         <v-avatar size="36">
@@ -7,9 +7,9 @@
         </v-avatar>
       </v-btn>
     </template>
-    <v-card>
+    <v-card elevation="0">
       <v-list-item-content class="justify-center">
-        <div class="mx-auto text-center">
+        <div class="elevation-0 mx-auto text-center">
           <v-avatar>
             <img :src="me.imgSrc" alt="" />
           </v-avatar>

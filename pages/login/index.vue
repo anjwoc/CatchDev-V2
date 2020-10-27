@@ -1,7 +1,7 @@
 <template>
   <v-container class="fill-height background" fluid>
     <v-row class="mt-0 pt-0" justify="center">
-      <v-col cols="12" sm="10" md="7" lg="6">
+      <v-col cols="12" justify="center" align="center">
         <v-card class="elevation-6 pa-0" width="500">
           <v-card-text class="text-center mb-0 pb-0">
             <div class="text-h5" style="font-weight: 500">Login</div>
@@ -9,15 +9,42 @@
           <v-container>
             <v-card-text>
               <v-form class="mb-lg" ref="form" v-model="valid" @submit.prevent="onSubmitForm">
-                <v-text-field v-model="email" :rules="emailRules" placeholder="Email" type="email" filled rounded required>
-                  <v-icon small slot="prepend" color="primary" style="font-weight: 1200"> mdi-checkbox-blank-circle-outline </v-icon>
+                <v-text-field
+                  v-model="email"
+                  :rules="emailRules"
+                  placeholder="Email"
+                  type="email"
+                  filled
+                  rounded
+                  required
+                >
+                  <v-icon small slot="prepend" color="primary" style="font-weight: 1200">
+                    mdi-checkbox-blank-circle-outline
+                  </v-icon>
                 </v-text-field>
 
-                <v-text-field v-model="password" :rules="passwordRules" placeholder="Password" type="password" filled rounded required>
-                  <v-icon small slot="prepend" color="primary" style="font-weight: 1200"> mdi-checkbox-blank-circle-outline </v-icon>
+                <v-text-field
+                  v-model="password"
+                  :rules="passwordRules"
+                  placeholder="Password"
+                  type="password"
+                  filled
+                  rounded
+                  required
+                >
+                  <v-icon small slot="prepend" color="primary" style="font-weight: 1200">
+                    mdi-checkbox-blank-circle-outline
+                  </v-icon>
                 </v-text-field>
                 <div class="d-flex ma-1">
-                  <v-btn x-large width="50%" rounded type="submit" color="blue lighten-1" style="font-weight: bold; color: white">
+                  <v-btn
+                    x-large
+                    width="50%"
+                    rounded
+                    type="submit"
+                    color="blue lighten-1"
+                    style="font-weight: bold; color: white"
+                  >
                     <!-- :disabled="!valid" -->
                     Login
                   </v-btn>
@@ -31,7 +58,9 @@
           </v-container>
           <v-card-actions class="ma-0 pa-0" style="color: black">
             <v-divider></v-divider>
-            <v-avatar class="white blue--text elevation-3" style="font-weight: 400; position: absolute; left: 45%; font-size: 14px"
+            <v-avatar
+              class="white blue--text elevation-3"
+              style="font-weight: 400; position: absolute; left: 45%; font-size: 14px"
               >OR</v-avatar
             >
             <v-divider></v-divider>
