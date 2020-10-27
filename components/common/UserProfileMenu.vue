@@ -3,7 +3,7 @@
     <template v-slot:activator="{on}">
       <v-btn icon x-large v-on="on">
         <v-avatar size="36">
-          <img :src="me.imgSrc" alt="" />
+          <img :src="me.imgSrc" alt="" refererpolicy="no-referrer" />
         </v-avatar>
       </v-btn>
     </template>
@@ -33,7 +33,12 @@
   export default {
     data() {
       return {
-        items: [{title: 'Click Me1'}, {title: 'Click Me2'}, {title: 'Click Me3'}, {title: 'Click Me 4'}],
+        items: [
+          {title: 'Click Me1'},
+          {title: 'Click Me2'},
+          {title: 'Click Me3'},
+          {title: 'Click Me 4'},
+        ],
         user: {
           initials: 'JD',
           fullName: 'John Doe',

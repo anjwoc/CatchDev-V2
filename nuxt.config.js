@@ -69,6 +69,8 @@ export default {
       'https://catchdev-bucket.s3.ap-northeast-2.amazonaws.com/default/default-profile-image.png',
     no_img:
       'https://catchdev-bucket.s3.ap-northeast-2.amazonaws.com/default/noimage.png',
+    default_cover:
+      'https://catchdev-bucket.s3.ap-northeast-2.amazonaws.com/default/default-cover.jpg',
   },
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {

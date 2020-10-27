@@ -21,8 +21,16 @@
         <div class="text-h5 font-weight-bold">최근 업데이트 된 강의</div>
       </div>
       <v-row>
-        <v-col v-for="n in 24" :key="n" md="4" sm="6" xs="12">
-          <post-card height="200"></post-card>
+        <v-col v-for="post in mainPosts" :key="post.id" md="4" sm="6" xs="12">
+          <v-hover
+            v-slot:default="{hover}"
+            :open-delay="openDelay"
+            :close-delay="closeDelay"
+            :disabled="disabled"
+            :value="value"
+          >
+            <post-card :hover="hover" :post="post" height="200"></post-card>
+          </v-hover>
         </v-col>
       </v-row>
     </v-container>
@@ -33,11 +41,18 @@
   import PostCard from '@/components/common/PostCard';
 
   export default {
+    middleware({store, redirect}) {
+      return store.dispatch('posts/loadPosts', {reset: true});
+    },
     components: {
       PostCard,
     },
     data() {
       return {
+        disabled: false,
+        openDelay: '0',
+        closeDelay: '0',
+        value: false,
         colors: [
           'indigo',
           'warning',
@@ -47,6 +62,35 @@
         ],
         slides: ['First', 'Second', 'Third', 'Fourth', 'Fifth'],
       };
+    },
+    methods: {
+      onScroll() {
+        if (
+          window.scrollY + document.documentElement.clientHeight >
+          document.documentElement.scrollHeight - 300
+        ) {
+          if (this.hasMorePost) {
+            this.$store.dispatch('posts/loadPosts');
+          }
+        }
+      },
+    },
+    computed: {
+      me() {
+        return this.$store.state.users.me;
+      },
+      hasMorePost() {
+        return this.$store.state.posts.hasMorePost;
+      },
+      mainPosts() {
+        return this.$store.state.posts.mainPosts;
+      },
+    },
+    mounted() {
+      window.addEventListener('scroll', this.onScroll);
+    },
+    beforeDestroy() {
+      window.removeEventListener('scroll', this.onScroll);
     },
   };
 </script>
