@@ -63,14 +63,14 @@
             v-model="minPeople"
             hide-details
             label="최소"
-            :items="Array.from({length: 20}, (_, i) => i + 1)"
+            :items="Array.from({ length: 20 }, (_, i) => i + 1)"
             outlined
           ></v-select>
           <v-select
             v-model="maxPeople"
             hide-details
             label="최대"
-            :items="Array.from({length: 20}, (_, i) => i + 1)"
+            :items="Array.from({ length: 20 }, (_, i) => i + 1)"
             outlined
           >
           </v-select>
@@ -103,7 +103,7 @@
             <tiptap-vuetify
               v-model="content"
               :extensions="extensions"
-              style="width: 100vh"
+              style="width: 100%"
             />
             <template #placeholder>
               <v-progress-circular
@@ -134,7 +134,7 @@
             accept="image/png, image/jpeg, image/jpg"
             :show-size="1000"
           >
-            <template v-slot:selection="{index, text}">
+            <!-- <template v-slot:selection="{ index, text }">
               <v-chip
                 v-if="index < 2"
                 color="deep-purple accent-4"
@@ -151,7 +151,7 @@
               >
                 +{{ files.length - 2 }} File(s)
               </span>
-            </template>
+            </template> -->
           </v-file-input>
           <div class="ml-9 details caption pink--text">
             커버 이미지를 등록하지 않으면 기본 이미지로 적용 됩니다.
@@ -206,6 +206,7 @@
     HardBreak,
     HorizontalRule,
     History,
+    Image,
   } from 'tiptap-vuetify';
   export default {
     components: {
@@ -267,6 +268,7 @@
           HorizontalRule,
           Paragraph,
           HardBreak,
+          Image,
         ],
       };
     },
@@ -304,8 +306,7 @@
             })
             .then(postId => {
               this.content = '';
-              // this.uploadCoverImage(postId);
-              // this.$router.push({path: `/post/${postId}`});
+              this.$router.push({ path: `/post/${postId}` });
             })
             .catch(err => {
               console.error(err);

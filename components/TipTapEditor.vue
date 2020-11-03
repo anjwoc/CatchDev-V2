@@ -24,6 +24,7 @@
     HardBreak,
     HorizontalRule,
     History,
+    Image,
   } from 'tiptap-vuetify';
 
   export default {
@@ -31,7 +32,7 @@
     props: {
       content: String,
     },
-    components: {TiptapVuetify},
+    components: { TiptapVuetify },
     data: () => ({
       // declare extensions you want to use
       extensions: [

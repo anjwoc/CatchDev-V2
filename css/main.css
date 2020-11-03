@@ -23,18 +23,41 @@
 .text-end {
   text-align: end !important;
 }
-.position-absolute-top-right {
+.absolute {
   position: absolute !important;
-  top: 0;
-  right: 0;
 }
+.top {
+  top: 0 !important;
+}
+.right {
+  right: 0 !important;
+}
+.left {
+  left: 0 !important;
+}
+.bottom {
+  bottom: 0 !important;
+}
+
+.main--text {
+  color: #e91e63;
+}
+
+.caption--text {
+  color: #ff0041;
+}
+
 .user {
   padding-left: 15px;
-  background: url('/user.png') no-repeat left 3px/14px;
+  background: url('/user2.png') no-repeat left 3px/14px;
 }
 .star {
   padding-left: 17px;
   background: url('/star.png') no-repeat left 3px/13px;
+}
+.heart {
+  padding-left: 16px;
+  background: url('/heart3.png') no-repeat left 3px/13px;
 }
 
 .container {

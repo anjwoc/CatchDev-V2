@@ -38,9 +38,10 @@ export const mutations = {
     state.hasMorePost = payload.data.length === 10;
   },
   loadComments(state, payload) {
+    console.log('loadComments');
+    if (payload.data.length == 0) return;
     const index = state.mainPosts.findIndex(v => v.id === payload.postId);
-    //post.id는 type이 Number인데 params.id로 바로 넘기면 String이 넘어오기때문에 서로 일치하지않아서
-    //index를 찾지못해서 계속 에러발생
+
     Vue.set(state.mainPosts[index], 'Comments', payload.data);
   },
   updateToggleComment(state, payload) {
@@ -94,7 +95,7 @@ export const mutations = {
 };
 
 export const actions = {
-  add({commit, state}, payload) {
+  add({ commit, state }, payload) {
     console.log(payload);
     return this.$axios
       .post(
@@ -122,7 +123,7 @@ export const actions = {
         console.error(err);
       });
   },
-  update({commit, state}, payload) {
+  update({ commit, state }, payload) {
     return this.$axios
       .post(
         `/post/${payload.id}/update`,
@@ -147,7 +148,7 @@ export const actions = {
         console.error(err);
       });
   },
-  remove({commit}, payload) {
+  remove({ commit }, payload) {
     this.$axios
       .delete(`/post/${payload.postId}`, {
         withCredentials: true,
@@ -160,7 +161,7 @@ export const actions = {
       });
   },
 
-  async addComment({commit}, payload) {
+  async addComment({ commit }, payload) {
     await this.$axios
       .post(
         `/comment/${payload.postId}`,
@@ -179,7 +180,7 @@ export const actions = {
         console.error(err);
       });
   },
-  async deleteComment({commit}, payload) {
+  async deleteComment({ commit }, payload) {
     await this.$axios
       .delete(
         `/comment/${payload.id}`,
@@ -199,7 +200,7 @@ export const actions = {
         });
       });
   },
-  async updateComment({commit}, payload) {
+  async updateComment({ commit }, payload) {
     await this.$axios
       .post(
         `/comment/update/${payload.commentId}`,
@@ -217,7 +218,7 @@ export const actions = {
         console.error(err);
       });
   },
-  async loadPost({commit, state}, payload) {
+  async loadPost({ commit, state }, payload) {
     try {
       console.log('loadPost');
       const res = await this.$axios.get(`/post/${payload}`);
@@ -226,7 +227,7 @@ export const actions = {
       console.error(err);
     }
   },
-  async loadUpdatePost({commit, state}, payload) {
+  async loadUpdatePost({ commit, state }, payload) {
     try {
       const res = await this.$axios.get(`/post/history/${payload}`);
       commit('loadPost', res.data);
@@ -234,7 +235,7 @@ export const actions = {
       console.error(err);
     }
   },
-  async loadCategoryPosts({commit, state}, payload) {
+  async loadCategoryPosts({ commit, state }, payload) {
     try {
       let item = payload.item;
       if (payload && payload.reset) {
@@ -262,7 +263,7 @@ export const actions = {
       console.error(err);
     }
   },
-  loadTrendingPosts: throttle(async function ({commit, state}, payload) {
+  loadTrendingPosts: throttle(async function ({ commit, state }, payload) {
     try {
       if (payload && payload.reset) {
         const res = await this.$axios.get(`/posts/trendingPosts`);
@@ -287,7 +288,7 @@ export const actions = {
       console.error(err);
     }
   }, 2000),
-  loadPosts: throttle(async function ({commit, state}, payload) {
+  loadPosts: throttle(async function ({ commit, state }, payload) {
     try {
       if (payload && payload.reset) {
         const res = await this.$axios.get(`/posts`);
@@ -311,8 +312,8 @@ export const actions = {
     } catch (err) {
       console.error(err);
     }
-  }, 2000),
-  loadTagsPosts: throttle(async function ({commit}, payload) {
+  }, 500),
+  loadTagsPosts: throttle(async function ({ commit }, payload) {
     if (payload && payload.reset) {
       const res = await this.$axios.get(`/posts/tags/${payload.name}`);
       commit('loadPosts', {
@@ -334,12 +335,12 @@ export const actions = {
       return;
     }
   }, 2000),
-  async loadComments({commit}, payload) {
+  async loadComments({ commit }, payload) {
     await this.$axios
-      .get(`/comment/${payload.postId}`)
+      .get(`/comment/${payload}`)
       .then(res => {
         commit('loadComments', {
-          postId: payload.postId,
+          postId: payload,
           data: res.data,
         });
       })
@@ -347,7 +348,7 @@ export const actions = {
         console.error(err);
       });
   },
-  likePost({commit}, payload) {
+  likePost({ commit }, payload) {
     this.$axios
       .post(
         `/post/${payload.postId}/like`,
@@ -366,7 +367,7 @@ export const actions = {
         console.error(err);
       });
   },
-  unlikePost({commit}, payload) {
+  unlikePost({ commit }, payload) {
     this.$axios
       .delete(`/post/${payload.postId}/like`, {
         withCredentials: true,
@@ -381,7 +382,7 @@ export const actions = {
         console.error(err);
       });
   },
-  updatePostStatus({commit}, payload) {
+  updatePostStatus({ commit }, payload) {
     this.$axios
       .post(
         `/post/${payload.postId}/status`,
@@ -399,7 +400,7 @@ export const actions = {
         });
       });
   },
-  async loadSearchPosts({commit}, payload) {
+  async loadSearchPosts({ commit }, payload) {
     if (payload && payload.reset) {
       const res = await this.$axios.get(`/posts/search/${payload.searchWord}`);
       commit('loadPosts', {
@@ -422,7 +423,7 @@ export const actions = {
       return;
     }
   },
-  async loadAllHashtags({commit}, payload) {
+  async loadAllHashtags({ commit }, payload) {
     try {
       const res = await this.$axios.get(`/posts/allTags`);
       commit('loadHashtags', {

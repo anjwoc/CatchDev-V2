@@ -23,7 +23,7 @@
       <v-row>
         <v-col v-for="post in mainPosts" :key="post.id" md="4" sm="6" xs="12">
           <v-hover
-            v-slot:default="{hover}"
+            v-slot:default="{ hover }"
             :open-delay="openDelay"
             :close-delay="closeDelay"
             :disabled="disabled"
@@ -39,10 +39,10 @@
 
 <script>
   import PostCard from '@/components/common/PostCard';
-
+  import { mapState } from 'vuex';
   export default {
-    middleware({store, redirect}) {
-      return store.dispatch('posts/loadPosts', {reset: true});
+    middleware({ store, redirect }) {
+      return store.dispatch('posts/loadPosts', { reset: true });
     },
     components: {
       PostCard,
@@ -67,24 +67,19 @@
       onScroll() {
         if (
           window.scrollY + document.documentElement.clientHeight >
-          document.documentElement.scrollHeight - 300
+            document.documentElement.scrollHeight - 300 &&
+          this.hasMorePost
         ) {
-          if (this.hasMorePost) {
-            this.$store.dispatch('posts/loadPosts');
-          }
+          this.$store.dispatch('posts/loadPosts');
         }
       },
     },
     computed: {
-      me() {
-        return this.$store.state.users.me;
-      },
-      hasMorePost() {
-        return this.$store.state.posts.hasMorePost;
-      },
-      mainPosts() {
-        return this.$store.state.posts.mainPosts;
-      },
+      ...mapState({
+        me: state => state.users.me,
+        hasMorePost: state => state.posts.hasMorePost,
+        mainPosts: state => state.posts.mainPosts,
+      }),
     },
     mounted() {
       window.addEventListener('scroll', this.onScroll);

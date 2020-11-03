@@ -1,6 +1,6 @@
 <template>
   <v-menu class="elevation-0" bottom left min-width="200px" rounded offset-y>
-    <template v-slot:activator="{on}">
+    <template v-slot:activator="{ on }">
       <v-btn icon x-large v-on="on">
         <v-avatar size="36">
           <img :src="me.imgSrc" alt="" refererpolicy="no-referrer" />
@@ -19,7 +19,7 @@
           </p>
           <ul class="profile_list pl-0">
             <li>내 프로필</li>
-            <li @click="$router.push({path: '/write'})">스터디 모집</li>
+            <li @click="$router.push({ path: '/write' })">스터디 모집</li>
             <li>회원 탈퇴</li>
             <li @click="onLogout">로그 아웃</li>
           </ul>
@@ -31,27 +31,12 @@
 
 <script>
   export default {
-    data() {
-      return {
-        items: [
-          {title: 'Click Me1'},
-          {title: 'Click Me2'},
-          {title: 'Click Me3'},
-          {title: 'Click Me 4'},
-        ],
-        user: {
-          initials: 'JD',
-          fullName: 'John Doe',
-          email: 'john.doe@doe.com',
-        },
-      };
-    },
     methods: {
       onLogout() {
         this.$store
           .dispatch('users/logOut')
           .then(() => {
-            this.$router.push({path: '/'});
+            this.$router.push({ path: '/' });
           })
           .catch(err => {
             console.error(err);

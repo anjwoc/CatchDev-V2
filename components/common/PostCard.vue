@@ -1,5 +1,11 @@
 <template>
-  <v-card :elevation="hover ? 13 : 2" :ripple="false">
+  <v-card
+    :elevation="hover ? 13 : 2"
+    :ripple="false"
+    nuxt
+    link
+    :to="`/post/${post.id}`"
+  >
     <template slot="progress">
       <v-progress-linear
         color="deep-purple"
@@ -7,29 +13,32 @@
         indeterminate
       ></v-progress-linear>
     </template>
-    <v-img height="200" :src="coverImg">
-      <!-- src="https://cdn.vuetifyjs.com/images/cards/cooking.png" -->
-    </v-img>
-    <v-btn class="position-absolute-top-right mt-1 mr-1" icon>
+    <v-img height="200" :src="coverImg"> </v-img>
+    <!-- <v-btn  @click="test" class="absolute top right mt-1 mr-1 z-max" icon>
       <v-avatar size="35" class="white">
         <v-icon color="pink">mdi-heart-outline</v-icon>
       </v-avatar>
-    </v-btn>
+    </v-btn> -->
 
     <v-card-text>
-      <!-- <div class="caption">{{ post.category }}</div> -->
-      <div class="caption">웹 개발</div>
+      <div class="caption font-weight-black">
+        {{ post.category }}
+      </div>
       <div class="black--text mt-1 font-weight-bold" style="font-size: 15px">
-        <!-- {{ post.title }} -->
-        리액트
+        {{ post.title }}
       </div>
       <div class="d-flex mt-6" style="font-size: 12px">
-        <span class="user"></span>
-        <!-- <div class="caption">{{ post.numPeople }}명 참여</div> -->
-        <div class="caption">12명 참여</div>
-        <div>•</div>
-        <span class="star"></span>
-        <div class="caption">5(41)</div>
+        <span class="user mr-1"></span>
+        <div class="caption caption--text">{{ post.numPeople }}명 정원</div>
+        <div class="ml-1 mr-1"></div>
+
+        <div class="heart"></div>
+        <div class="caption">{{ post.like }}</div>
+        <div class="ml-1 mr-1"></div>
+
+        <div class="caption font-weight-bold">
+          {{ post.location }}
+        </div>
       </div>
     </v-card-text>
   </v-card>
@@ -51,7 +60,12 @@
     data() {
       return {};
     },
-    methods: {},
+    methods: {
+      test(e) {
+        // e.stopPropagation();
+        console.log('test method');
+      },
+    },
     computed: {
       coverImg() {
         if (this.post) {

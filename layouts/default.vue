@@ -1,15 +1,25 @@
 <template>
   <v-app>
-    <header class="container" :style="{'box-shadow': '0 1px 0 0 #e6e7eb'}">
+    <header class="container" :style="{ 'box-shadow': '0 1px 0 0 #e6e7eb' }">
       <v-toolbar class="pa-0" flat>
-        <v-toolbar-title class="font-weight-bold" style="cursor: pointer; font-size: 28px" @click="$router.push('/')">
+        <v-toolbar-title
+          class="font-weight-bold"
+          style="cursor: pointer; font-size: 28px"
+          @click="$router.push('/')"
+        >
           Catch Dev
         </v-toolbar-title>
 
         <v-spacer></v-spacer>
 
         <div v-if="!me">
-          <v-btn class="toolbar-btn text-capitalize font-weight-bold" to="/login" depressed> Sign in </v-btn>
+          <v-btn
+            class="toolbar-btn text-capitalize font-weight-bold"
+            to="/login"
+            depressed
+          >
+            Sign in
+          </v-btn>
 
           <v-btn
             class="toolbar-btn text-capitalize font-weight-bold"
@@ -26,7 +36,13 @@
           <!-- <div>로그인 했음</div> -->
         </div>
         <template v-if="!isAuth" v-slot:extension>
-          <v-tabs active-class="tab__active" class="pa-0 ma-0" v-model="tab" grow slider-size="0">
+          <v-tabs
+            active-class="tab__active"
+            class="pa-0 ma-0"
+            v-model="tab"
+            grow
+            slider-size="0"
+          >
             <v-tabs-slider></v-tabs-slider>
             <v-tab v-for="tab in tabs" :key="tab" @change="onChangeTabs">
               <span class="text-capitalize">{{ tab }}</span>
@@ -60,12 +76,16 @@
     },
     data() {
       return {
-        clipped: false,
-        drawer: false,
-        fixed: false,
         tab: '',
-        text: 'test',
-        tabs: ['전체', '어학', '고시/공무원', '취미/교양', '프로그래밍', '자율', '기타'],
+        tabs: [
+          '전체',
+          '어학',
+          '고시/공무원',
+          '취미/교양',
+          '프로그래밍',
+          '자율',
+          '기타',
+        ],
         items: [
           {
             icon: 'mdi-apps',
@@ -78,11 +98,6 @@
             to: '/inspire',
           },
         ],
-
-        miniVariant: false,
-        right: true,
-        rightDrawer: false,
-        title: 'Vuetify.js',
       };
     },
     methods: {
@@ -93,7 +108,7 @@
         this.$store
           .dispatch('users/logOut')
           .then(() => {
-            this.$router.push({path: '/'});
+            this.$router.push({ path: '/' });
           })
           .catch(err => {
             console.error(err);

@@ -11,7 +11,7 @@ export const state = () => ({
 });
 export const mutations = {
   setMe(state, payload) {
-    state.me = payload;
+    state.me = Object.freeze(payload);
   },
   updateProfileImage(state, payload) {
     state.me.imgSrc = payload;
@@ -46,7 +46,7 @@ export const mutations = {
 };
 
 export const actions = {
-  loadPosts: throttle(async function ({commit}, payload) {
+  loadPosts: throttle(async function ({ commit }, payload) {
     //내가 작성한 글만 불러옴, 진행중인것도 종료된것도 전부 불러옴
     try {
       if (payload && payload.reset) {
@@ -60,7 +60,11 @@ export const actions = {
       if (state.hasMorePost) {
         const lastPost = state.allPosts[state.allPosts.length - 1];
         //lastPost가 존재하는지 체크하고 lastPost.id를 넘김
-        const res = await this.$axios.get(`/posts/${payload.userId}/AllPosts?lastId=${lastPost && lastPost.id}&limit=5`);
+        const res = await this.$axios.get(
+          `/posts/${payload.userId}/AllPosts?lastId=${
+            lastPost && lastPost.id
+          }&limit=5`,
+        );
         commit('loadPosts', {
           data: res.data,
         });
@@ -70,11 +74,13 @@ export const actions = {
       console.error(err);
     }
   }, 2000),
-  loadClosedPosts: throttle(async function ({commit}, payload) {
+  loadClosedPosts: throttle(async function ({ commit }, payload) {
     //내가 작성한 글만 불러옴, 진행중인것도 종료된것도 전부 불러옴
     try {
       if (payload && payload.reset) {
-        const res = await this.$axios.get(`/posts/${payload.userId}/allClosedPosts`);
+        const res = await this.$axios.get(
+          `/posts/${payload.userId}/allClosedPosts`,
+        );
         commit('loadClosedPosts', {
           data: res.data,
           reset: true,
@@ -84,7 +90,11 @@ export const actions = {
       if (state.hasMorePost) {
         const lastPost = state.closedPosts[state.closedPosts.length - 1];
         //lastPost가 존재하는지 체크하고 lastPost.id를 넘김
-        const res = await this.$axios.get(`/posts/${payload.userId}/allClosedPosts?lastId=${lastPost && lastPost.id}&limit=5`);
+        const res = await this.$axios.get(
+          `/posts/${payload.userId}/allClosedPosts?lastId=${
+            lastPost && lastPost.id
+          }&limit=5`,
+        );
         commit('loadClosedPosts', {
           data: res.data,
         });
@@ -94,11 +104,13 @@ export const actions = {
       console.error(err);
     }
   }, 2000),
-  loadRecruitingPosts: throttle(async function ({commit}, payload) {
+  loadRecruitingPosts: throttle(async function ({ commit }, payload) {
     //내가 작성한 글만 불러옴, 진행중인것도 종료된것도 전부 불러옴
     try {
       if (payload && payload.reset) {
-        const res = await this.$axios.get(`/posts/${payload.userId}/allRecruitingPosts`);
+        const res = await this.$axios.get(
+          `/posts/${payload.userId}/allRecruitingPosts`,
+        );
         commit('loadRecruitingPosts', {
           data: res.data,
           reset: true,
@@ -106,8 +118,13 @@ export const actions = {
         return;
       }
       if (state.hasMorePost) {
-        const lastPost = state.recruitingPosts[state.recruitingPosts.length - 1];
-        const res = await this.$axios.get(`/posts/${payload.userId}/allRecruitingPosts?lastId=${lastPost && lastPost.id}&limit=5`);
+        const lastPost =
+          state.recruitingPosts[state.recruitingPosts.length - 1];
+        const res = await this.$axios.get(
+          `/posts/${payload.userId}/allRecruitingPosts?lastId=${
+            lastPost && lastPost.id
+          }&limit=5`,
+        );
         commit('loadRecruitingPosts', {
           data: res.data,
         });
@@ -127,7 +144,7 @@ export const actions = {
   //     console.error(err);
   //   }
   // }, 1000),
-  async loadUser({state, commit}) {
+  async loadUser({ state, commit }) {
     try {
       const res = await this.$axios.get('/user', {
         withCredentials: true,
@@ -137,7 +154,7 @@ export const actions = {
       console.error(err);
     }
   },
-  async signUp({commit}, payload) {
+  async signUp({ commit }, payload) {
     return await this.$axios
       .post(
         '/user',
@@ -163,7 +180,7 @@ export const actions = {
         }
       });
   },
-  async githubLogIn({commit}, payload) {
+  async githubLogIn({ commit }, payload) {
     console.log(payload);
     await this.$axios
       .post(
@@ -183,7 +200,7 @@ export const actions = {
         console.error(err);
       });
   },
-  async logIn({commit}, payload) {
+  async logIn({ commit }, payload) {
     return await this.$axios
       .post(
         '/user/login',
@@ -202,7 +219,7 @@ export const actions = {
         console.error(err);
       });
   },
-  async logOut({commit}, payload) {
+  async logOut({ commit }, payload) {
     await this.$axios
       .post(
         '/user/logout',
@@ -218,7 +235,7 @@ export const actions = {
         console.error(err);
       });
   },
-  async loadConnectionUser({state, commit}, payload) {
+  async loadConnectionUser({ state, commit }, payload) {
     try {
       const res = await this.$axios.get(`/user/${payload.id}`, {
         withCredentials: true,
@@ -228,7 +245,7 @@ export const actions = {
       console.error(err);
     }
   },
-  updateProfile({commit, state}, payload) {
+  updateProfile({ commit, state }, payload) {
     return this.$axios
       .post(
         `/user/updateProfile/${payload.userId}`,
@@ -250,7 +267,7 @@ export const actions = {
         console.error(err);
       });
   },
-  updateProfileImage({commit, state}, payload) {
+  updateProfileImage({ commit, state }, payload) {
     return this.$axios
       .post(`/user/image`, payload, {
         withCredentials: true,
@@ -260,7 +277,7 @@ export const actions = {
         return res.data;
       });
   },
-  updateSns({commit, state}, payload) {
+  updateSns({ commit, state }, payload) {
     return this.$axios
       .post(
         `/sns/user/${payload.userId}`,

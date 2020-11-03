@@ -4,8 +4,9 @@
     <div>
       <v-avatar class="mr-2 mb-8" size="60">
         <v-img
-          :src="this.post.user && this.post.user.imgSrc"
-          :lazy-src="this.post.user && this.post.user.imgSrc"
+          :src="post.user && post.user.imgSrc"
+          :lazy-src="post.user && post.user.imgSrc"
+          refererpolicy="no-referrer"
         ></v-img>
       </v-avatar>
       <div style="display: inline-block">
@@ -24,18 +25,12 @@
 
 <script>
   export default {
-    middleware({store, params}) {
-      return Promise.all([store.dispatch('posts/loadPost', params.id)]);
-    },
     props: {
       post: {
         type: Object,
         required: true,
       },
-      me: {
-        type: Object,
-        required: true,
-      },
+      me: [Object, String],
     },
     data() {
       return {};
@@ -48,7 +43,7 @@
             hashtags: this.hashtags,
           })
           .then(res => {
-            this.$router.push({path: '/'});
+            this.$router.push({ path: '/' });
           });
       },
       onUpdateStatus() {
@@ -76,11 +71,6 @@
       },
     },
     computed: {
-      post() {
-        return this.$store.state.posts.mainPosts.find(
-          v => v.id === parseInt(this.$route.params.id, 10),
-        );
-      },
       isMe() {
         return this.post.user.id === this.me.id;
       },

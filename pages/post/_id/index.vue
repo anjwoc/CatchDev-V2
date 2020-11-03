@@ -12,8 +12,11 @@
     components: {
       PostPage,
     },
-    middleware({store, params}) {
-      return Promise.all([store.dispatch('posts/loadPost', params.id)]);
+    middleware({ store, params }) {
+      return Promise.all([
+        store.dispatch('posts/loadPost', params.id),
+        store.dispatch('posts/loadComments', params.id),
+      ]);
     },
     data() {
       return {};
@@ -21,9 +24,7 @@
     methods: {},
     computed: {
       post() {
-        return this.$store.state.posts.mainPosts.find(
-          v => v.id === parseInt(this.$route.params.id, 10),
-        );
+        return this.$store.state.posts.mainPosts[0];
       },
       me() {
         return this.$store.state.users.me;

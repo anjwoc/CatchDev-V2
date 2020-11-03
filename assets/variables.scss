@@ -2,7 +2,7 @@
 //
 // The variables you want to modify
 // $font-size-root: 20px;
-@import '~vuetify/src/styles/styles.sass';
+// @import '~vuetify/src/styles/styles.sass';
 
 *,
 .v-application {
@@ -11,10 +11,6 @@
 }
 
 $menu-content-elevation: 0;
-
-.main--text {
-  color: #e91e63;
-}
 
 .container {
   width: 100%;
@@ -81,6 +77,10 @@ $menu-content-elevation: 0;
       font-weight: bold;
     }
   }
+}
+
+.z-max {
+  z-index: 16777271;
 }
 
 .title_form {
