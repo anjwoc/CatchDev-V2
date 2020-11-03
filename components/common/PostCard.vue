@@ -14,11 +14,6 @@
       ></v-progress-linear>
     </template>
     <v-img height="200" :src="coverImg"> </v-img>
-    <!-- <v-btn  @click="test" class="absolute top right mt-1 mr-1 z-max" icon>
-      <v-avatar size="35" class="white">
-        <v-icon color="pink">mdi-heart-outline</v-icon>
-      </v-avatar>
-    </v-btn> -->
 
     <v-card-text>
       <div class="caption font-weight-black">

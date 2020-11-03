@@ -1,25 +1,92 @@
 <template>
   <v-container>
-    <h1 id="mainTitle" style="font-size: 3.2rem">{{ post.title }}</h1>
-    <div>
-      <v-avatar class="mr-2 mb-8" size="60">
-        <v-img
-          :src="post.user && post.user.imgSrc"
-          :lazy-src="post.user && post.user.imgSrc"
-          refererpolicy="no-referrer"
-        ></v-img>
-      </v-avatar>
-      <div style="display: inline-block">
-        <p class="ma-0 pa-0 title font-weight-black">email</p>
-        <p class="ma-0 pa-0 subtitle-2" style="opacity: 0.5">
-          {{ post.user && post.user.about }}
-        </p>
+    <div class="post_content_container">
+      <h1>{{ post.title }}</h1>
+      <div class="d-flex mt-3">
+        <v-avatar class="mr-2 mb-8" size="40">
+          <img
+            :src="post.user && post.user.imgSrc"
+            refererpolicy="no-referrer"
+          />
+        </v-avatar>
+        <div style="dispaly: inline-block">
+          <div class="caption ma-0 pa-0">{{ post.user.email }}</div>
+          <div class="caption heart">{{ post.like }}</div>
+        </div>
       </div>
-    </div>
+      <v-img
+        class="mb-5"
+        contain
+        max-height="442"
+        :src="cover"
+        style="border-radius: 10px"
+      ></v-img>
 
-    <v-row>
-      <div v-html="post.content"></div>
-    </v-row>
+      <v-row class="info-section">
+        <v-col class="info-card" md="4">
+          <h2>분야</h2>
+        </v-col>
+        <v-col md="8">
+          <v-card class="subtitle-1 bg-info pa-4" elevation="0">
+            {{ post.category }}
+          </v-card>
+        </v-col>
+      </v-row>
+      <v-row class="info-section">
+        <v-col class="info-card" md="4">
+          <h2>등록지역</h2>
+        </v-col>
+        <v-col md="8">
+          <v-card class="subtitle-1 bg-info pa-4" elevation="0">
+            {{ post.location }}
+          </v-card>
+        </v-col>
+      </v-row>
+      <v-row class="info-section">
+        <v-col class="info-card" md="4">
+          <h2>운영 방식</h2>
+        </v-col>
+        <v-col md="8">
+          <v-card class="subtitle-1 bg-info pa-4" elevation="0">
+            {{ post.type }}
+          </v-card>
+        </v-col>
+      </v-row>
+
+      <v-row class="info-section">
+        <v-col class="info-card" md="4">
+          <h2>참여 인원</h2>
+        </v-col>
+        <v-col md="8">
+          <v-card class="subtitle-1 bg-info pa-4" elevation="0">
+            <div>{{ post.numPeople }}명</div>
+          </v-card>
+        </v-col>
+      </v-row>
+      <v-row class="info-section">
+        <v-col class="info-card" md="4">
+          <h2>스터디 제목</h2>
+        </v-col>
+        <v-col md="8">
+          <v-card class="subtitle-1 bg-info pa-4" elevation="0">
+            <div>{{ post.title }}</div>
+          </v-card>
+        </v-col>
+      </v-row>
+      <v-row class="info-section">
+        <v-col class="info-card" md="4">
+          <h2>본문</h2>
+        </v-col>
+        <v-col md="8">
+          <v-card class="subtitle-1 bg-info pa-4" elevation="0">
+            <div v-html="post.content"></div>
+          </v-card>
+        </v-col>
+      </v-row>
+    </div>
+    <v-card class="mt-3 pa-5 post_sticky_area" elevation="0" outlined>
+      <h2>수업일정</h2>
+    </v-card>
   </v-container>
 </template>
 
@@ -84,6 +151,9 @@
       },
       updateLink() {
         return `/write/${this.post.id}`;
+      },
+      cover() {
+        return process.env.default_cover;
       },
     },
   };

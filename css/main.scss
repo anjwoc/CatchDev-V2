@@ -1,3 +1,19 @@
+* {
+  @import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
+  font-family: 'Noto Sans KR', sans-serif !important;
+}
+
+.bg-info {
+  background-color: rgba(0, 0, 0, 0.02) !important;
+}
+.info-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.info-card {
+  max-width: 50%;
+}
 .main-page {
   padding: 16px 46px;
   font-weight: 300;
@@ -45,6 +61,20 @@
 
 .caption--text {
   color: #ff0041;
+}
+
+.post_content_container {
+  float: left;
+  /* display: flex;
+  flex-direction: row
+  height: 100%; */
+  width: calc(100% - 420px);
+}
+.post_sticky_area {
+  float: right;
+  position: sticky;
+  right: 0;
+  width: 330px;
 }
 
 .user {

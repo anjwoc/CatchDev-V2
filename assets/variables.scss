@@ -4,12 +4,6 @@
 // $font-size-root: 20px;
 // @import '~vuetify/src/styles/styles.sass';
 
-*,
-.v-application {
-  @import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
-  font-family: 'Noto Sans KR', sans-serif !important;
-}
-
 $menu-content-elevation: 0;
 
 .container {

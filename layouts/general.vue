@@ -33,29 +33,14 @@
         </div>
         <div v-else>
           <user-profile-menu />
-          <!-- <div>로그인 했음</div> -->
         </div>
-        <template v-if="!isAuth" v-slot:extension>
-          <v-tabs
-            active-class="tab__active"
-            class="pa-0 ma-0"
-            v-model="tab"
-            grow
-            slider-size="0"
-          >
-            <v-tabs-slider></v-tabs-slider>
-            <v-tab v-for="tab in tabs" :key="tab" @change="onChangeTabs">
-              <span class="text-capitalize">{{ tab }}</span>
-            </v-tab>
-          </v-tabs>
-        </template>
       </v-toolbar>
     </header>
 
     <div>
       <nuxt />
     </div>
-    <!-- <footer>
+    <footer style="bottom: 0">
       <v-row class="footer_content" style="height: 200px">
         <v-container>
           <h3 class="mb-2">CatchDev Platform</h3>
@@ -64,7 +49,7 @@
           <p>phone number: 010-4102-5826</p>
         </v-container>
       </v-row>
-    </footer> -->
+    </footer>
   </v-app>
 </template>
 
