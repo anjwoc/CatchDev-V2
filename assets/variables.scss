@@ -12,19 +12,41 @@ $menu-content-elevation: 0;
   margin-right: auto;
   margin-left: auto;
 }
-@media (min-width: 960px) {
-  .container {
-    max-width: 900px;
-  }
-}
+
 @media (min-width: 1264px) {
   .container {
     max-width: 1185px;
+  }
+  .post_sticky_area {
+    right: calc((100% - 1185px) / 2);
   }
 }
 @media (min-width: 1904px) {
   .container {
     max-width: 1185px !important;
+  }
+}
+
+@media (min-width: 960px) and (max-width: 1264px) {
+  .container {
+    max-width: 930px;
+  }
+  .post_sticky_area {
+    right: calc((100% - 930px) / 2);
+  }
+}
+@media (max-width: 960px) {
+  .container {
+    width: 95%;
+  }
+  .post_sticky_area {
+    display: none;
+  }
+  .post_content_container {
+    /* display: flex;
+    flex-direction: row
+    height: 100%; */
+    width: 100%;
   }
 }
 .footer_content {

@@ -9,7 +9,7 @@
 <script>
   import PostPage from '@/components/PostPage';
   export default {
-    layout: 'general',
+    layout: 'post',
     components: {
       PostPage,
     },

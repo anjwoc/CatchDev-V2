@@ -13,6 +13,9 @@
 }
 .info-card {
   max-width: 50%;
+  h2 {
+    word-break: keep-all;
+  }
 }
 .main-page {
   padding: 16px 46px;
@@ -63,20 +66,6 @@
   color: #ff0041;
 }
 
-.post_content_container {
-  float: left;
-  /* display: flex;
-  flex-direction: row
-  height: 100%; */
-  width: calc(100% - 420px);
-}
-.post_sticky_area {
-  float: right;
-  position: sticky;
-  right: 0;
-  width: 330px;
-}
-
 .user {
   padding-left: 15px;
   background: url('/user2.png') no-repeat left 3px/14px;
@@ -90,19 +79,93 @@
   background: url('/heart3.png') no-repeat left 3px/13px;
 }
 
-.container {
-  width: 100%;
-  padding: 12px;
-  margin-right: auto;
-  margin-left: auto;
-}
-@media (min-width: 960px) {
-  .container {
-    max-width: 900px;
+.post_sticky_area {
+  float: right;
+  // position: sticky !important;
+  // top: 10px !important;
+  position: fixed !important;
+  top: 100px;
+  bottom: unset;
+  width: 330px;
+  box-shadow: 0 1px 4px 0 rgba(17, 17, 17, 0.1);
+  transform: rotate(0.001deg);
+
+  .post_sticky_navi {
+    width: 100%;
+    height: 485px;
+    transition: all 1s;
   }
 }
-@media (min-width: 1264px) {
-  .container {
-    max-width: 1185px;
-  }
+.post_content_container {
+  float: left;
+  /* display: flex;
+  flex-direction: row
+  height: 100%; */
+  width: calc(100% - 380px);
 }
+
+// @media (min-width: 960px) {
+//   .container {
+//     max-width: 900px;
+//   }
+//   .post_sticky_area {
+//     right: calc((100% - 900px) / 2);
+//   }
+// }
+
+// @media (min-width: 960px) {
+//   .container {
+//     max-width: 900px;
+//   }
+// }
+// @media (min-width: 1264px) {
+//   .container {
+//     max-width: 1185px;
+//   }
+//   .post_sticky_area {
+//     right: calc((100% - 1185px) / 2);
+//   }
+// }
+// @media (min-width: 1904px) {
+//   .container {
+//     max-width: 1185px !important;
+//   }
+// }
+
+// @media (min-width: 960px) and (max-width: 1264px) {
+//   .container {
+//     max-width: 930px;
+//   }
+//   .post_sticky_area {
+//     right: calc((100% - 930px) / 2);
+//   }
+// }
+
+// @media (min-width: 1024px) and (max-width: 1264px) {
+//   .container {
+//     max-width: 960px;
+//   }
+//   .post_sticky_area {
+//     right: calc((100% - 960px) / 2);
+//   }
+// }
+
+// @media (max-width: 959px) {
+//   .post_sticky_area {
+//     // right: calc((100% - 1185px) / 2);
+//     display: none;
+//   }
+//   .post_content_container {
+//     /* display: flex;
+//     flex-direction: row
+//     height: 100%; */
+//     width: 100%;
+//   }
+// }
+
+// @media (min-width: 300px) {
+//   .post_sticky_area {
+//     // right: calc((100% - 1185px) / 2);
+//     right: 0;
+//   }
+// }

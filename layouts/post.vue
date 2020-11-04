@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app class="flex-container">
     <header class="container" :style="{ 'box-shadow': '0 1px 0 0 #e6e7eb' }">
       <v-toolbar class="pa-0" flat>
         <v-toolbar-title
@@ -7,7 +7,7 @@
           style="cursor: pointer; font-size: 28px"
           @click="$router.push('/')"
         >
-          Catch Dev
+          CatchDev
         </v-toolbar-title>
 
         <v-spacer></v-spacer>
@@ -40,7 +40,7 @@
     <div>
       <nuxt />
     </div>
-    <footer style="bottom: 0">
+    <footer class="flex_item" style="bottom: 0">
       <v-row class="footer_content" style="height: 200px">
         <v-container>
           <h3 class="mb-2">CatchDev Platform</h3>
@@ -101,4 +101,13 @@
     },
   };
 </script>
-<style scoped></style>
+<style scoped>
+  .flex-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .flex_item {
+    margin-top: auto;
+  }
+</style>

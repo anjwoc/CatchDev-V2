@@ -23,30 +23,30 @@
       ></v-img>
 
       <v-row class="info-section">
-        <v-col class="info-card" md="4">
+        <v-col class="info-card" cols="3">
           <h2>분야</h2>
         </v-col>
-        <v-col md="8">
+        <v-col cols="9">
           <v-card class="subtitle-1 bg-info pa-4" elevation="0">
             {{ post.category }}
           </v-card>
         </v-col>
       </v-row>
       <v-row class="info-section">
-        <v-col class="info-card" md="4">
+        <v-col class="info-card" cols="3">
           <h2>등록지역</h2>
         </v-col>
-        <v-col md="8">
+        <v-col cols="9">
           <v-card class="subtitle-1 bg-info pa-4" elevation="0">
             {{ post.location }}
           </v-card>
         </v-col>
       </v-row>
       <v-row class="info-section">
-        <v-col class="info-card" md="4">
+        <v-col class="info-card" cols="3">
           <h2>운영 방식</h2>
         </v-col>
-        <v-col md="8">
+        <v-col cols="9">
           <v-card class="subtitle-1 bg-info pa-4" elevation="0">
             {{ post.type }}
           </v-card>
@@ -54,39 +54,41 @@
       </v-row>
 
       <v-row class="info-section">
-        <v-col class="info-card" md="4">
+        <v-col class="info-card" cols="3">
           <h2>참여 인원</h2>
         </v-col>
-        <v-col md="8">
+        <v-col cols="9">
           <v-card class="subtitle-1 bg-info pa-4" elevation="0">
             <div>{{ post.numPeople }}명</div>
           </v-card>
         </v-col>
       </v-row>
       <v-row class="info-section">
-        <v-col class="info-card" md="4">
+        <v-col class="info-card" cols="3">
           <h2>스터디 제목</h2>
         </v-col>
-        <v-col md="8">
+        <v-col cols="9">
           <v-card class="subtitle-1 bg-info pa-4" elevation="0">
             <div>{{ post.title }}</div>
           </v-card>
         </v-col>
       </v-row>
       <v-row class="info-section">
-        <v-col class="info-card" md="4">
+        <v-col class="info-card" cols="3">
           <h2>본문</h2>
         </v-col>
-        <v-col md="8">
+        <v-col cols="9">
           <v-card class="subtitle-1 bg-info pa-4" elevation="0">
             <div v-html="post.content"></div>
           </v-card>
         </v-col>
       </v-row>
     </div>
-    <v-card class="mt-3 pa-5 post_sticky_area" elevation="0" outlined>
-      <h2>수업일정</h2>
-    </v-card>
+    <aside class="mt-3 pa-5 post_sticky_area" elevation="1">
+      <div class="post_sticky_navi">
+        <h2>스터디 일정</h2>
+      </div>
+    </aside>
   </v-container>
 </template>
 

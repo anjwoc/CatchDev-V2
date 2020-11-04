@@ -7,7 +7,7 @@
           style="cursor: pointer; font-size: 28px"
           @click="$router.push('/')"
         >
-          Catch Dev
+          CatchDev
         </v-toolbar-title>
 
         <v-spacer></v-spacer>
