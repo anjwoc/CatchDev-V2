@@ -149,22 +149,27 @@
         </div>
 
         <div class="content vertical-center">
-          <vue-input-tag v-model="hashtags" style="width: 100%"></vue-input-tag>
+          <vue-input-tag v-model="hashtags" class="hashtag" />
         </div>
       </div>
     </v-form>
 
     <div class="pa-6 mt-10">
       <v-row justify="center">
-        <v-btn class="pl-10 pr-10 mr-4 grey darken-2 white--text" x-large to="/"
-          >돌아가기</v-btn
+        <v-btn
+          class="pl-10 pr-10 mr-4 grey darken-2 white--text"
+          x-large
+          to="/"
         >
+          돌아가기
+        </v-btn>
         <v-btn
           class="pl-10 pr-10 pink white--text"
           x-large
           @click="onSubmitForm"
-          >게시하기</v-btn
         >
+          게시하기
+        </v-btn>
       </v-row>
     </div>
     <div style="height: 400px"></div>
@@ -172,6 +177,15 @@
 </template>
 
 <script>
+  function initMap() {
+    const mapOptions = {
+      center: new naver.maps.LatLng(37.3595704, 127.105399),
+      useStyleMap: true,
+      size: new naver.maps.Size(300, 400),
+      zoom: 10,
+    };
+    const map = new naver.maps.Map('map');
+  }
   import {
     TiptapVuetify,
     Heading,
@@ -311,4 +325,13 @@
   };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+  .hashtag {
+    width: 100%;
+    border-radius: 5px;
+    border-color: rgba(0, 0, 0, 0.3);
+    &:hover {
+      border-color: rgba(0, 0, 0, 0.87);
+    }
+  }
+</style>

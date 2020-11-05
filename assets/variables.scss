@@ -13,6 +13,17 @@ $menu-content-elevation: 0;
   margin-left: auto;
 }
 
+.main--text {
+  color: #e91e63;
+}
+.bg-main {
+  background-color: #e91e63;
+}
+
+.caption--text {
+  color: #ff0041;
+}
+
 @media (min-width: 1264px) {
   .container {
     max-width: 1185px;

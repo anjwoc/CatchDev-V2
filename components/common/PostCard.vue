@@ -1,6 +1,6 @@
 <template>
   <v-card
-    :elevation="hover ? 13 : 2"
+    :elevation="hover ? 10 : 1"
     :ripple="false"
     nuxt
     link
@@ -13,7 +13,7 @@
         indeterminate
       ></v-progress-linear>
     </template>
-    <v-img height="200" :src="coverImg"> </v-img>
+    <v-img height="200" :src="coverImg" style="border-radius: 5px"> </v-img>
 
     <v-card-text>
       <div class="caption font-weight-black">

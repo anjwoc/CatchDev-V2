@@ -13,7 +13,7 @@
 }
 .info-card {
   max-width: 50%;
-  h2 {
+  h3 {
     word-break: keep-all;
   }
 }
@@ -58,14 +58,6 @@
   bottom: 0 !important;
 }
 
-.main--text {
-  color: #e91e63;
-}
-
-.caption--text {
-  color: #ff0041;
-}
-
 .user {
   padding-left: 15px;
   background: url('/user2.png') no-repeat left 3px/14px;
@@ -87,10 +79,8 @@
 
 .post_sticky_area {
   float: right;
-  // position: sticky !important;
-  // top: 10px !important;
   position: fixed !important;
-  top: 100px;
+  top: 130px;
   bottom: unset;
   width: 330px;
   box-shadow: 0 1px 4px 0 rgba(17, 17, 17, 0.1);

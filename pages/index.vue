@@ -11,6 +11,7 @@
           <v-sheet :color="colors[i]" height="100%">
             <v-row class="fill-height" align="center" justify="center">
               <div class="display-3">{{ slide }} Slide</div>
+              <!-- <v-img src="/c-logo.png" contain cover></v-img> -->
             </v-row>
           </v-sheet>
         </v-carousel-item>
@@ -18,7 +19,7 @@
     </div>
     <v-container>
       <div class="text-center justify-center mt-6 mb-6">
-        <div class="text-h5 font-weight-bold">최근 업데이트 된 강의</div>
+        <div class="text-h5 font-weight-bold">최근 게시글</div>
       </div>
       <v-row>
         <v-col v-for="post in mainPosts" :key="post.id" md="4" sm="6" xs="12">

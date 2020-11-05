@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <div class="post_content_container">
+    <v-card elevation="0">
       <h1>{{ post.title }}</h1>
       <div class="d-flex mt-3">
         <v-avatar class="mr-2 mb-8" size="40">
@@ -14,6 +14,8 @@
           <div class="caption heart">{{ post.like }}</div>
         </div>
       </div>
+    </v-card>
+    <div class="post_content_container">
       <v-img
         class="mb-5"
         contain
@@ -23,30 +25,30 @@
       ></v-img>
 
       <v-row class="info-section">
-        <v-col class="info-card" cols="3">
+        <v-col class="info-card" cols="2">
           <h3>분야</h3>
         </v-col>
-        <v-col cols="9">
+        <v-col cols="10">
           <v-card class="subtitle-1 bg-info pa-4" elevation="0">
             {{ post.category }}
           </v-card>
         </v-col>
       </v-row>
       <v-row class="info-section">
-        <v-col class="info-card" cols="3">
+        <v-col class="info-card" cols="2">
           <h3>등록지역</h3>
         </v-col>
-        <v-col cols="9">
+        <v-col cols="10">
           <v-card class="subtitle-1 bg-info pa-4" elevation="0">
             {{ post.location }}
           </v-card>
         </v-col>
       </v-row>
       <v-row class="info-section">
-        <v-col class="info-card" cols="3">
+        <v-col class="info-card" cols="2">
           <h3>운영 방식</h3>
         </v-col>
-        <v-col cols="9">
+        <v-col cols="10">
           <v-card class="subtitle-1 bg-info pa-4" elevation="0">
             {{ post.type }}
           </v-card>
@@ -54,40 +56,40 @@
       </v-row>
 
       <v-row class="info-section">
-        <v-col class="info-card" cols="3">
+        <v-col class="info-card" cols="2">
           <h3>참여 인원</h3>
         </v-col>
-        <v-col cols="9">
+        <v-col cols="10">
           <v-card class="subtitle-1 bg-info pa-4" elevation="0">
             <div>{{ post.numPeople }}명</div>
           </v-card>
         </v-col>
       </v-row>
       <v-row class="info-section">
-        <v-col class="info-card" cols="3">
+        <v-col class="info-card" cols="2">
           <h3>스터디 제목</h3>
         </v-col>
-        <v-col cols="9">
+        <v-col cols="10">
           <v-card class="subtitle-1 bg-info pa-4" elevation="0">
             <div>{{ post.title }}</div>
           </v-card>
         </v-col>
       </v-row>
       <v-row class="info-section">
-        <v-col class="info-card" cols="3">
+        <v-col class="info-card" cols="2">
           <h3>본문</h3>
         </v-col>
-        <v-col cols="9">
+        <v-col cols="10">
           <v-card class="subtitle-1 bg-info pa-4" elevation="0">
             <div v-html="post.content"></div>
           </v-card>
         </v-col>
       </v-row>
       <v-row class="info-section">
-        <v-col class="info-card" cols="3">
+        <v-col class="info-card" cols="2">
           <h3>해시태그</h3>
         </v-col>
-        <v-col cols="9">
+        <v-col cols="10">
           <v-card class="subtitle-1 pt-2 pb-2" elevation="0">
             <v-chip
               v-for="tag in post.hashtags"
@@ -102,11 +104,34 @@
         </v-col>
       </v-row>
     </div>
-    <aside class="mt-3 pa-5 post_sticky_area" elevation="1">
-      <div class="post_sticky_navi">
-        <h2>스터디 일정</h2>
-      </div>
-    </aside>
+    <v-card class="mt-3 pa-5 post_sticky_area" elevation="1">
+      <v-card class="flex-container" height="485" elevation="0">
+        <h2>관련 스터디</h2>
+        <!-- 해시태그가 겹치는 다른 게시글 전부 불러오기 -->
+        <div class="flex_item">
+          <div class="d-flex justify-space-between">
+            <v-btn
+              outlined
+              small
+              style="height: 44px"
+              elevation="0"
+              color="grey lighten-2"
+            >
+              <v-icon color="pink"> mdi-heart-outline </v-icon>
+            </v-btn>
+            <v-btn
+              class="white--text"
+              large
+              style="width: 80%"
+              elevation="0"
+              color="pink"
+            >
+              스터디 참여하기
+            </v-btn>
+          </div>
+        </div>
+      </v-card>
+    </v-card>
   </v-container>
 </template>
 
@@ -179,4 +204,12 @@
   };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+  .flex-container {
+    display: flex;
+    flex-direction: column;
+  }
+  .flex_item {
+    margin-top: auto;
+  }
+</style>
