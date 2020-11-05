@@ -79,6 +79,12 @@
   background: url('/heart3.png') no-repeat left 3px/13px;
 }
 
+.vertical-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .post_sticky_area {
   float: right;
   // position: sticky !important;

@@ -122,7 +122,6 @@
         <div class="content">
           <v-file-input
             v-model="files"
-            :rules="imageRules"
             @change="uploadCoverImage"
             color="deep-purple accent-4"
             counter
@@ -134,24 +133,6 @@
             accept="image/png, image/jpeg, image/jpg"
             :show-size="1000"
           >
-            <!-- <template v-slot:selection="{ index, text }">
-              <v-chip
-                v-if="index < 2"
-                color="deep-purple accent-4"
-                dark
-                label
-                small
-              >
-                {{ text }}
-              </v-chip>
-
-              <span
-                v-else-if="index === 2"
-                class="overline grey--text text--darken-3 mx-2"
-              >
-                +{{ files.length - 2 }} File(s)
-              </span>
-            </template> -->
           </v-file-input>
           <div class="ml-9 details caption pink--text">
             커버 이미지를 등록하지 않으면 기본 이미지로 적용 됩니다.
@@ -167,7 +148,9 @@
           <span>해시태그</span>
         </div>
 
-        <div class="content"></div>
+        <div class="content vertical-center">
+          <vue-input-tag v-model="hashtags" style="width: 100%"></vue-input-tag>
+        </div>
       </div>
     </v-form>
 
@@ -223,14 +206,14 @@
         minPeople: '',
         maxPeople: '',
         title: '',
-        items: ['Foo', 'Bar', 'Fizz', 'Buzz'],
+        hashtags: [],
         files: null,
-        imageRules: [
-          value =>
-            !value ||
-            value.size < 3000000 ||
-            'image size should be less than 3 MB!',
-        ],
+        // imageRules: [
+        //   value =>
+        //     !value ||
+        //     value.size < 30000000 ||
+        //     'image size should be less than 3 MB!',
+        // ],
         categorys: ['어학', '취업', '고시', '자격증', '프로그래밍', '기타'],
         locations: [
           '서울',
@@ -300,6 +283,7 @@
               hashtags: this.hashtags,
               coverImg: this.coverImg,
               numPeople: this.numPeople,
+              hashtags: this.hashtags,
               type: this.studyType,
               location: this.location,
               category: this.category,

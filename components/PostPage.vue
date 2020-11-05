@@ -24,7 +24,7 @@
 
       <v-row class="info-section">
         <v-col class="info-card" cols="3">
-          <h2>분야</h2>
+          <h3>분야</h3>
         </v-col>
         <v-col cols="9">
           <v-card class="subtitle-1 bg-info pa-4" elevation="0">
@@ -34,7 +34,7 @@
       </v-row>
       <v-row class="info-section">
         <v-col class="info-card" cols="3">
-          <h2>등록지역</h2>
+          <h3>등록지역</h3>
         </v-col>
         <v-col cols="9">
           <v-card class="subtitle-1 bg-info pa-4" elevation="0">
@@ -44,7 +44,7 @@
       </v-row>
       <v-row class="info-section">
         <v-col class="info-card" cols="3">
-          <h2>운영 방식</h2>
+          <h3>운영 방식</h3>
         </v-col>
         <v-col cols="9">
           <v-card class="subtitle-1 bg-info pa-4" elevation="0">
@@ -55,7 +55,7 @@
 
       <v-row class="info-section">
         <v-col class="info-card" cols="3">
-          <h2>참여 인원</h2>
+          <h3>참여 인원</h3>
         </v-col>
         <v-col cols="9">
           <v-card class="subtitle-1 bg-info pa-4" elevation="0">
@@ -65,7 +65,7 @@
       </v-row>
       <v-row class="info-section">
         <v-col class="info-card" cols="3">
-          <h2>스터디 제목</h2>
+          <h3>스터디 제목</h3>
         </v-col>
         <v-col cols="9">
           <v-card class="subtitle-1 bg-info pa-4" elevation="0">
@@ -75,11 +75,29 @@
       </v-row>
       <v-row class="info-section">
         <v-col class="info-card" cols="3">
-          <h2>본문</h2>
+          <h3>본문</h3>
         </v-col>
         <v-col cols="9">
           <v-card class="subtitle-1 bg-info pa-4" elevation="0">
             <div v-html="post.content"></div>
+          </v-card>
+        </v-col>
+      </v-row>
+      <v-row class="info-section">
+        <v-col class="info-card" cols="3">
+          <h3>해시태그</h3>
+        </v-col>
+        <v-col cols="9">
+          <v-card class="subtitle-1 pt-2 pb-2" elevation="0">
+            <v-chip
+              v-for="tag in post.hashtags"
+              :key="tag.name"
+              class="mr-1 font-weight-regular"
+              color="grey lighten-4"
+              text-color="blue-grey"
+            >
+              {{ tag.name }}
+            </v-chip>
           </v-card>
         </v-col>
       </v-row>

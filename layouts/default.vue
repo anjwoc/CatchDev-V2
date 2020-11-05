@@ -55,16 +55,6 @@
     <div>
       <nuxt />
     </div>
-    <!-- <footer>
-      <v-row class="footer_content" style="height: 200px">
-        <v-container>
-          <h3 class="mb-2">CatchDev Platform</h3>
-          <p>github ID: anjwoc</p>
-          <p>gmail: anjwoc12@gmail.com</p>
-          <p>phone number: 010-4102-5826</p>
-        </v-container>
-      </v-row>
-    </footer> -->
   </v-app>
 </template>
 
