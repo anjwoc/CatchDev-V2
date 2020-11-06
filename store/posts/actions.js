@@ -1,100 +1,6 @@
-import Vue from 'vue';
 import throttle from 'lodash.throttle';
 
-export const state = () => ({
-  mainPosts: [],
-  hasMorePost: false,
-  imagePaths: [],
-  hashtags: [],
-});
-export const mutations = {
-  addMainPost(state, payload) {
-    state.mainPosts.unshift(payload);
-  },
-  updateMainPost(state, payload) {
-    const postIndex = state.mainPosts.findIndex(v => v.id === payload.id);
-    Vue.set(state.mainPosts[postIndex], postIndex, payload);
-  },
-  removeMainPost(state, payload) {
-    const index = state.mainPosts.findIndex(v => v.id === payload.postId);
-    state.mainPosts.splice(index, 1);
-  },
-  concatImagePaths(state, payload) {
-    state.imagePaths = state.imagePaths.concat(payload);
-  },
-  loadPost(state, payload) {
-    //배열 전체를 바꿔줌
-    state.mainPosts = [payload];
-  },
-  loadPosts(state, payload) {
-    if (payload.reset) {
-      state.mainPosts = payload.data;
-    } else {
-      //실수로 payload를 concat해서 lastPost가 10개의 배열 값이 들어가서 id값이 undefined로 찍혀서 실수
-      state.mainPosts = state.mainPosts.concat(payload.data);
-    }
-    // true이면 10개를 가져와서 이후에도 더 불러올게 있다는 뜻이고
-    // false이면 10미만이여서 더 이상 가져올게 없다는 의미
-    state.hasMorePost = payload.data.length === 10;
-  },
-  loadComments(state, payload) {
-    console.log('loadComments');
-    if (payload.data.length == 0) return;
-    const index = state.mainPosts.findIndex(v => v.id === payload.postId);
-
-    Vue.set(state.mainPosts[index], 'Comments', payload.data);
-  },
-  updateToggleComment(state, payload) {
-    const commentIdx = state.mainPosts[0].Comments.findIndex(
-      v => v.id === payload.commentId,
-    );
-    Vue.set(
-      state.mainPosts[0].Comments[commentIdx],
-      'updateOpened',
-      !payload.updateOpened,
-    );
-  },
-  updateComment(state, payload) {
-    const index = state.mainPosts[0].Comments.findIndex(
-      v => v.id === payload.id,
-    );
-    state.mainPosts[index].Comments[index] = payload;
-  },
-  addComment(state, payload) {
-    const index = state.mainPosts.findIndex(v => v.id === payload.postId);
-    state.mainPosts[index].Comments.unshift(payload);
-  },
-  deleteComment(state, payload) {
-    const postIndex = state.mainPosts.findIndex(v => v.id === payload.postId);
-    const index = state.mainPosts[postIndex].Comments.findIndex(
-      v => v.id === payload.id,
-    );
-    state.mainPosts[postIndex].Comments.splice(index, 1);
-  },
-  unlikePost(state, payload) {
-    const index = state.mainPosts.findIndex(v => v.id === payload.postId);
-    const userIndex = state.mainPosts[index].Likers.findIndex(
-      v => v.id === payload.userId,
-    );
-    state.mainPosts[index].Likers.splice(userIndex, 1);
-  },
-  likePost(state, payload) {
-    const index = state.mainPosts.findIndex(v => v.id === payload.postId);
-    state.mainPosts[index].Likers.push({
-      id: payload.userId,
-    });
-  },
-  updatePostStatus(state, payload) {
-    const index = state.mainPosts.findIndex(v => v.id === payload.postId);
-    state.mainPosts[index].status = payload.status;
-  },
-  loadHashtags(state, payload) {
-    const tags = payload.data.map(v => v.name);
-    state.hashtags = tags;
-  },
-};
-
-export const actions = {
+const actions = {
   add({ commit, state }, payload) {
     console.log(payload);
     return this.$axios
@@ -218,14 +124,36 @@ export const actions = {
         console.error(err);
       });
   },
-  async loadPost({ commit, state }, payload) {
+  async loadPost({ dispatch, commit, state }, payload) {
     try {
       console.log('loadPost');
       const res = await this.$axios.get(`/post/${payload}`);
-      commit('loadPost', res.data);
+      const post = res.data;
+
+      if (post.hashtags) {
+        let tags = '';
+        post.hashtags.forEach(tag => {
+          tags += `${tag.name},`;
+        });
+        tags = tags.slice(0, tags.length - 1);
+        commit('loadPost', post);
+        return dispatch('loadRelatedPosts', {
+          tags: tags,
+          postId: payload,
+        });
+      }
+      commit('loadPost', post);
     } catch (err) {
       console.error(err);
     }
+  },
+  async loadRelatedPosts({ commit }, payload) {
+    const res = await this.$axios.get(`/posts/tags?tags=${payload.tags}`);
+    console.log(payload.postId);
+    commit('loadRelatedPosts', {
+      newPosts: res.data,
+      currentPostId: payload.postId,
+    });
   },
   async loadUpdatePost({ commit, state }, payload) {
     try {
@@ -335,6 +263,7 @@ export const actions = {
       return;
     }
   }, 2000),
+
   async loadComments({ commit }, payload) {
     await this.$axios
       .get(`/comment/${payload}`)
@@ -434,3 +363,4 @@ export const actions = {
     }
   },
 };
+export default actions;
