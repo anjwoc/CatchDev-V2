@@ -13,6 +13,31 @@
           <div class="caption ma-0 pa-0">{{ post.user.email }}</div>
           <div class="caption heart">{{ post.like }}</div>
         </div>
+
+        <v-menu offset-x>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn icon small class="ml-2 mt-0 pb-2" v-bind="attrs" v-on="on">
+              <v-icon>mdi-dots-horizontal</v-icon>
+            </v-btn>
+          </template>
+          <v-list>
+            <v-list-item-group>
+              <v-list-item :to="`/write/${post.id}`">
+                <v-list-item-content class="font-weight-bold">
+                  수정하기
+                </v-list-item-content>
+              </v-list-item>
+              <v-list-item>
+                <v-list-item-content
+                  @click="onDeletePost"
+                  class="font-weight-bold"
+                >
+                  삭제하기
+                </v-list-item-content>
+              </v-list-item>
+            </v-list-item-group>
+          </v-list>
+        </v-menu>
       </div>
     </v-card>
     <div class="post_content_container">
@@ -119,15 +144,16 @@
               style="height: 44px"
               elevation="0"
               color="grey lighten-2"
+              @click="onClickHeart"
             >
-              <v-icon color="primary lighten-1"> mdi-heart-outline </v-icon>
+              <v-icon color="pink lighten-1"> {{ heartIcon }} </v-icon>
             </v-btn>
             <v-btn
               class="white--text"
               large
               style="width: 80%"
               elevation="0"
-              color="primary lighten-1"
+              color="pink lighten-1"
             >
               스터디 참여하기
             </v-btn>
@@ -153,10 +179,21 @@
       RelatedPostList,
     },
     data() {
-      return {};
+      return {
+        menuItems: [
+          { name: '수정하기', to: `/write/${this.post.id}` },
+          { name: '삭제하기' },
+        ],
+      };
     },
     methods: {
       onDeletePost() {
+        const hashtags = [];
+        if (this.post && this.post.hashtags) {
+          hashtags.unshift(this.post.hashtags.map(tag => tag.name));
+        }
+
+        console.log(hashtags);
         this.$store
           .dispatch('posts/remove', {
             postId: this.post.id,
@@ -194,6 +231,13 @@
       isMe() {
         return this.post.user.id === this.me.id;
       },
+      liked() {
+        const me = this.me;
+        return !!(this.post.Likers || []).find(v => v.id === (me && me.id));
+      },
+      heartIcon() {
+        return this.liked ? 'mdi-heart' : 'mdi-heart-outline';
+      },
       hashtags() {
         if (this.post && this.post.hashtags) {
           const tags = [];
@@ -201,9 +245,6 @@
           return tags[0];
         }
         return null;
-      },
-      updateLink() {
-        return `/write/${this.post.id}`;
       },
       cover() {
         return process.env.default_cover;

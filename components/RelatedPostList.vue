@@ -1,6 +1,6 @@
 <template>
   <v-card elevation="0" class="mx-auto" tile>
-    <v-list class="related_posts_list">
+    <v-list class="related_posts_list" dense>
       <!-- <v-subheader>Related Posts</v-subheader> -->
       <v-list-item-group v-model="selectedPost" no-action>
         <template v-for="(post, idx) in relatedPosts">
@@ -17,9 +17,6 @@
               v-text="post.title"
             ></v-list-item-content>
           </v-list-item>
-
-          <!-- <v-divider v-if="idx < relatedPosts.length - 1" :key="idx">
-          </v-divider> -->
         </template>
       </v-list-item-group>
     </v-list>
@@ -64,12 +61,16 @@
   }
   .related_posts_list_content {
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 400;
   }
   .related_posts_list_item {
     // background-color: #e91e63;
     // opacity: 0.4;
-    background-color: #66a4e0;
+    // background-color: #66a4e0;
+
+    // background-color: #f2709c;
+
+    background-color: #f2709c;
     border-radius: 5px;
   }
 </style>

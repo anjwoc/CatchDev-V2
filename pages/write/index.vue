@@ -177,15 +177,6 @@
 </template>
 
 <script>
-  function initMap() {
-    const mapOptions = {
-      center: new naver.maps.LatLng(37.3595704, 127.105399),
-      useStyleMap: true,
-      size: new naver.maps.Size(300, 400),
-      zoom: 10,
-    };
-    const map = new naver.maps.Map('map');
-  }
   import {
     TiptapVuetify,
     Heading,
@@ -303,7 +294,7 @@
               category: this.category,
             })
             .then(postId => {
-              console.log(postId)
+              console.log(postId);
               this.content = '';
               this.$router.push({ path: `/post/${postId}` });
             })

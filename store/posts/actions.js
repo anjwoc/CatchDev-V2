@@ -153,9 +153,9 @@ const actions = {
       currentPostId: payload.postId,
     });
   },
-  async loadUpdatePost({ commit, state }, payload) {
+  async loadUpdatePost({ commit, state }, postId) {
     try {
-      const res = await this.$axios.get(`/post/history/${payload}`);
+      const res = await this.$axios.get(`/post/history/${postId}`);
       commit('loadPost', res.data);
     } catch (err) {
       console.error(err);
