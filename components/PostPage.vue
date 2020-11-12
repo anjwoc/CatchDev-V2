@@ -193,7 +193,6 @@
           hashtags.unshift(this.post.hashtags.map(tag => tag.name));
         }
 
-        console.log(hashtags);
         this.$store
           .dispatch('posts/remove', {
             postId: this.post.id,
