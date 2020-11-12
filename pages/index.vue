@@ -39,7 +39,7 @@
 </template>
 
 <script>
-  import PostCard from '@/components/common/PostCard';
+  import PostCard from '@/components/PostCard';
   import { mapState } from 'vuex';
   export default {
     middleware({ store, redirect }) {

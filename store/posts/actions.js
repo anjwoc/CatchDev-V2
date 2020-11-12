@@ -2,7 +2,6 @@ import throttle from 'lodash.throttle';
 
 const actions = {
   add({ commit, state }, payload) {
-    console.log(payload);
     return this.$axios
       .post(
         '/post',
@@ -149,7 +148,6 @@ const actions = {
   },
   async loadRelatedPosts({ commit }, payload) {
     const res = await this.$axios.get(`/posts/tags?tags=${payload.tags}`);
-    console.log(payload.postId);
     commit('loadRelatedPosts', {
       newPosts: res.data,
       currentPostId: payload.postId,

@@ -105,9 +105,12 @@
       </v-row>
     </div>
     <v-card class="mt-3 pa-5 post_sticky_area" elevation="1">
-      <v-card class="flex-container" height="485" elevation="0">
+      <v-card class="flex-container pa-0" height="485" elevation="0">
         <h2>관련 스터디</h2>
         <!-- 해시태그가 겹치는 다른 게시글 전부 불러오기 -->
+        <div>
+          <related-post-list :relatedPosts="relatedPosts"></related-post-list>
+        </div>
         <div class="flex_item">
           <div class="d-flex justify-space-between">
             <v-btn
@@ -117,14 +120,14 @@
               elevation="0"
               color="grey lighten-2"
             >
-              <v-icon color="pink"> mdi-heart-outline </v-icon>
+              <v-icon color="primary lighten-1"> mdi-heart-outline </v-icon>
             </v-btn>
             <v-btn
               class="white--text"
               large
               style="width: 80%"
               elevation="0"
-              color="pink"
+              color="primary lighten-1"
             >
               스터디 참여하기
             </v-btn>
@@ -136,13 +139,18 @@
 </template>
 
 <script>
+  import RelatedPostList from '@/components/RelatedPostList';
   export default {
     props: {
       post: {
         type: Object,
         required: true,
       },
+      relatedPosts: [Object, Array],
       me: [Object, String],
+    },
+    component: {
+      RelatedPostList,
     },
     data() {
       return {};

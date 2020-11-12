@@ -1,13 +1,14 @@
 <template>
   <v-container>
     <div v-if="post">
-      <post-page :post="post" :me="me"></post-page>
+      <post-page :post="post" :me="me" :relatedPosts="relatedPosts"></post-page>
     </div>
   </v-container>
 </template>
 
 <script>
   import PostPage from '@/components/PostPage';
+  import { mapState } from 'vuex';
   export default {
     layout: 'post',
     components: {
@@ -24,12 +25,11 @@
     },
     methods: {},
     computed: {
-      post() {
-        return this.$store.state.posts.mainPosts[0];
-      },
-      me() {
-        return this.$store.state.users.me;
-      },
+      ...mapState({
+        post: state => state.posts.mainPosts[0],
+        me: state => state.users.me,
+        relatedPosts: state => state.posts.relatedPosts,
+      }),
     },
   };
 </script>

@@ -303,6 +303,7 @@
               category: this.category,
             })
             .then(postId => {
+              console.log(postId)
               this.content = '';
               this.$router.push({ path: `/post/${postId}` });
             })

@@ -20,6 +20,7 @@ export default {
   plugins: [
     { src: '~/plugins/tiptap-vuetify.js', mode: 'client' },
     { src: '~/plugins/vue-input-tag.js', mode: 'client' },
+    // { src: '~/plugins/socket.client.js' },
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
@@ -74,6 +75,7 @@ export default {
       'https://catchdev-bucket.s3.ap-northeast-2.amazonaws.com/default/noimage.png',
     default_cover:
       'https://catchdev-bucket.s3.ap-northeast-2.amazonaws.com/default/default-cover.jpg',
+    WS_URL: 'http://localhost:4000',
   },
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {

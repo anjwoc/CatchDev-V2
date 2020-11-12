@@ -19,13 +19,23 @@ const mutations = {
     const newPosts = payload.newPosts;
     const currentPostId = payload.currentPostId;
     const result = [];
-    newPosts.forEach(item => {
-      const data = { id: item.posts[0].id, title: item.posts[0].title };
-      // 현재 게시글을 제외한 연관 게시글 추출
+
+    if (newPosts.length <= 1) {
+      // 1개 이하인 경우 posts가 배열이 아닌 하나의 객체
+      const data = { id: newPosts[0].id, title: newPosts[0].title };
       if (data.id !== parseInt(currentPostId)) {
         result.push(data);
       }
-    });
+    } else {
+      newPosts.forEach(item => {
+        const data = { id: item.id, title: item.title };
+        // 현재 게시글을 제외한 연관 게시글 추출
+        if (data.id !== parseInt(currentPostId)) {
+          result.push(data);
+        }
+      });
+    }
+
     state.relatedPosts = result;
   },
   loadPost(state, payload) {

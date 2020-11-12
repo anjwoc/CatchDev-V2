@@ -59,7 +59,7 @@
 </template>
 
 <script>
-  import UserProfileMenu from '@/components/common/UserProfileMenu';
+  import UserProfileMenu from '@/components/UserProfileMenu';
   export default {
     components: {
       UserProfileMenu,
@@ -93,7 +93,6 @@
           });
       },
     },
-    mounted() {},
     computed: {
       isAuth() {
         const name = this.$route.name;

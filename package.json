@@ -18,10 +18,12 @@
     "lodash.throttle": "^4.1.1",
     "nuxt": "^2.14.6",
     "nuxt-material-design-icons": "^1.0.4",
+    "socket.io-client": "^3.0.1",
     "tiptap-extensions": "^1.33.2",
     "tiptap-vuetify": "^2.24.0",
     "vue": "^2.6.12",
-    "vue-input-tag": "^2.0.7"
+    "vue-input-tag": "^2.0.7",
+    "vue-socket.io": "^3.0.10"
   },
   "devDependencies": {
     "@nuxtjs/moment": "^1.6.1",

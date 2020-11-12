@@ -54,7 +54,7 @@
 </template>
 
 <script>
-  import UserProfileMenu from '@/components/common/UserProfileMenu';
+  import UserProfileMenu from '@/components/UserProfileMenu';
   export default {
     components: {
       UserProfileMenu,
