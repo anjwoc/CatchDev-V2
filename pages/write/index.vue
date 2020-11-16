@@ -48,8 +48,8 @@
         </div>
         <div class="content">
           <v-radio-group v-model="studyType" row>
-            <v-radio label="온라인" value="online"></v-radio>
-            <v-radio label="오프라인" value="offline"></v-radio>
+            <v-radio label="온라인" value="온라인"></v-radio>
+            <v-radio label="오프라인" value="오프라인"></v-radio>
           </v-radio-group>
         </div>
       </div>
@@ -121,17 +121,12 @@
 
         <div class="content">
           <v-file-input
-            v-model="files"
-            @change="uploadCoverImage"
             color="deep-purple accent-4"
-            counter
             label="File input"
-            multiple
             placeholder="Select your files"
             prepend-icon="mdi-paperclip"
             outlined
             accept="image/png, image/jpeg, image/jpg"
-            :show-size="1000"
           >
           </v-file-input>
           <div class="ml-9 details caption pink--text">
@@ -212,7 +207,7 @@
         maxPeople: '',
         title: '',
         hashtags: [],
-        files: null,
+        files: [],
         // imageRules: [
         //   value =>
         //     !value ||
@@ -262,8 +257,7 @@
     },
     methods: {
       uploadCoverImage() {
-        console.log(this.files);
-        if (this.files.length === 0) return;
+        if (this.files && this.files.length === 0) return;
         const formData = new FormData();
         // formData.append('postId', postId);
         formData.append('image', this.files[0]);
@@ -294,7 +288,6 @@
               category: this.category,
             })
             .then(postId => {
-              console.log(postId);
               this.content = '';
               this.$router.push({ path: `/post/${postId}` });
             })

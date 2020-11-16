@@ -40,7 +40,7 @@
 
 <style lang="scss" scoped>
   .related_posts_list {
-    max-height: 22rem;
+    max-height: 15rem;
     overflow-y: scroll;
   }
   .related_posts_list::-webkit-scrollbar {
