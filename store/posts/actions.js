@@ -2,6 +2,7 @@ import throttle from 'lodash.throttle';
 
 const actions = {
   add({ commit, state }, payload) {
+    console.log(payload);
     return this.$axios
       .post(
         '/post',
@@ -15,6 +16,7 @@ const actions = {
           location: payload.location,
           category: payload.category,
           image: state.imagePaths,
+          questions: payload.questions,
         },
         {
           withCredentials: true,
@@ -129,7 +131,8 @@ const actions = {
       const res = await this.$axios.get(`/post/${payload}`);
       const post = res.data;
 
-      if (post.hashtags) {
+      if (post.hashtags.length > 0) {
+        console.log(post.hashtags);
         let tags = '';
         post.hashtags.forEach(tag => {
           tags += `${tag.name},`;

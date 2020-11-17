@@ -108,5 +108,12 @@ const mutations = {
     const tags = payload.data.map(v => v.name);
     state.hashtags = tags;
   },
+  setWritingPost(state, payload) {
+    if (payload) {
+      state.writingPost = { ...payload };
+      return;
+    }
+    state.writingPost = {};
+  },
 };
 export default mutations;

@@ -55,6 +55,7 @@
     <div>
       <nuxt />
     </div>
+    <div style="height: 1000px"></div>
   </v-app>
 </template>
 

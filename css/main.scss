@@ -144,17 +144,26 @@
       font-weight: 900 !important;
     }
     .content {
-      // display: flex;
-      // flex-wrap: wrap;
       width: 50%;
-      // box-sizing: border-box;
-      // .details {
-      //   flex-basis: 100%;
-      // }
     }
   }
 }
+.container {
+  width: 100%;
+  padding: 12px;
+  margin-right: auto;
+  margin-left: auto;
+}
 
+.footer_content {
+  background-color: #f7f8fa;
+  color: #9298a6;
+  p {
+    font-size: 13px;
+    padding-bottom: 0;
+    margin-bottom: 0 !important;
+  }
+}
 .title_box {
   overflow: hidden;
   margin-top: 30px;

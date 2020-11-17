@@ -82,7 +82,25 @@
         </v-chip>
       </v-card>
 
-      <v-row class="mt-10 mb-6">
+      <v-row
+        v-for="(items, name) in post.questions"
+        :key="name"
+        class="info-section"
+      >
+        <v-col class="info-card" cols="4">
+          <h3>{{ name }}</h3>
+        </v-col>
+        <v-col cols="8">
+          <v-card class="subtitle-1 bg-info pa-4" elevation="0">
+            <div class="d-flex pt-1 pb-1" v-for="item in items" :key="item">
+              <div class="vertical-center mr-4">✔️</div>
+              <div>{{ item }}</div>
+            </div>
+          </v-card>
+        </v-col>
+      </v-row>
+
+      <v-row class="mt-10 mb-6 pa-4">
         <div v-html="post.content"></div>
       </v-row>
     </div>

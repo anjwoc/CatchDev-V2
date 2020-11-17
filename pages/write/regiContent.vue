@@ -11,64 +11,48 @@
       </div>
     </div>
     <v-form ref="form" @submit.prevent="onSubmitForm">
-      <div class="box">
+      <div
+        class="box"
+        v-for="fieldIdx in qFieldNumbers.length"
+        :key="'field-' + fieldIdx"
+      >
         <div class="box-title">
           <div class="d-flex">
-            <span class="mt-1">어떤 분에게 적합할까요?</span>
-            <v-btn icon color="pink" @click="onAddTextField('addInfo-1')">
+            <span class="mt-1">{{ questions[fieldIdx - 1] }}</span>
+            <v-btn icon color="pink" @click="addTextField(fieldIdx - 1)">
               <v-icon>mdi-plus-circle</v-icon>
             </v-btn>
           </div>
         </div>
-        <div ref="addInfo-1" class="content">
+        <div class="content">
           <v-card class="pa-4" outlined>
-            <div class="d-flex" style="justify-content: center">
+            <div
+              v-for="i in qFieldNumbers[fieldIdx - 1]"
+              :key="i"
+              class="d-flex"
+              style="justify-content: center; align-items: center"
+            >
               <div class="vertical-center">✔️</div>
-              <v-text-field class="my-1 pa-2" hide-details dense></v-text-field>
-            </div>
-            <div class="d-flex" style="justify-content: center">
-              <div class="vertical-center">✔️</div>
-              <v-text-field class="my-1 pa-2" hide-details dense></v-text-field>
+              <v-text-field
+                v-model="qFields[fieldIdx - 1][i - 1]"
+                class="my-1 pa-2"
+                hide-details
+                dense
+              ></v-text-field>
+              <v-btn
+                class="vertical-center"
+                @click="removeTextField(fieldIdx - 1, i - 1)"
+                color="pink"
+                x-small
+                icon
+              >
+                <v-icon>mdi-minus-circle</v-icon>
+              </v-btn>
             </div>
           </v-card>
         </div>
       </div>
-      <div class="box">
-        <div class="box-title">
-          <span>스터디등록지역</span>
-          <b class="pink--text font-weight-black">*</b>
-        </div>
-        <div class="content">
-          <v-select
-            full-wdith
-            hide-details
-            :items="locations"
-            outlined
-          ></v-select>
-        </div>
-      </div>
-      <div class="box">
-        <div class="box-title">
-          <span>스터디 방식</span>
-          <b class="pink--text font-weight-black">*</b>
-        </div>
-        <div class="content">
-          <v-radio-group row>
-            <v-radio label="온라인" value="온라인"></v-radio>
-            <v-radio label="오프라인" value="오프라인"></v-radio>
-          </v-radio-group>
-        </div>
-      </div>
-      <div class="box">
-        <div class="box-title">
-          <span>스터디 제목</span>
-          <b class="pink--text font-weight-black">*</b>
-        </div>
 
-        <div class="content">
-          <v-text-field class="my-1" hide-details dense outlined></v-text-field>
-        </div>
-      </div>
       <div class="box">
         <div class="box-title">
           <span>게시글 본문</span>
@@ -77,7 +61,11 @@
 
         <div>
           <ClientOnly>
-            <tiptap-vuetify :extensions="extensions" style="width: 100%" />
+            <tiptap-vuetify
+              v-model="content"
+              :extensions="extensions"
+              style="width: 100%"
+            />
             <template #placeholder>
               <v-progress-circular
                 indeterminate
@@ -87,6 +75,15 @@
           </ClientOnly>
         </div>
       </div>
+      <div class="box">
+        <div class="box-title">
+          <span>해시태그</span>
+        </div>
+
+        <div class="content vertical-center">
+          <vue-input-tag v-model="hashtags" class="hashtag" />
+        </div>
+      </div>
     </v-form>
 
     <div class="pa-6 mt-10">
@@ -94,11 +91,17 @@
         <v-btn
           class="pl-10 pr-10 mr-4 grey darken-2 white--text"
           x-large
-          to="/"
+          to="/write"
         >
           돌아가기
         </v-btn>
-        <v-btn class="pl-10 pr-10 pink white--text" x-large> 게시하기 </v-btn>
+        <v-btn
+          class="pl-10 pr-10 pink white--text"
+          @click="onSubmitForm"
+          x-large
+        >
+          게시하기
+        </v-btn>
       </v-row>
     </div>
     <div style="height: 400px"></div>
@@ -125,35 +128,22 @@
     History,
     Image,
   } from 'tiptap-vuetify';
-  import Vue from 'vue';
-  import CustomTextField from '@/components/CustomTextField';
   export default {
     components: {
       TiptapVuetify,
-      CustomTextField,
     },
     data() {
       return {
         files: null,
-        // imageRules: [
-        //   value =>
-        //     !value ||
-        //     value.size < 30000000 ||
-        //     'image size should be less than 3 MB!',
-        // ],
-        categorys: ['어학', '취업', '고시', '자격증', '프로그래밍', '기타'],
-        locations: [
-          '서울',
-          '수원',
-          '인천',
-          '부산',
-          '강원',
-          '천안',
-          '울산',
-          '광주',
-          '제주',
-          '기타',
+        questions: [
+          '어떤 스터디인가요?',
+          '스터디는 이렇게 진행됩니다.',
+          '이런 분들과 함께 하고싶어요!',
         ],
+        qFieldNumbers: [1, 1, 1],
+        qFields: [[], [], []],
+        content: '',
+        hashtags: [],
         extensions: [
           History,
           Blockquote,
@@ -183,13 +173,57 @@
       };
     },
     methods: {
-      onAddTextField(e) {},
+      addTextField(fieldIdx) {
+        this.qFieldNumbers[fieldIdx] += 1;
+        this.qFields[fieldIdx].push([]);
+      },
+      removeTextField(fieldIdx, idx) {
+        this.qFieldNumbers[fieldIdx] -= 1;
+        this.qFields[fieldIdx].splice(idx, 1);
+      },
+      onSubmitForm() {
+        const data = {};
+        const length = this.qFields.length;
+        for (let i = 0; i < length; i++) {
+          data[this.questions[i]] = [...this.qFields[i]];
+        }
+
+        const payload = {
+          ...this.writingPost,
+          content: this.content,
+          hashtags: this.hashtags,
+          questions: data,
+        };
+        this.$store
+          .dispatch('posts/add', payload)
+          .then(postId => {
+            this.content = '';
+            this.$router.push({ path: `/post/${postId}` });
+            this.$store.commit('posts/setWritingPost', null);
+          })
+          .catch(err => {
+            console.erorr(err);
+          });
+      },
     },
-    computed: {},
+    computed: {
+      writingPost() {
+        return this.$store.state.posts.writingPost;
+      },
+    },
   };
 </script>
 
 <style lang="scss" scoped>
+  .hashtag {
+    width: 100%;
+    border-radius: 5px;
+    border-color: rgba(0, 0, 0, 0.3);
+    &:hover {
+      border-color: rgba(0, 0, 0, 0.87);
+    }
+  }
+
   .title_form {
     width: 1185px;
     margin: 0 auto;

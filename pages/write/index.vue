@@ -10,7 +10,7 @@
         <img src="/icon_next.png" alt="" />
       </div>
     </div>
-    <v-form ref="form" v-model="valid" @submit.prevent="onSubmitForm">
+    <v-form ref="form" v-model="valid">
       <div class="box">
         <div class="box-title">
           <span>스터디분야</span>
@@ -92,28 +92,7 @@
           ></v-text-field>
         </div>
       </div>
-      <div class="box">
-        <div class="box-title">
-          <span>게시글 본문</span>
-          <b class="pink--text font-weight-black">*</b>
-        </div>
 
-        <div>
-          <ClientOnly>
-            <tiptap-vuetify
-              v-model="content"
-              :extensions="extensions"
-              style="width: 100%"
-            />
-            <template #placeholder>
-              <v-progress-circular
-                indeterminate
-                color="main"
-              ></v-progress-circular>
-            </template>
-          </ClientOnly>
-        </div>
-      </div>
       <div class="box">
         <div class="box-title">
           <span>커버 이미지</span>
@@ -137,16 +116,6 @@
           </div>
         </div>
       </div>
-
-      <div class="box">
-        <div class="box-title">
-          <span>해시태그</span>
-        </div>
-
-        <div class="content vertical-center">
-          <vue-input-tag v-model="hashtags" class="hashtag" />
-        </div>
-      </div>
     </v-form>
 
     <div class="pa-6 mt-10">
@@ -158,12 +127,8 @@
         >
           돌아가기
         </v-btn>
-        <v-btn
-          class="pl-10 pr-10 pink white--text"
-          x-large
-          @click="onSubmitForm"
-        >
-          게시하기
+        <v-btn class="pl-10 pr-10 pink white--text" x-large @click="toNextPage">
+          다음 단계로
         </v-btn>
       </v-row>
     </div>
@@ -172,42 +137,13 @@
 </template>
 
 <script>
-  import {
-    TiptapVuetify,
-    Heading,
-    Bold,
-    Italic,
-    Strike,
-    Underline,
-    Code,
-    Paragraph,
-    BulletList,
-    OrderedList,
-    ListItem,
-    Link,
-    Blockquote,
-    HardBreak,
-    HorizontalRule,
-    History,
-    Image,
-  } from 'tiptap-vuetify';
   export default {
-    components: {
-      TiptapVuetify,
-    },
     data() {
       return {
         valid: false,
-        content: '',
-        category: '',
         coverImagePath: '',
-        location: '',
-        studyType: null,
-        minPeople: '',
-        maxPeople: '',
-        title: '',
-        hashtags: [],
         files: [],
+
         // imageRules: [
         //   value =>
         //     !value ||
@@ -226,32 +162,6 @@
           '광주',
           '제주',
           '기타',
-        ],
-        extensions: [
-          History,
-          Blockquote,
-          Link,
-          Underline,
-          Strike,
-          Italic,
-          ListItem,
-          BulletList,
-          OrderedList,
-          [
-            Heading,
-            {
-              options: {
-                levels: [1, 2, 3],
-              },
-            },
-          ],
-          Bold,
-          Link,
-          Code,
-          HorizontalRule,
-          Paragraph,
-          HardBreak,
-          Image,
         ],
       };
     },
@@ -273,27 +183,19 @@
             console.error(err);
           });
       },
-      onSubmitForm() {
+      toNextPage() {
+        // vuex에 데이터 저장하고 페이지 이동하기
+        const payload = {
+          title: this.title,
+          coverImg: this.coverImg,
+          numPeople: this.numPeople,
+          type: this.studyType,
+          location: this.location,
+          category: this.category,
+        };
         if (this.$refs.form.validate()) {
-          this.$store
-            .dispatch('posts/add', {
-              title: this.title,
-              content: this.content,
-              hashtags: this.hashtags,
-              coverImg: this.coverImg,
-              numPeople: this.numPeople,
-              hashtags: this.hashtags,
-              type: this.studyType,
-              location: this.location,
-              category: this.category,
-            })
-            .then(postId => {
-              this.content = '';
-              this.$router.push({ path: `/post/${postId}` });
-            })
-            .catch(err => {
-              console.error(err);
-            });
+          this.$store.commit('posts/setWritingPost', payload);
+          this.$router.push('/write/regiContent');
         }
       },
     },
@@ -306,17 +208,26 @@
           ? this.coverImagePath
           : process.env.default_cover;
       },
+      writingPost() {
+        return this.$store.state.posts.writingPost;
+      },
+    },
+    created() {
+      this.category = this.writingPost.category
+        ? this.writingPost.category
+        : '';
+      this.location = this.writingPost.location
+        ? this.writingPost.location
+        : '';
+      this.studyType = this.writingPost.studyType
+        ? this.writingPost.studyType
+        : '오프라인';
+      [this.minPeople, this.maxPeople] = this.writingPost.numPeople
+        ? this.writingPost.numPeople.split('-')
+        : [0, 0];
+      this.title = this.writingPost.title ? this.writingPost.title : '';
     },
   };
 </script>
 
-<style lang="scss" scoped>
-  .hashtag {
-    width: 100%;
-    border-radius: 5px;
-    border-color: rgba(0, 0, 0, 0.3);
-    &:hover {
-      border-color: rgba(0, 0, 0, 0.87);
-    }
-  }
-</style>
+<style lang="scss" scoped></style>

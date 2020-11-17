@@ -4,6 +4,7 @@ const state = () => ({
   imagePaths: [],
   hashtags: [],
   relatedPosts: [],
+  writingPost: {},
 });
 
 export default state;
