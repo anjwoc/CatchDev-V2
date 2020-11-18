@@ -103,6 +103,13 @@
       <v-row class="mt-10 mb-6 pa-4">
         <div v-html="post.content"></div>
       </v-row>
+      <comment-form class="mb-6" :postId="this.post && this.post.id" />
+      <v-divider></v-divider>
+      <comment-content
+        :comments="post.Comments"
+        :postId="post.id"
+        :postCreatedAt="post.createdAt"
+      ></comment-content>
     </div>
     <v-card class="pa-5 post_sticky_area" elevation="1">
       <v-card class="flex-container pa-0" height="485" elevation="0">

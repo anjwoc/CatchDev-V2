@@ -8,16 +8,20 @@
 
 <script>
   import PostPage from '@/components/PostPage';
+  import CommentForm from '@/components/CommentForm';
+  import CommentContent from '@/components/CommentContent';
   import { mapState } from 'vuex';
   export default {
     layout: 'post',
     components: {
       PostPage,
+      CommentForm,
+      CommentContent,
     },
     middleware({ store, params }) {
       return Promise.all([
         store.dispatch('posts/loadPost', params.id),
-        store.dispatch('posts/loadComments', params.id),
+        store.dispatch('posts/loadComments', parseInt(params.id)),
       ]);
     },
     data() {

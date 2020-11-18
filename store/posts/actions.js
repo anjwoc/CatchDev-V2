@@ -264,12 +264,12 @@ const actions = {
     }
   }, 2000),
 
-  async loadComments({ commit }, payload) {
+  async loadComments({ commit }, postId) {
     await this.$axios
-      .get(`/comment/${payload}`)
+      .get(`/comment/${postId}`)
       .then(res => {
         commit('loadComments', {
-          postId: payload,
+          postId: postId,
           data: res.data,
         });
       })

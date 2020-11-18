@@ -1,5 +1,11 @@
 <template>
-  <v-form ref="form" id="commentSection" v-model="valid" style="position: relative" @submit.prevent="onSubmitForm">
+  <v-form
+    ref="form"
+    id="commentSection"
+    v-model="valid"
+    style="position: relative"
+    @submit.prevent="onSubmitForm"
+  >
     <v-textarea
       id="mainComment"
       v-model="content"
@@ -8,7 +14,7 @@
       clearable
       label="댓글을 입력해주세요."
       class="ma-0 pa-0"
-      prepend-inner-icon="comment"
+      prepend-inner-icon="mdi-comment"
       row="1"
       row-height="20"
       :hide-details="hideDetails"
@@ -42,13 +48,14 @@
     methods: {
       onSubmitForm() {
         if (this.$refs.form.validate()) {
-          this.$store.dispatch('posts/addComment', {
-            postId: this.postId,
-            content: this.content,
-          })
+          this.$store
+            .dispatch('posts/addComment', {
+              postId: this.postId,
+              content: this.content,
+            })
             .then(() => {
               this.content = '';
-            })
+            });
         }
       },
     },
@@ -56,7 +63,6 @@
 </script>
 
 <style>
-  
   #mainComment {
     max-height: 300px;
   }
