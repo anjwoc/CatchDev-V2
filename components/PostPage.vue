@@ -173,7 +173,7 @@
           title: this.post.title,
           type: this.post.type,
         });
-        this.$router.push(`/write/update/first`);
+        this.$router.push(`/write/update/step1`);
       },
       onDeletePost() {
         const hashtags = [];

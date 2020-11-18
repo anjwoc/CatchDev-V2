@@ -62,14 +62,14 @@
           <v-select
             v-model="minPeople"
             hide-details
-            label="최소"
+            :label="minPeople || '최소'"
             :items="Array.from({ length: 20 }, (_, i) => i + 1)"
             outlined
           ></v-select>
           <v-select
             v-model="maxPeople"
             hide-details
-            label="최대"
+            :label="maxPeople || '최대'"
             :items="Array.from({ length: 20 }, (_, i) => i + 1)"
             outlined
           >
@@ -143,13 +143,6 @@
         valid: false,
         coverImagePath: '',
         files: [],
-
-        // imageRules: [
-        //   value =>
-        //     !value ||
-        //     value.size < 30000000 ||
-        //     'image size should be less than 3 MB!',
-        // ],
         categorys: ['어학', '취업', '고시', '자격증', '프로그래밍', '기타'],
         locations: [
           '서울',
@@ -184,18 +177,8 @@
           });
       },
       toNextPage() {
-        // vuex에 데이터 저장하고 페이지 이동하기
-        const payload = {
-          title: this.title,
-          coverImg: this.coverImg,
-          numPeople: this.numPeople,
-          type: this.studyType,
-          location: this.location,
-          category: this.category,
-        };
         if (this.$refs.form.validate()) {
-          this.$store.commit('posts/setWritingPost', payload);
-          this.$router.push('/write/regiContent');
+          this.$router.push('/write/update/second');
         }
       },
     },

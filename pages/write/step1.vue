@@ -62,14 +62,14 @@
           <v-select
             v-model="minPeople"
             hide-details
-            :label="minPeople || '최소'"
+            label="최소"
             :items="Array.from({ length: 20 }, (_, i) => i + 1)"
             outlined
           ></v-select>
           <v-select
             v-model="maxPeople"
             hide-details
-            :label="maxPeople || '최대'"
+            label="최대"
             :items="Array.from({ length: 20 }, (_, i) => i + 1)"
             outlined
           >
@@ -138,9 +138,6 @@
 
 <script>
   export default {
-    // middleware({ store, dispatch, params }) {
-    //   return store.dispatch('posts/loadUpdatePost', params.id);
-    // },
     data() {
       return {
         valid: false,
@@ -187,8 +184,18 @@
           });
       },
       toNextPage() {
+        // vuex에 데이터 저장하고 페이지 이동하기
+        const payload = {
+          title: this.title,
+          coverImg: this.coverImg,
+          numPeople: this.numPeople,
+          type: this.studyType,
+          location: this.location,
+          category: this.category,
+        };
         if (this.$refs.form.validate()) {
-          this.$router.push('/write/update/second');
+          this.$store.commit('posts/setWritingPost', payload);
+          this.$router.push('/write/step2');
         }
       },
     },
