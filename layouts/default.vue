@@ -33,7 +33,6 @@
         </div>
         <div v-else>
           <user-profile-menu />
-          <!-- <div>로그인 했음</div> -->
         </div>
         <template v-if="!isAuth" v-slot:extension>
           <v-tabs

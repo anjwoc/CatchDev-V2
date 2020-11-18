@@ -136,7 +136,6 @@ export const actions = {
       });
   },
   async githubLogIn({ commit }, payload) {
-    console.log(payload);
     await this.$axios
       .post(
         '/auth/githubLogin',

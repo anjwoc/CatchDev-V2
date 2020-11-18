@@ -58,7 +58,6 @@
     methods: {
       test(e) {
         // e.stopPropagation();
-        console.log('test method');
       },
     },
     computed: {

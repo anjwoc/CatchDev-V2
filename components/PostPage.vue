@@ -51,7 +51,7 @@
             </template>
             <v-list dense>
               <v-list-item-group>
-                <v-list-item :to="`/write/${post.id}`">
+                <v-list-item @click="updatePost">
                   <v-list-item-content class="font-weight-bold">
                     수정하기
                   </v-list-item-content>
@@ -156,13 +156,25 @@
     },
     data() {
       return {
-        menuItems: [
-          { name: '수정하기', to: `/write/${this.post.id}` },
-          { name: '삭제하기' },
-        ],
+        menuItems: [{ name: '수정하기' }, { name: '삭제하기' }],
       };
     },
     methods: {
+      updatePost() {
+        this.$store.commit('posts/setWritingPost', {
+          id: this.post.id,
+          category: this.post.category,
+          content: this.post.content,
+          coverImg: this.post.coverImg,
+          hashtags: this.post.hashtags,
+          location: this.post.location,
+          numPeople: this.post.numPeople,
+          questions: this.post.questions,
+          title: this.post.title,
+          type: this.post.type,
+        });
+        this.$router.push(`/write/update/first`);
+      },
       onDeletePost() {
         const hashtags = [];
         if (this.post && this.post.hashtags) {

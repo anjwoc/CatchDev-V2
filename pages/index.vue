@@ -22,7 +22,14 @@
         <div class="text-h5 font-weight-bold">최근 게시글</div>
       </div>
       <v-row>
-        <v-col v-for="post in mainPosts" :key="post.id" md="4" sm="6" xs="12">
+        <v-col
+          v-for="post in mainPosts"
+          :key="post.id"
+          lg="3"
+          md="4"
+          sm="6"
+          xs="12"
+        >
           <v-hover
             v-slot:default="{ hover }"
             :open-delay="openDelay"
