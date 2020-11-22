@@ -24,7 +24,6 @@
           </div>
         </div>
 
-        <!-- <div v-if="c.updateOpened">여기 업데이트</div> -->
         <v-container class="pb-0 pt-0">{{ c.content }}</v-container>
         <div align="end">
           <v-btn

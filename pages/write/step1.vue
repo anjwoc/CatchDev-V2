@@ -100,20 +100,22 @@
 
         <div class="content">
           <v-file-input
+            v-model="file"
             color="deep-purple accent-4"
             label="File input"
             placeholder="Select your files"
             prepend-icon="mdi-paperclip"
-            outlined
             accept="image/png, image/jpeg, image/jpg"
+            outlined
+            @change="uploadCoverImage"
           >
           </v-file-input>
           <div class="ml-9 details caption pink--text">
             커버 이미지를 등록하지 않으면 기본 이미지로 적용 됩니다.
           </div>
-          <div>
+          <!-- <div>
             {{ coverImg }}
-          </div>
+          </div> -->
         </div>
       </div>
     </v-form>
@@ -142,14 +144,7 @@
       return {
         valid: false,
         coverImagePath: '',
-        files: [],
-
-        // imageRules: [
-        //   value =>
-        //     !value ||
-        //     value.size < 30000000 ||
-        //     'image size should be less than 3 MB!',
-        // ],
+        file: [],
         categorys: ['어학', '취업', '고시', '자격증', '프로그래밍', '기타'],
         locations: [
           '서울',
@@ -167,10 +162,11 @@
     },
     methods: {
       uploadCoverImage() {
-        if (this.files && this.files.length === 0) return;
+        if (!this.file) return;
+        console.log(this.file);
         const formData = new FormData();
         // formData.append('postId', postId);
-        formData.append('image', this.files[0]);
+        formData.append('image', this.file);
 
         this.$axios
           .post(`/post/thumbnail`, formData, {
@@ -187,7 +183,7 @@
         // vuex에 데이터 저장하고 페이지 이동하기
         const payload = {
           title: this.title,
-          coverImg: this.coverImg,
+          coverImg: this.coverImagePath || '',
           numPeople: this.numPeople,
           type: this.studyType,
           location: this.location,
@@ -203,11 +199,11 @@
       numPeople() {
         return this.minPeople + '-' + this.maxPeople;
       },
-      coverImg() {
-        return this.coverImagePath !== ''
-          ? this.coverImagePath
-          : process.env.default_cover;
-      },
+      // coverImg() {
+      //   return this.coverImagePath !== ''
+      //     ? this.coverImagePath
+      //     : process.env.default_cover;
+      // },
       writingPost() {
         return this.$store.state.posts.writingPost;
       },
