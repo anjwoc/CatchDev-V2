@@ -1,28 +1,32 @@
 <template>
-  <v-form
-    ref="form"
-    id="commentSection"
-    v-model="valid"
-    style="position: relative"
-    @submit.prevent="onSubmitForm"
-  >
-    <v-textarea
-      id="mainComment"
-      v-model="content"
-      outlined
-      auto-grow
-      clearable
-      label="댓글을 입력해주세요."
-      class="ma-0 pa-0"
-      prepend-inner-icon="mdi-comment"
-      row="1"
-      row-height="20"
-      :hide-details="hideDetails"
-    />
-    <div id="commentSection" class="ma-0 pa-0 justify-end" align="end">
-      <v-btn color="primary" type="submit" outlined>작성하기</v-btn>
+  <div>
+    <div>
+      <v-icon large color="red lighten-2 mr-0">mdi-message-text</v-icon>
+      <span class="font-weight-bold subtitle1">{{ numComments }}</span>
     </div>
-  </v-form>
+    <v-form
+      ref="form"
+      v-model="valid"
+      style="position: relative"
+      @submit.prevent="onSubmitForm"
+    >
+      <v-textarea
+        class="main-form"
+        v-model="content"
+        color="black"
+        placeholder="댓글을 입력해주세요."
+        outlined
+        clearable
+        no-resize
+        hide-details
+      />
+      <div class="mt-1 ma-0 pa-0 justify-end" align="end">
+        <v-btn class="font-weight-bold" color="pink" large dark type="submit">
+          작성하기
+        </v-btn>
+      </div>
+    </v-form>
+  </div>
 </template>
 
 <script>
@@ -32,6 +36,7 @@
         type: Number,
         required: true,
       },
+      numComments: [Number],
     },
     data() {
       return {
@@ -62,8 +67,14 @@
   };
 </script>
 
-<style>
-  #mainComment {
+<style lang="scss" scoped>
+  .main-comment {
     max-height: 300px;
+  }
+  .main-form {
+    &:focus {
+      outline: none !important;
+      border: none !important;
+    }
   }
 </style>

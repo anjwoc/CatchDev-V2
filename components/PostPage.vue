@@ -77,6 +77,7 @@
           class="mr-1 font-weight-regular"
           color="grey lighten-4"
           text-color="black"
+          small
         >
           {{ tag.name }}
         </v-chip>
@@ -103,7 +104,11 @@
       <v-row class="mt-10 mb-6 pa-4">
         <div v-html="post.content"></div>
       </v-row>
-      <comment-form class="mb-6" :postId="this.post && this.post.id" />
+      <comment-form
+        class="mb-6"
+        :postId="post.id"
+        :numComments="post.numComments"
+      />
       <v-divider></v-divider>
       <comment-content
         :comments="post.Comments"

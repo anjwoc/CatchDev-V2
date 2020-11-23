@@ -16,7 +16,7 @@
     <v-img height="200" :src="post.coverImg" style="border-radius: 5px">
     </v-img>
 
-    <v-card-text>
+    <div class="flex-item pa-4" style="font-size: 12px">
       <div class="caption font-weight-black">
         {{ post.category }}
       </div>
@@ -36,7 +36,7 @@
           {{ post.location }}
         </div>
       </div>
-    </v-card-text>
+    </div>
   </v-card>
 </template>
 

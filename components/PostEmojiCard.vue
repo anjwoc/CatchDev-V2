@@ -23,7 +23,6 @@
     <v-card-text class="caption grey--text text--lighten--3">
       {{ cardContent }}
     </v-card-text>
-    <!-- <v-card-text class="ma-0 pb-0"><v-divider /></v-card-text> -->
     <div class="flex-item pa-4" style="font-size: 12px">
       <span class="user mr-1"></span>
       <div class="caption caption--text">{{ post.numPeople }}명 정원</div>
