@@ -18,7 +18,7 @@
             {{ me.email }}
           </p>
           <ul class="profile_list pl-0">
-            <li>내 프로필</li>
+            <li @click="$router.push({ path: '/profile' })">내 프로필</li>
             <li @click="$router.push({ path: '/write/step1' })">스터디 모집</li>
             <li>회원 탈퇴</li>
             <li @click="onLogout">로그 아웃</li>

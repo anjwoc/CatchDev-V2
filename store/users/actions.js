@@ -205,7 +205,6 @@ export const actions = {
         `/user/updateProfile/${payload.userId}`,
         {
           userId: payload.userId,
-          name: payload.name,
           job: payload.job,
           location: payload.location,
           about: payload.about,

@@ -34,12 +34,27 @@
         <div v-else>
           <user-profile-menu />
         </div>
+        <template v-slot:extension>
+          <v-tabs
+            active-class="tab__active"
+            class="pa-0 ma-0"
+            v-model="tab"
+            grow
+            slider-size="0"
+          >
+            <v-tabs-slider></v-tabs-slider>
+            <v-tab v-for="tab in tabs" :key="tab" @change="onChangeTabs(tab)">
+              <span class="text-capitalize">{{ tab }}</span>
+            </v-tab>
+          </v-tabs>
+        </template>
       </v-toolbar>
     </header>
 
     <div>
       <nuxt />
     </div>
+    <div style="height: 1000px"></div>
   </v-app>
 </template>
 
@@ -49,7 +64,34 @@
     components: {
       UserProfileMenu,
     },
+    data() {
+      return {
+        tab: '',
+        tabs: [
+          '전체',
+          '어학',
+          '고시/공무원',
+          '취미/교양',
+          '프로그래밍',
+          '자율',
+          '기타',
+        ],
+      };
+    },
     methods: {
+      onChangeTabs(category) {
+        switch (category) {
+          case '전체':
+            return this.$store.dispatch('posts/loadPosts', { reset: true });
+            break;
+          default:
+            return this.$store.dispatch('posts/loadCategoryPosts', {
+              reset: true,
+              category: category,
+            });
+            break;
+        }
+      },
       onLogout() {
         this.$store
           .dispatch('users/logOut')

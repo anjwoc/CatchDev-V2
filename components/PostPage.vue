@@ -246,7 +246,7 @@
         return null;
       },
       cover() {
-        return process.env.default_cover;
+        return this.post.coverImg || process.env.default_cover;
       },
     },
   };

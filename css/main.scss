@@ -1,6 +1,11 @@
-* {
-  @import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
-  font-family: 'Noto Sans KR', sans-serif !important;
+// * {
+//   @import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
+//   font-family: -apple-system, BlinkMacSystemFont, Apple SD Gothic Neo,
+//     'Noto Sans KR', sans-serif !important;
+// }
+
+.bg-lightgrey {
+  background-color: rgb(251, 251, 251);
 }
 
 .bg-info {
@@ -75,7 +80,7 @@
 .vertical-center {
   display: flex;
   align-items: center;
-  justify-content: center;
+  // justify-content: center;
 }
 
 .post_sticky_area {

@@ -163,7 +163,6 @@
     methods: {
       uploadCoverImage() {
         if (!this.file) return;
-        console.log(this.file);
         const formData = new FormData();
         // formData.append('postId', postId);
         formData.append('image', this.file);

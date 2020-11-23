@@ -1,7 +1,7 @@
 <template>
   <v-container class="fill-height background" fluid>
     <v-row class="mt-0 pt-0" justify="center">
-      <v-col cols="12" sm="10" md="7" lg="6">
+      <v-col cols="12" justify="center" align="center">
         <v-card class="elevation-6" width="500">
           <v-card-text class="text-center mb-0 pb-0">
             <div class="text-h5" style="font-weight: 500">Sign Up</div>
@@ -87,7 +87,7 @@
                     <span
                       class="blue--text font-weight-bold"
                       style="cursor: pointer"
-                      to="/login"
+                      @click="$router.push('login')"
                     >
                       &nbsp;Login
                     </span>
@@ -132,29 +132,28 @@
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      valid: '',
-      email: '',
-      password: '',
-      username: '',
-      errInfo: {},
-      dialog: false,
-      socials: ['mdi-facebook', 'mdi-github', 'mdi-google'],
-      emailRules: [
-        (v) => !!v || '이메일은 필수입니다.',
-        (v) => /.+@.+/.test(v) || '이메일이 유효하지 않습니다.',
-      ],
-      passwordRules: [(v) => !!v || '비밀번호는 필수입니다.'],
-    }
-  },
-  methods: {
-    githubRedirect() {},
-    googleRedirect() {},
-  },
-}
+  export default {
+    data() {
+      return {
+        valid: '',
+        email: '',
+        password: '',
+        username: '',
+        errInfo: {},
+        dialog: false,
+        socials: ['mdi-facebook', 'mdi-github', 'mdi-google'],
+        emailRules: [
+          v => !!v || '이메일은 필수입니다.',
+          v => /.+@.+/.test(v) || '이메일이 유효하지 않습니다.',
+        ],
+        passwordRules: [v => !!v || '비밀번호는 필수입니다.'],
+      };
+    },
+    methods: {
+      githubRedirect() {},
+      googleRedirect() {},
+    },
+  };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

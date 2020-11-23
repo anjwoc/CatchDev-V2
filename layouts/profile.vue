@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app class="flex-container">
     <header class="container" :style="{ 'box-shadow': '0 1px 0 0 #e6e7eb' }">
       <v-toolbar class="pa-0" flat>
         <v-toolbar-title
@@ -49,6 +49,9 @@
     components: {
       UserProfileMenu,
     },
+    data() {
+      return {};
+    },
     methods: {
       onLogout() {
         this.$store
@@ -68,4 +71,13 @@
     },
   };
 </script>
-<style scoped></style>
+<style scoped>
+  .flex-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .flex_item {
+    margin-top: auto;
+  }
+</style>

@@ -49,6 +49,7 @@
   import PostCard from '@/components/PostCard';
   import { mapState } from 'vuex';
   export default {
+    layout: 'main',
     middleware({ store, redirect }) {
       return store.dispatch('posts/loadPosts', { reset: true });
     },

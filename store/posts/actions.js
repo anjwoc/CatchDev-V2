@@ -165,9 +165,12 @@ const actions = {
   },
   async loadCategoryPosts({ commit, state }, payload) {
     try {
-      let item = payload.item;
+      let category = payload.category;
       if (payload && payload.reset) {
-        const res = await this.$axios.get(`/posts/categoryPosts?item=${item}`);
+        const res = await this.$axios.get(
+          `/posts/category?category=${category}`,
+        );
+
         commit('loadPosts', {
           data: res.data,
           reset: true,
@@ -178,7 +181,7 @@ const actions = {
         const lastPost = state.mainPosts[state.mainPosts.length - 1];
         //lastPost가 존재하는지 체크하고 lastPost.id를 넘김
         const res = await this.$axios.get(
-          `/posts/categoryPosts?item=${item}&lastId=${
+          `/posts/category?item=${category}&lastId=${
             lastPost && lastPost.id
           }&limit=10`,
         );
