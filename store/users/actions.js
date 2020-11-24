@@ -220,9 +220,9 @@ export const actions = {
         console.error(err);
       });
   },
-  updateProfileImage({ commit, state }, payload) {
+  updateProfileImage({ commit, state }, formData) {
     return this.$axios
-      .post(`/user/image`, payload, {
+      .post(`/user/image`, formData, {
         withCredentials: true,
       })
       .then(res => {

@@ -33,8 +33,9 @@
         <h2>{{ post.title }}</h2>
         <div class="d-flex mt-3">
           <v-avatar class="mr-2" size="40">
-            <img
+            <v-img
               :src="post.user && post.user.imgSrc"
+              :lazy-src="post.user && post.user.imgSrc"
               refererpolicy="no-referrer"
             />
           </v-avatar>

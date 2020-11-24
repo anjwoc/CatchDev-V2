@@ -3,7 +3,7 @@
     <template v-slot:activator="{ on }">
       <v-btn icon x-large v-on="on">
         <v-avatar size="36">
-          <img :src="me.imgSrc" alt="" refererpolicy="no-referrer" />
+          <v-img :src="me.imgSrc" alt="" refererpolicy="no-referrer" />
         </v-avatar>
       </v-btn>
     </template>
@@ -11,7 +11,7 @@
       <v-list-item-content class="justify-center">
         <div class="elevation-0 mx-auto text-center">
           <v-avatar>
-            <img :src="me.imgSrc" alt="" />
+            <v-img :src="me.imgSrc" :lazy-src="me.imgSrc" alt="" />
           </v-avatar>
           <h3>{{ me.name }}</h3>
           <p class="caption mt-1">

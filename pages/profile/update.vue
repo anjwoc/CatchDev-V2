@@ -33,7 +33,7 @@
           연동된 소셜 계정
         </div>
         <div class="vertical-center text-subtitle1 mt-4">
-          <v-icon color="black">mdi-{{ user.socialType }}</v-icon>
+          <!-- <v-icon color="black">mdi-{{ user.socialType }}</v-icon> -->
           <span class="font-weight-bold text-capitalize">
             {{ user.socialType }}
           </span>
@@ -47,8 +47,7 @@
           직업
         </div>
         <div class="text-subtitle1 registed_date mt-4">
-          <v-text-field v-model="job"></v-text-field>
-          <!-- <span class="font-weight-bold">{{ user.job }}</span> -->
+          <v-text-field v-model="job" outlined></v-text-field>
         </div>
       </v-col>
       <v-col col="3">
@@ -56,8 +55,7 @@
           지역
         </div>
         <div class="vertical-center text-subtitle1 mt-4">
-          <v-text-field v-model="location"></v-text-field>
-          <!-- <span class="font-weight-bold">{{ user.location }}</span> -->
+          <v-text-field v-model="location" outlined></v-text-field>
         </div>
       </v-col>
       <v-col col="6">
@@ -65,7 +63,7 @@
           프로필 이미지
         </div>
         <div class="d-flex align-center justify-center">
-          <v-btn icon style="top: 3rem">
+          <v-btn icon style="top: 3rem" @click="$refs.uploader.click()">
             <v-avatar size="100">
               <v-img :src="user.imgSrc" :lazy-src="user.imgSrc"></v-img>
             </v-avatar>
@@ -87,9 +85,6 @@
             outlined
             hide-details
           ></v-textarea>
-          <!-- <span class="font-weight-bold" style="overflow: auto">
-            {{ user.about }}
-          </span> -->
         </div>
       </v-col>
     </v-card>
@@ -102,6 +97,7 @@
         프로필 수정
       </v-btn>
     </div>
+    <input ref="uploader" hidden @change="onChangeImage" type="file" />
     <div style="height: 300px"></div>
   </v-container>
 </template>
@@ -124,6 +120,21 @@
             location: this.location,
             about: this.about,
           })
+          .then(res => {
+            console.log(res.data);
+          })
+          .catch(err => {
+            console.error(err);
+          });
+      },
+      onChangeImage(e) {
+        const file = e.target.files[0];
+        const formData = new FormData();
+        if (!file) return;
+        formData.append('image', file);
+        formData.append('userId', this.user.id);
+        this.$store
+          .dispatch('users/updateProfileImage', formData)
           .then(res => {
             console.log(res.data);
           })

@@ -40,6 +40,12 @@
             text: '운영중인 스터디를 관리합니다.',
             to: '/profile/study',
           },
+          {
+            emoji: '🗑',
+            title: '회원 탈퇴',
+            text: '회원 정보를 삭제합니다.',
+            to: '/profile/leave',
+          },
         ],
       };
     },
