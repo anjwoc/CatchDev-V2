@@ -202,7 +202,7 @@ export const actions = {
   updateProfile({ commit, state }, payload) {
     return this.$axios
       .post(
-        `/user/updateProfile/${payload.userId}`,
+        `/user/update/${payload.userId}`,
         {
           userId: payload.userId,
           job: payload.job,

@@ -113,6 +113,10 @@
     },
     methods: {
       updateProfile() {
+        this.user.job = this.job;
+        this.user.location = this.location;
+        this.user.about = this.about;
+
         this.$store
           .dispatch('users/updateProfile', {
             userId: this.user.id,
@@ -121,7 +125,10 @@
             about: this.about,
           })
           .then(res => {
-            console.log(res.data);
+            this.$store.commit('users/setMe', {
+              reset: true,
+              user: this.user,
+            });
           })
           .catch(err => {
             console.error(err);

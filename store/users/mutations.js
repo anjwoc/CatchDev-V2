@@ -1,5 +1,9 @@
 export const mutations = {
   setMe(state, payload) {
+    if (payload.reset) {
+      state.me = Object.freeze({ ...payload.user });
+      return;
+    }
     state.me = Object.freeze(payload);
   },
   updateProfileImage(state, payload) {
