@@ -1,11 +1,11 @@
 import throttle from 'lodash.throttle';
 
 export const actions = {
-  loadPosts: throttle(async function ({ commit }, payload) {
+  loadPosts: throttle(async function ({ state, commit }, payload) {
     //내가 작성한 글만 불러옴, 진행중인것도 종료된것도 전부 불러옴
     try {
       if (payload && payload.reset) {
-        const res = await this.$axios.get(`/posts/${payload.userId}/AllPosts`);
+        const res = await this.$axios.get(`/posts/${state.me.id}`);
         commit('loadPosts', {
           data: res.data,
           reset: true,
@@ -16,9 +16,7 @@ export const actions = {
         const lastPost = state.allPosts[state.allPosts.length - 1];
         //lastPost가 존재하는지 체크하고 lastPost.id를 넘김
         const res = await this.$axios.get(
-          `/posts/${payload.userId}/AllPosts?lastId=${
-            lastPost && lastPost.id
-          }&limit=5`,
+          `/posts/${state.me.id}?lastId=${lastPost && lastPost.id}&limit=5`,
         );
         commit('loadPosts', {
           data: res.data,
@@ -33,9 +31,7 @@ export const actions = {
     //내가 작성한 글만 불러옴, 진행중인것도 종료된것도 전부 불러옴
     try {
       if (payload && payload.reset) {
-        const res = await this.$axios.get(
-          `/posts/${payload.userId}/allClosedPosts`,
-        );
+        const res = await this.$axios.get(`/posts/${payload.userId}/closed`);
         commit('loadClosedPosts', {
           data: res.data,
           reset: true,
@@ -46,7 +42,7 @@ export const actions = {
         const lastPost = state.closedPosts[state.closedPosts.length - 1];
         //lastPost가 존재하는지 체크하고 lastPost.id를 넘김
         const res = await this.$axios.get(
-          `/posts/${payload.userId}/allClosedPosts?lastId=${
+          `/posts/${payload.userId}/closed?lastId=${
             lastPost && lastPost.id
           }&limit=5`,
         );
@@ -64,7 +60,7 @@ export const actions = {
     try {
       if (payload && payload.reset) {
         const res = await this.$axios.get(
-          `/posts/${payload.userId}/allRecruitingPosts`,
+          `/posts/${payload.userId}/recruiting`,
         );
         commit('loadRecruitingPosts', {
           data: res.data,
@@ -76,7 +72,7 @@ export const actions = {
         const lastPost =
           state.recruitingPosts[state.recruitingPosts.length - 1];
         const res = await this.$axios.get(
-          `/posts/${payload.userId}/allRecruitingPosts?lastId=${
+          `/posts/${payload.userId}/recruiting?lastId=${
             lastPost && lastPost.id
           }&limit=5`,
         );

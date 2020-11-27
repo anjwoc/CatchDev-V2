@@ -24,7 +24,9 @@
           </div>
         </div>
 
-        <v-container class="pb-0 pt-0">{{ c.content }}</v-container>
+        <v-container class="pb-0 pt-0 subtitle-1">
+          {{ onConvertContent(c) }}
+        </v-container>
         <div align="end">
           <v-btn
             class="ma-0 pa-0"
@@ -66,6 +68,20 @@
         updatedValue: '',
       };
     },
+    methods: {
+      onConvertContent(comment) {
+        if (comment.isPrivate && comment.id !== this.me.id) {
+          return '비밀 댓글입니다.';
+        }
+        return comment.content;
+      },
+      onDeleteComment(id) {
+        this.$store.dispatch('posts/deleteComment', {
+          id: id,
+          postId: this.postId,
+        });
+      },
+    },
     components: {
       CommentForm,
     },
@@ -77,13 +93,8 @@
           this.comments.user.email.split('@')[0]
         );
       },
-    },
-    methods: {
-      onDeleteComment(id) {
-        this.$store.dispatch('posts/deleteComment', {
-          id: id,
-          postId: this.postId,
-        });
+      me() {
+        return this.$store.state.users.me;
       },
     },
   };

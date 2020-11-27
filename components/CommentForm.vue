@@ -20,7 +20,17 @@
         no-resize
         hide-details
       />
-      <div class="mt-1 ma-0 pa-0 justify-end" align="end">
+      <div class="ma-0 pa-0 d-flex justify-space-between vertical-center">
+        <div class="pb-4">
+          <v-checkbox
+            v-model="isPrivate"
+            label="Private Comment"
+            color="indigo darken-3"
+            :value="true"
+            hide-details
+          ></v-checkbox>
+          <div class="caption grey--text">본인, 작성자만 확인 가능</div>
+        </div>
         <v-btn class="font-weight-bold" color="pink" large dark type="submit">
           작성하기
         </v-btn>
@@ -43,6 +53,7 @@
         valid: false,
         content: '',
         hideDetails: true,
+        isPrivate: false,
       };
     },
     computed: {
@@ -57,6 +68,7 @@
             .dispatch('posts/addComment', {
               postId: this.postId,
               content: this.content,
+              isPrivate: this.isPrivate,
             })
             .then(() => {
               this.content = '';

@@ -20,6 +20,7 @@ export default {
   plugins: [
     { src: '~/plugins/tiptap-vuetify.js', mode: 'client' },
     { src: '~/plugins/vue-input-tag.js', mode: 'client' },
+    { src: '~/plugins/vuetify-dialog.js', mode: 'client' },
     // { src: '~/plugins/socket.client.js' },
   ],
 

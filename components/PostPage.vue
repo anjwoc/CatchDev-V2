@@ -85,7 +85,7 @@
       </v-card>
 
       <v-row
-        v-for="(items, name) in post.questions"
+        v-for="(answers, name) in post.questions"
         :key="name"
         class="info-section"
       >
@@ -93,10 +93,14 @@
           <h3>{{ name }}</h3>
         </v-col>
         <v-col cols="8">
-          <v-card class="subtitle-1 bg-info pa-4" elevation="0">
-            <div class="d-flex pt-1 pb-1" v-for="item in items" :key="item">
+          <v-card class="subtitle-1 pa-4" outlined elevation="0">
+            <div
+              class="d-flex pt-1 pb-1 mb-2"
+              v-for="ans in answers"
+              :key="ans"
+            >
               <div class="vertical-center mr-4">✔️</div>
-              <div>{{ item }}</div>
+              <div class="">{{ ans }}</div>
             </div>
           </v-card>
         </v-col>
@@ -130,22 +134,23 @@
             <v-btn
               outlined
               small
-              style="height: 44px"
+              style="height: 44px; width: 100%"
               elevation="0"
               color="grey lighten-2"
               @click="onClickHeart"
             >
               <v-icon color="pink lighten-1"> {{ heartIcon }} </v-icon>
             </v-btn>
-            <v-btn
+            <!-- <v-btn
               class="white--text"
               large
               style="width: 80%"
               elevation="0"
               color="pink lighten-1"
+              @click="onApplySutdy"
             >
               스터디 참여하기
-            </v-btn>
+            </v-btn> -->
           </div>
         </div>
       </v-card>
@@ -225,6 +230,10 @@
         return this.$store.dispatch('posts/likePost', {
           postId: this.post.id,
         });
+      },
+      onApplySutdy() {
+        if (!this.me) {
+        }
       },
     },
     computed: {

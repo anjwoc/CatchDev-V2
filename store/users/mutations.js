@@ -1,3 +1,4 @@
+import cloneDeep from 'lodash.clonedeep';
 export const mutations = {
   setMe(state, payload) {
     if (payload.reset) {
@@ -6,8 +7,10 @@ export const mutations = {
     }
     state.me = Object.freeze(payload);
   },
-  updateProfileImage(state, payload) {
-    state.me.imgSrc = payload;
+  updateProfileImage(state, src) {
+    let newUser = cloneDeep(state.me);
+    newUser.imgSrc = src;
+    state.me = Object.freeze(newUser);
   },
   logOut(state) {
     state.me = null;
@@ -15,25 +18,25 @@ export const mutations = {
   loadPosts(state, payload) {
     //내가 작성한 글만 불러옴, 진행중인것도 종료된것도 전부 불러옴
     if (payload.reset) {
-      state.profileData.allPosts = payload.data;
+      state.allPosts = payload.data;
     } else {
-      state.profileData.allPosts.concat(payload.data);
+      state.allPosts.concat(payload.data);
     }
   },
   loadRecruitingPosts(state, payload) {
     //진행중인 스터디만 불러옴
     if (payload.reset) {
-      state.profileData.recruitingPosts = payload.data;
+      state.recruitingPosts = payload.data;
     } else {
-      state.profileData.recruitingPosts.concat(payload.data);
+      state.recruitingPosts.concat(payload.data);
     }
   },
   loadClosedPosts(state, payload) {
     //종료된 스터디만 불러옴
     if (payload.reset) {
-      state.profileData.closedPosts = payload.data;
+      state.closedPosts = payload.data;
     } else {
-      state.profileData.closedPosts.concat(payload.data);
+      state.closedPosts.concat(payload.data);
     }
   },
 };

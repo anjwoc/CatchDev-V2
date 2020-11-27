@@ -20,7 +20,7 @@ const mutations = {
     const currentPostId = payload.currentPostId;
     const result = [];
 
-    if (newPosts.length <= 1) {
+    if (newPosts && newPosts.length === 1) {
       // 1개 이하인 경우 posts가 배열이 아닌 하나의 객체
       const data = { id: newPosts[0].id, title: newPosts[0].title };
       if (data.id !== parseInt(currentPostId)) {

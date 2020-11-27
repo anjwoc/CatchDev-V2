@@ -168,4 +168,13 @@
     display: flex;
     align-items: flex-end;
   }
+
+  .v-textarea {
+    font-size: 14px;
+    font-family: 'Noto Sans KR';
+  }
+  .v-text-field {
+    font-size: 14px;
+    font-family: 'Noto Sans KR';
+  }
 </style>

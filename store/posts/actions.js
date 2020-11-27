@@ -75,6 +75,7 @@ const actions = {
         {
           postId: payload.postId,
           content: payload.content,
+          isPrivate: payload.isPrivate,
         },
         {
           withCredentials: true,
@@ -128,9 +129,9 @@ const actions = {
   async loadPost({ dispatch, commit, state }, payload) {
     try {
       console.log('loadPost');
+
       const res = await this.$axios.get(`/post/${payload}`);
       const post = res.data;
-
       if (post.hashtags.length > 0) {
         let tags = '';
         post.hashtags.forEach(tag => {
