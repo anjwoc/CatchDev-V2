@@ -105,85 +105,90 @@ export const actions = {
       console.error(err);
     }
   },
-  async signUp({ commit }, payload) {
+
+  async withdrawal({ commit }, payload) {
     return await this.$axios
-      .post(
-        '/user',
-        {
-          email: payload.email,
-          password: payload.password,
-          name: payload.name,
-          about: payload.about,
-        },
-        {
-          withCredentials: true,
-        },
-      )
+      .delete(`/user/${payload.userId}`)
       .then(res => {
-        if (res.status === 200) {
-          commit('setMe', res.data);
-          return res;
-        }
-      })
-      .catch(err => {
-        if (err.response && err.response.data) {
-          return err;
-        }
-      });
-  },
-  async githubLogIn({ commit }, payload) {
-    await this.$axios
-      .post(
-        '/auth/githubLogin',
-        {
-          email: payload.email,
-          socialType: payload.socialType,
-        },
-        {
-          withCredentials: true,
-        },
-      )
-      .then(res => {
-        commit('setMe', res.data);
-      })
-      .catch(err => {
-        console.error(err);
-      });
-  },
-  async logIn({ commit }, payload) {
-    return await this.$axios
-      .post(
-        '/user/login',
-        {
-          email: payload.email,
-          password: payload.password,
-        },
-        {
-          withCredentials: true,
-        },
-      )
-      .then(res => {
-        commit('setMe', res.data);
-      })
-      .catch(err => {
-        console.error(err);
-      });
-  },
-  async logOut({ commit }, payload) {
-    await this.$axios
-      .post(
-        '/user/logout',
-        {},
-        {
-          withCredentials: true,
-        },
-      )
-      .then(() => {
         commit('setMe', null);
+        return res;
       })
       .catch(err => {
-        console.error(err);
+        return err;
       });
+  },
+
+  logIn({ commit }, payload) {
+    return new Promise((resolve, reject) => {
+      this.$axios
+        .post(
+          '/user/login',
+          {
+            email: payload.email,
+            password: payload.password,
+          },
+          {
+            withCredentials: true,
+          },
+        )
+        .then(res => {
+          if (res.status === 200) {
+            commit('setMe', res.data);
+            resolve(res.status);
+          }
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  },
+  signUp({ commit }, payload) {
+    return new Promise((resolve, reject) => {
+      this.$axios
+        .post(
+          '/user',
+          {
+            email: payload.email,
+            password: payload.password,
+            name: payload.name,
+            about: payload.about,
+          },
+          {
+            withCredentials: true,
+          },
+        )
+        .then(res => {
+          console.log(res.status);
+          if (res.status === 200) {
+            commit('setMe', res.data);
+            resolve(res.status);
+          }
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  },
+  logOut({ commit }, payload) {
+    return new Promise((resolve, reject) => {
+      this.$axios
+        .post(
+          '/user/logout',
+          {},
+          {
+            withCredentials: true,
+          },
+        )
+        .then(res => {
+          if (res.status === 200) {
+            commit('setMe', null);
+            resolve(res);
+          }
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
   },
   async loadConnectionUser({ state, commit }, payload) {
     try {
@@ -241,6 +246,25 @@ export const actions = {
       )
       .then(res => {
         return res.data;
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  },
+  async githubLogIn({ commit }, payload) {
+    await this.$axios
+      .post(
+        '/auth/githubLogin',
+        {
+          email: payload.email,
+          socialType: payload.socialType,
+        },
+        {
+          withCredentials: true,
+        },
+      )
+      .then(res => {
+        commit('setMe', res.data);
       })
       .catch(err => {
         console.error(err);

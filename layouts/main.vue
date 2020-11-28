@@ -11,7 +11,6 @@
         </v-toolbar-title>
 
         <v-spacer></v-spacer>
-
         <div v-if="!me">
           <v-btn
             class="toolbar-btn text-capitalize font-weight-bold"

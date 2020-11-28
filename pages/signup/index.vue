@@ -15,7 +15,7 @@
                 @submit.prevent="onSubmitForm"
               >
                 <v-text-field
-                  v-model="username"
+                  v-model="name"
                   placeholder="Username"
                   filled
                   rounded
@@ -138,9 +138,7 @@
         valid: '',
         email: '',
         password: '',
-        username: '',
-        errInfo: {},
-        dialog: false,
+        name: '',
         socials: ['mdi-facebook', 'mdi-github', 'mdi-google'],
         emailRules: [
           v => !!v || '이메일은 필수입니다.',
@@ -150,8 +148,25 @@
       };
     },
     methods: {
-      githubRedirect() {},
-      googleRedirect() {},
+      onSubmitForm() {
+        if (this.$refs.form.validate()) {
+          this.$store
+            .dispatch('users/signUp', {
+              email: this.email,
+              name: this.name,
+              password: this.password,
+            })
+            .then(res => {
+              this.$router.push('/');
+            })
+            .catch(err => {
+              this.$dialog.notify.warning(err.response.data, {
+                position: 'top-right',
+                timeout: 5000,
+              });
+            });
+        }
+      },
     },
   };
 </script>

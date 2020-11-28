@@ -135,10 +135,10 @@
         socialIcons: ['mdi-facebook', 'mdi-github', 'mdi-google'],
         socials: ['facebook', 'github', 'google'],
         emailRules: [
-          v => !!v || '이메일은 필수입니다.',
+          v => !!v || '이메일을 입력해주세요.',
           v => /.+@.+/.test(v) || '이메일이 유효하지 않습니다.',
         ],
-        passwordRules: [v => !!v || '비밀번호는 필수입니다.'],
+        passwordRules: [v => !!v || '비밀번호를 입력해주세요.'],
       };
     },
     methods: {
@@ -171,12 +171,14 @@
               this.$router.push({ path: '/' });
             })
             .catch(err => {
-              console.error(err);
+              this.$dialog.notify.warning(err.response.data, {
+                position: 'top-right',
+                timeout: 5000,
+              });
             });
         }
       },
     },
-    mounted() {},
     middleware: 'anonymous',
   };
 </script>

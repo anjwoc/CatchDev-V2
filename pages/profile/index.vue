@@ -34,12 +34,12 @@
             text: '회원 정보를 수정합니다.',
             to: '/profile/update',
           },
-          {
-            emoji: '📁',
-            title: '스터디 관리',
-            text: '운영중인 스터디를 관리합니다.',
-            to: '/profile/study',
-          },
+          // {
+          //   emoji: '📁',
+          //   title: '스터디 관리',
+          //   text: '운영중인 스터디를 관리합니다.',
+          //   to: '/profile/study',
+          // },
           {
             emoji: '🗑',
             title: '회원 탈퇴',

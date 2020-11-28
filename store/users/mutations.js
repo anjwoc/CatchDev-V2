@@ -1,7 +1,7 @@
 import cloneDeep from 'lodash.clonedeep';
 export const mutations = {
   setMe(state, payload) {
-    if (payload.reset) {
+    if (payload && payload.reset) {
       state.me = Object.freeze({ ...payload.user });
       return;
     }

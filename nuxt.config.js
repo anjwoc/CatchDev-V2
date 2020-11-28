@@ -20,8 +20,6 @@ export default {
   plugins: [
     { src: '~/plugins/tiptap-vuetify.js', mode: 'client' },
     { src: '~/plugins/vue-input-tag.js', mode: 'client' },
-    { src: '~/plugins/vuetify-dialog.js', mode: 'client' },
-    // { src: '~/plugins/socket.client.js' },
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
@@ -41,7 +39,8 @@ export default {
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
     // https://go.nuxtjs.dev/pwa
-    '@nuxtjs/pwa',
+    // '@nuxtjs/pwa',
+    'vuetify-dialog/nuxt',
     'nuxt-material-design-icons',
   ],
 
