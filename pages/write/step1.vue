@@ -110,11 +110,8 @@
             @change="uploadCoverImage"
           >
           </v-file-input>
-          <div class="ml-9 details caption pink--text">
+          <!-- <div class="ml-9 details caption pink--text">
             커버 이미지를 등록하지 않으면 기본 이미지로 적용 됩니다.
-          </div>
-          <!-- <div>
-            {{ coverImg }}
           </div> -->
         </div>
       </div>
@@ -164,7 +161,6 @@
       uploadCoverImage() {
         if (!this.file) return;
         const formData = new FormData();
-        // formData.append('postId', postId);
         formData.append('image', this.file);
 
         this.$axios
@@ -178,6 +174,29 @@
             console.error(err);
           });
       },
+      validate() {
+        const items = [
+          this.category.length,
+          this.location.length,
+          this.numPeople.length,
+          this.title.length,
+        ];
+        let isValidate = true;
+        for (const item of items)
+          if (item === 0) {
+            isValidate = false;
+            break;
+          }
+
+        if (!isValidate) {
+          this.$dialog.notify.warning('필수정보를 모두 입력해주세요.', {
+            position: 'top-right',
+            timeout: 5000,
+          });
+          return false;
+        }
+        return true;
+      },
       toNextPage() {
         // vuex에 데이터 저장하고 페이지 이동하기
         const payload = {
@@ -188,7 +207,7 @@
           location: this.location,
           category: this.category,
         };
-        if (this.$refs.form.validate()) {
+        if (this.$refs.form.validate() && this.validate()) {
           this.$store.commit('posts/setWritingPost', payload);
           this.$router.push('/write/step2');
         }

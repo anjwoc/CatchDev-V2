@@ -91,7 +91,7 @@
         <v-btn
           class="pl-10 pr-10 mr-4 grey darken-2 white--text"
           x-large
-          to="/write"
+          to="/write/step1"
         >
           돌아가기
         </v-btn>
@@ -173,6 +173,16 @@
       };
     },
     methods: {
+      validate() {
+        if (!this.content) {
+          this.$dialog.notify.warning('본문을 입력해주세요', {
+            position: 'top-right',
+            timeout: 5000,
+          });
+          return false;
+        }
+        return true;
+      },
       addTextField(fieldIdx) {
         this.qFieldNumbers[fieldIdx] += 1;
         this.qFields[fieldIdx].push([]);
@@ -182,6 +192,7 @@
         this.qFields[fieldIdx].splice(idx, 1);
       },
       onSubmitForm() {
+        if (!this.validate()) return;
         const data = {};
         const length = this.qFields.length;
         for (let i = 0; i < length; i++) {
