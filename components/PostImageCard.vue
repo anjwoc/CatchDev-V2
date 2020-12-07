@@ -42,6 +42,7 @@
 
 <script>
   export default {
+    name: "PostImageCard",
     props: {
       height: [String, Number],
       post: {

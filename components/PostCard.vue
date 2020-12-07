@@ -1,13 +1,10 @@
 <template>
-  <div>
-    <post-image-card
-      v-if="post.coverImg"
-      :height="height"
-      :post="post"
-      :hover="hover"
-    />
-    <post-emoji-card v-else :height="height" :post="post" :hover="hover" />
-  </div>
+  <component
+    :is="card"
+    :height="height"
+    :post="post"
+    :hover="hover"
+  ></component>
 </template>
 
 <script>
@@ -18,22 +15,26 @@
       height: [String, Number],
       post: {
         type: Object,
-        // required: true,
       },
       hover: {
         type: Boolean,
-        // required: true,
       },
     },
-    computed: {
-      // coverImg() {
-      //   if (this.post) {
-      //     return this.post.coverImg
-      //       ? this.post.coverImg
-      //       : process.env.default_cover;
-      //   }
-      //   return process.env.default_cover;
-      // },
+    components: {
+      PostEmojiCard,
+      PostImageCard,
+    },
+    data() {
+      return {
+        card: '',
+      };
+    },
+    mounted() {
+      if (this.post.coverImg) {
+        this.card = 'PostImageCard';
+        return;
+      }
+      this.card = 'PostEmojiCard';
     },
   };
 </script>

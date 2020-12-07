@@ -111,9 +111,6 @@
           <div class="ml-9 details caption pink--text">
             커버 이미지를 등록하지 않으면 기본 이미지로 적용 됩니다.
           </div>
-          <div>
-            {{ coverImg }}
-          </div>
         </div>
       </div>
     </v-form>
@@ -123,7 +120,7 @@
         <v-btn
           class="pl-10 pr-10 mr-4 grey darken-2 white--text"
           x-large
-          to="/"
+          :to="`/post/${writingPost.id}`"
         >
           돌아가기
         </v-btn>
@@ -164,7 +161,6 @@
         const formData = new FormData();
         // formData.append('postId', postId);
         formData.append('image', this.files[0]);
-
         this.$axios
           .post(`/post/thumbnail`, formData, {
             withCredentials: true,
@@ -178,7 +174,7 @@
       },
       toNextPage() {
         if (this.$refs.form.validate()) {
-          this.$router.push('/write/update/second');
+          this.$router.push('/write/update/step2');
         }
       },
     },

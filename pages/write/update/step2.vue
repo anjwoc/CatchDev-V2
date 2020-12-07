@@ -91,9 +91,9 @@
         <v-btn
           class="pl-10 pr-10 mr-4 grey darken-2 white--text"
           x-large
-          to="/write"
+          to="/write/update/step1"
         >
-          돌아가기
+          이전 페이지
         </v-btn>
         <v-btn
           class="pl-10 pr-10 pink white--text"
@@ -134,7 +134,6 @@
     },
     data() {
       return {
-        files: null,
         questions: [
           '어떤 스터디인가요?',
           '스터디는 이렇게 진행됩니다.',

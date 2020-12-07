@@ -1,4 +1,5 @@
-import colors from 'vuetify/es5/util/colors';
+import dotenv from 'dotenv';
+const config = dotenv.config({ path: `.env.${process.env.NODE_ENV}` }).parsed;
 
 export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
@@ -30,7 +31,7 @@ export default {
     // https://go.nuxtjs.dev/eslint
     // '@nuxtjs/eslint-module',
     // https://go.nuxtjs.dev/vuetify
-    '@nuxtjs/vuetify',
+    ['@nuxtjs/vuetify', { treeShake: true }],
     '@nuxtjs/moment',
   ],
 
@@ -43,39 +44,19 @@ export default {
     'vuetify-dialog/nuxt',
     'nuxt-material-design-icons',
   ],
-
-  // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {
-    browserBaseURL: 'http://localhost:4000',
-    baseURL: 'http://localhost:4000',
+    browserBaseURL: config.browserBaseURL,
+    baseURL: config.baseURL,
   },
-  // Vuetify module configuration (https://go.nuxtjs.dev/config-vuetify)
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
-    theme: {
-      // dark: true,
-      themes: {
-        dark: {
-          primary: colors.blue.darken2,
-          accent: colors.grey.darken3,
-          secondary: colors.amber.darken3,
-          info: colors.teal.lighten1,
-          warning: colors.amber.base,
-          error: colors.deepOrange.accent4,
-          success: colors.green.accent3,
-        },
-      },
-    },
   },
   env: {
-    baseUrl: 'http://localhost:4000',
-    default_img:
-      'https://catchdev-bucket.s3.ap-northeast-2.amazonaws.com/default/default-profile-image.png',
-    no_img:
-      'https://catchdev-bucket.s3.ap-northeast-2.amazonaws.com/default/noimage.png',
-    default_cover:
-      'https://catchdev-bucket.s3.ap-northeast-2.amazonaws.com/default/default-cover.jpg',
-    WS_URL: 'http://localhost:4000',
+    baseUrl: config.baseUrl,
+    default_img: config.default_img,
+    no_img: config.no_img,
+    default_cover: config.default_cover,
+    WS_URL: config.WS_URL,
   },
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {

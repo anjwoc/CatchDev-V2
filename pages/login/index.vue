@@ -129,9 +129,6 @@
         valid: '',
         email: '',
         password: '',
-        username: '',
-        errInfo: {},
-        dialog: false,
         socialIcons: ['mdi-facebook', 'mdi-github', 'mdi-google'],
         socials: ['facebook', 'github', 'google'],
         emailRules: [

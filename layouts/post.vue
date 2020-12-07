@@ -7,7 +7,7 @@
           style="cursor: pointer; font-size: 28px"
           @click="$router.push('/')"
         >
-          CatchDev
+          CatchStudy
         </v-toolbar-title>
 
         <v-spacer></v-spacer>
@@ -59,24 +59,7 @@
     components: {
       UserProfileMenu,
     },
-    data() {
-      return {
-        tab: '',
-        tabs: [
-          '전체',
-          '어학',
-          '고시/공무원',
-          '취미/교양',
-          '프로그래밍',
-          '자율',
-          '기타',
-        ],
-      };
-    },
     methods: {
-      onChangeTabs() {
-        console.log('change tab');
-      },
       onLogout() {
         this.$store
           .dispatch('users/logOut')
@@ -88,13 +71,7 @@
           });
       },
     },
-    mounted() {},
     computed: {
-      isAuth() {
-        const name = this.$route.name;
-        const list = ['login', 'signup'];
-        return list.includes(name);
-      },
       me() {
         return this.$store.state.users.me;
       },
