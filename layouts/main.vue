@@ -23,6 +23,9 @@
             placeholder="Search"
             type="text"
           />
+          <p class="search_hint caption">
+            검색할 단어 앞에 #을 붙이면 연관 해시태그 게시물이 나옵니다.
+          </p>
         </div>
 
         <div v-if="!me">
@@ -95,6 +98,10 @@
     methods: {
       toSearchPage(e) {
         const word = e.target.value;
+        if (word.includes('#')) {
+          this.$router.push(`/search/tag/${word.split('#')[1]}`);
+          return;
+        }
         this.$router.push(`/search/${word}`);
       },
       onChangeTabs(category) {
@@ -133,5 +140,22 @@
     border: 1px solid grey;
     border-radius: 3px;
     padding: 5px 10px;
+  }
+
+  .search_hint {
+    color: #953675;
+    font-weight: 550;
+    position: absolute;
+    top: 3rem;
+    right: 10rem;
+    opacity: 0;
+    display: inline;
+    transition: opacity 0.3s ease-in-out;
+    -o-transition: opacity 0.3s ease-in-out;
+    -moz-transition: opacity 0.3s ease-in-out;
+    -webkit-transition: opacity 0.3s ease-in-out;
+  }
+  input:focus + .search_hint {
+    opacity: 1;
   }
 </style>

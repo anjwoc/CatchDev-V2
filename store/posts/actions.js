@@ -248,7 +248,7 @@ const actions = {
   }, 500),
   loadTagsPosts: throttle(async function ({ commit }, payload) {
     if (payload && payload.reset) {
-      const res = await this.$axios.get(`/posts/tags/${payload.name}`);
+      const res = await this.$axios.get(`/posts/tags/${payload.tag}`);
       commit('loadPosts', {
         data: res.data,
         reset: true,
@@ -258,9 +258,7 @@ const actions = {
     if (state.hasMorePost) {
       const lastPost = state.mainPosts[state.mainPosts.length - 1];
       const res = await this.$axios.get(
-        `/posts/tags/${payload.name}?lastId=${
-          lastPost && lastPost.id
-        }&limit=10`,
+        `/posts/tags/${payload.tag}?lastId=${lastPost && lastPost.id}&limit=10`,
       );
       commit('loadPosts', {
         data: res.data,
