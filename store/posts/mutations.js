@@ -60,16 +60,6 @@ const mutations = {
 
     Vue.set(state.mainPosts[index], 'Comments', payload.data);
   },
-  updateToggleComment(state, payload) {
-    const commentIdx = state.mainPosts[0].Comments.findIndex(
-      v => v.id === payload.commentId,
-    );
-    Vue.set(
-      state.mainPosts[0].Comments[commentIdx],
-      'updateOpened',
-      !payload.updateOpened,
-    );
-  },
   updateComment(state, payload) {
     const index = state.mainPosts[0].Comments.findIndex(
       v => v.id === payload.id,

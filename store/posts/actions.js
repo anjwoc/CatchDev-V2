@@ -2,58 +2,48 @@ import throttle from 'lodash.throttle';
 
 const actions = {
   add({ commit, state }, payload) {
-    return this.$axios
-      .post(
-        '/post',
-        {
-          title: payload.title,
-          content: payload.content,
-          numPeople: payload.numPeople,
-          type: payload.type,
-          coverImg: payload.coverImg,
-          hashtags: payload.hashtags,
-          location: payload.location,
-          category: payload.category,
-          image: state.imagePaths,
-          questions: payload.questions,
-        },
-        {
-          withCredentials: true,
-        },
-      )
-      .then(res => {
-        commit('addMainPost', res.data);
-        return res.data.id;
-      })
-      .catch(err => {
-        console.error(err);
-      });
+    return new Promise((resolve, reject) => {
+      this.$axios
+        .post(
+          '/post',
+          {
+            ...payload,
+            image: state.imagePaths,
+          },
+          {
+            withCredentials: true,
+          },
+        )
+        .then(res => {
+          commit('addMainPost', res.data);
+          resolve(res.data.id);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
   },
   update({ commit, state }, payload) {
-    return this.$axios
-      .post(
-        `/post/${payload.id}/update`,
-        {
-          title: payload.title,
-          content: payload.content,
-          hashtags: payload.hashtags,
-          tagHistory: payload.tagHistory,
-          location: payload.location,
-          category: payload.category,
-          image: state.imagePaths,
-          questions: payload.questions,
-        },
-        {
-          withCredentials: true,
-        },
-      )
-      .then(res => {
-        commit('updateMainPost', res.data);
-        return res.data.id;
-      })
-      .catch(err => {
-        console.error(err);
-      });
+    return new Promise((resolve, reject) => {
+      this.$axios
+        .post(
+          `/post/${payload.id}/update`,
+          {
+            ...payload,
+            image: state.imagePaths,
+          },
+          {
+            withCredentials: true,
+          },
+        )
+        .then(res => {
+          commit('updateMainPost', res.data);
+          resolve(res.data.id);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
   },
   remove({ commit }, payload) {
     this.$axios
@@ -67,15 +57,15 @@ const actions = {
         console.error(err);
       });
   },
-
   async addComment({ commit }, payload) {
     await this.$axios
       .post(
         `/comment/${payload.postId}`,
         {
-          postId: payload.postId,
-          content: payload.content,
-          isPrivate: payload.isPrivate,
+          ...payload,
+          // postId: payload.postId,
+          // content: payload.content,
+          // isPrivate: payload.isPrivate,
         },
         {
           withCredentials: true,
@@ -126,10 +116,9 @@ const actions = {
         console.error(err);
       });
   },
-  async loadPost({ dispatch, commit, state }, payload) {
+  async loadPost({ dispatch, commit }, payload) {
     try {
       console.log('loadPost');
-
       const res = await this.$axios.get(`/post/${payload}`);
       const post = res.data;
       if (post.hashtags.length > 0) {
@@ -267,7 +256,6 @@ const actions = {
       return;
     }
   }, 2000),
-
   async loadComments({ commit }, postId) {
     await this.$axios
       .get(`/comment/${postId}`)
@@ -331,6 +319,9 @@ const actions = {
           postId: payload.postId,
           status: res.data,
         });
+      })
+      .catch(err => {
+        console.error(err);
       });
   },
   async loadSearchPosts({ commit }, payload) {
@@ -356,7 +347,7 @@ const actions = {
       return;
     }
   },
-  async loadAllHashtags({ commit }, payload) {
+  async loadAllHashtags({ commit }) {
     try {
       const res = await this.$axios.get(`/posts/allTags`);
       commit('loadHashtags', {

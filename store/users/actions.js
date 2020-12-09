@@ -106,16 +106,18 @@ export const actions = {
     }
   },
 
-  async withdrawal({ commit }, payload) {
-    return await this.$axios
-      .delete(`/user/${payload.userId}`)
-      .then(res => {
-        commit('setMe', null);
-        return res;
-      })
-      .catch(err => {
-        return err;
-      });
+  withdrawal({ commit }, payload) {
+    return new Promise((resolve, reject) => {
+      this.$axios
+        .delete(`/user/${payload.userId}`)
+        .then(res => {
+          commit('setMe', null);
+          resolve(res);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
   },
 
   logIn({ commit }, payload) {
@@ -124,8 +126,9 @@ export const actions = {
         .post(
           '/user/login',
           {
-            email: payload.email,
-            password: payload.password,
+            ...payload,
+            // email: payload.email,
+            // password: payload.password,
           },
           {
             withCredentials: true,
@@ -148,10 +151,11 @@ export const actions = {
         .post(
           '/user',
           {
-            email: payload.email,
-            password: payload.password,
-            name: payload.name,
-            about: payload.about,
+            ...payload,
+            // email: payload.email,
+            // password: payload.password,
+            // name: payload.name,
+            // about: payload.about,
           },
           {
             withCredentials: true,
@@ -201,74 +205,90 @@ export const actions = {
     }
   },
   updateProfile({ commit, state }, payload) {
-    return this.$axios
-      .post(
-        `/user/update/${payload.userId}`,
-        {
-          userId: payload.userId,
-          job: payload.job,
-          location: payload.location,
-          about: payload.about,
-        },
-        {
-          withCredentials: true,
-        },
-      )
-      .then(res => {
-        return res.data;
-      })
-      .catch(err => {
-        console.error(err);
-      });
+    return new Promise((resolve, reject) => {
+      this.$axios
+        .post(
+          `/user/update/${payload.userId}`,
+          {
+            ...payload,
+            // userId: payload.userId,
+            // job: payload.job,
+            // location: payload.location,
+            // about: payload.about,
+          },
+          {
+            withCredentials: true,
+          },
+        )
+        .then(res => {
+          resolve(res);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
   },
   updateProfileImage({ commit, state }, formData) {
-    return this.$axios
-      .post(`/user/image`, formData, {
-        withCredentials: true,
-      })
-      .then(res => {
-        commit('updateProfileImage', res.data);
-        return res.data;
-      });
+    return new Promise((resolve, reject) => {
+      this.$axios
+        .post(`/user/image`, formData, {
+          withCredentials: true,
+        })
+        .then(res => {
+          commit('updateProfileImage', res.data.path);
+          resolve(res.data.msg);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+    return;
   },
   updateMedia({ commit, state }, payload) {
-    return this.$axios
-      .post(
-        `/media/user/${payload.userId}`,
-        {
-          github: payload.github,
-          gmail: payload.gmail,
-          facebook: payload.facebook,
-        },
-        {
-          withCredentials: true,
-        },
-      )
-      .then(res => {
-        return res.data;
-      })
-      .catch(err => {
-        console.error(err);
-      });
+    return new Promise((resolve, reject) => {
+      this.$axios
+        .post(
+          `/media/user/${payload.userId}`,
+          {
+            ...payload,
+            // github: payload.github,
+            // gmail: payload.gmail,
+            // facebook: payload.facebook,
+          },
+          {
+            withCredentials: true,
+          },
+        )
+        .then(res => {
+          resolve(res);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
   },
-  async githubLogIn({ commit }, payload) {
-    await this.$axios
-      .post(
-        '/auth/githubLogin',
-        {
-          email: payload.email,
-          socialType: payload.socialType,
-        },
-        {
-          withCredentials: true,
-        },
-      )
-      .then(res => {
-        commit('setMe', res.data);
-      })
-      .catch(err => {
-        console.error(err);
-      });
+  githubLogIn({ commit }, payload) {
+    return new Promise((resolve, reject) => {
+      this.$axios
+        .post(
+          '/auth/githubLogin',
+          {
+            ...payload,
+            // email: payload.email,
+            // socialType: payload.socialType,
+          },
+          {
+            withCredentials: true,
+          },
+        )
+        .then(res => {
+          commit('setMe', res.data);
+        })
+        .catch(err => {
+          console.error(err);
+          reject(err);
+        });
+    });
   },
 };
 

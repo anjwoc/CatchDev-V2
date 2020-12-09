@@ -129,9 +129,16 @@
               reset: true,
               user: this.user,
             });
+            this.$dialog.notify.info(res.data, {
+              position: 'top-right',
+              timeout: 5000,
+            });
           })
           .catch(err => {
-            console.error(err);
+            this.$dialog.notify.warning(err.response.data, {
+              position: 'top-right',
+              timeout: 5000,
+            });
           });
       },
       onChangeImage(e) {
@@ -142,11 +149,17 @@
         formData.append('userId', this.user.id);
         this.$store
           .dispatch('users/updateProfileImage', formData)
-          .then(res => {
-            console.log(res.data);
+          .then(msg => {
+            this.$dialog.notify.info(msg, {
+              position: 'top-right',
+              timeout: 5000,
+            });
           })
           .catch(err => {
-            console.error(err);
+            this.$dialog.notify.warning(err.response.data, {
+              position: 'top-right',
+              timeout: 5000,
+            });
           });
       },
     },
