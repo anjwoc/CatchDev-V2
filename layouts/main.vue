@@ -11,6 +11,20 @@
         </v-toolbar-title>
 
         <v-spacer></v-spacer>
+        <div>
+          <v-btn class="ma-0 pa-0" icon @click="search = !search">
+            <v-icon>mdi-magnify</v-icon>
+          </v-btn>
+          <input
+            v-if="search"
+            class="search_box mx-2 ml-0 mr-10"
+            @keydown.enter="toSearchPage"
+            autocomplete="off"
+            placeholder="Search"
+            type="text"
+          />
+        </div>
+
         <div v-if="!me">
           <v-btn
             class="toolbar-btn text-capitalize font-weight-bold"
@@ -65,6 +79,7 @@
     },
     data() {
       return {
+        search: false,
         tab: '',
         tabs: [
           '전체',
@@ -78,6 +93,10 @@
       };
     },
     methods: {
+      toSearchPage(e) {
+        const word = e.target.value;
+        this.$router.push(`/search/${word}`);
+      },
       onChangeTabs(category) {
         switch (category) {
           case '전체':
@@ -109,4 +128,10 @@
     },
   };
 </script>
-<style scoped></style>
+<style lang="scss" scoped>
+  .search_box {
+    border: 1px solid grey;
+    border-radius: 3px;
+    padding: 5px 10px;
+  }
+</style>

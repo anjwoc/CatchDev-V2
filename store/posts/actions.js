@@ -57,64 +57,76 @@ const actions = {
         console.error(err);
       });
   },
-  async addComment({ commit }, payload) {
-    await this.$axios
-      .post(
-        `/comment/${payload.postId}`,
-        {
-          ...payload,
-          // postId: payload.postId,
-          // content: payload.content,
-          // isPrivate: payload.isPrivate,
-        },
-        {
-          withCredentials: true,
-        },
-      )
-      .then(res => {
-        commit('addComment', res.data);
-      })
-      .catch(err => {
-        console.error(err);
-      });
-  },
-  async deleteComment({ commit }, payload) {
-    await this.$axios
-      .delete(
-        `/comment/${payload.id}`,
-        {
-          data: {
-            postId: payload.postId,
+  addComment({ commit }, payload) {
+    return new Promise((resolve, reject) => {
+      this.$axios
+        .post(
+          `/comment/${payload.postId}`,
+          {
+            ...payload,
+            // postId: payload.postId,
+            // content: payload.content,
+            // isPrivate: payload.isPrivate,
           },
-        },
-        {
-          withCredentials: true,
-        },
-      )
-      .then(res => {
-        commit('deleteComment', {
-          id: res.data,
-          postId: payload.postId,
+          {
+            withCredentials: true,
+          },
+        )
+        .then(res => {
+          commit('addComment', res.data);
+          resolve(res);
+        })
+        .catch(err => {
+          reject(err);
         });
-      });
+    });
   },
-  async updateComment({ commit }, payload) {
-    await this.$axios
-      .post(
-        `/comment/update/${payload.commentId}`,
-        {
-          content: payload.content,
-        },
-        {
-          withCredentials: true,
-        },
-      )
-      .then(res => {
-        commit('updateComment', res.data);
-      })
-      .catch(err => {
-        console.error(err);
-      });
+  deleteComment({ commit }, payload) {
+    return new Promise((resolve, reject) => {
+      this.$axios
+        .delete(
+          `/comment/${payload.id}`,
+          {
+            data: {
+              postId: payload.postId,
+            },
+          },
+          {
+            withCredentials: true,
+          },
+        )
+        .then(res => {
+          commit('deleteComment', {
+            id: res.data,
+            postId: payload.postId,
+          });
+          resolve(res);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  },
+  updateComment({ commit }, payload) {
+    return new Promise((resolve, reject) => {
+      this.$axios
+        .post(
+          `/comment/update/${payload.commentId}`,
+          {
+            content: payload.content,
+          },
+          {
+            withCredentials: true,
+          },
+        )
+        .then(res => {
+          commit('updateComment', res.data);
+          resolve(res);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
   },
   async loadPost({ dispatch, commit }, payload) {
     try {
@@ -326,7 +338,7 @@ const actions = {
   },
   async loadSearchPosts({ commit }, payload) {
     if (payload && payload.reset) {
-      const res = await this.$axios.get(`/posts/search/${payload.searchWord}`);
+      const res = await this.$axios.get(`/posts/search/${payload.word}`);
       commit('loadPosts', {
         data: res.data,
         reset: true,
@@ -337,7 +349,7 @@ const actions = {
       const lastPost = state.mainPosts[state.mainPosts.length - 1];
       //lastPost가 존재하는지 체크하고 lastPost.id를 넘김
       const res = await this.$axios.get(
-        `/posts/search/${payload.searchWord}?lastId=${
+        `/posts/search/${payload.word}?lastId=${
           lastPost && lastPost.id
         }&limit=10`,
       );

@@ -4,6 +4,10 @@
 //     'Noto Sans KR', sans-serif !important;
 // }
 
+input:focus {
+  outline: none !important;
+}
+
 .bg-lightgrey {
   background-color: rgb(251, 251, 251);
 }

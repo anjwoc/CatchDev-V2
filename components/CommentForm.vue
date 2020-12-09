@@ -56,11 +56,6 @@
         isPrivate: false,
       };
     },
-    computed: {
-      me() {
-        return this.$store.state.users.me;
-      },
-    },
     methods: {
       onSubmitForm() {
         if (this.$refs.form.validate()) {
@@ -72,6 +67,12 @@
             })
             .then(() => {
               this.content = '';
+            })
+            .catch(err => {
+              this.$dialog.notify.error(err.response.data, {
+                position: 'top-right',
+                timeout: 5000,
+              });
             });
         }
       },
