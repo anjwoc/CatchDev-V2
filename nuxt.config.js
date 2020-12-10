@@ -34,13 +34,9 @@ export default {
     ['@nuxtjs/vuetify', { treeShake: true }],
     '@nuxtjs/moment',
   ],
-
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
-    // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
-    // https://go.nuxtjs.dev/pwa
-    // '@nuxtjs/pwa',
     'vuetify-dialog/nuxt',
     'nuxt-material-design-icons',
   ],
@@ -50,6 +46,7 @@ export default {
   },
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
+    treeshake: true,
   },
   env: {
     baseUrl: config.baseUrl,
@@ -60,7 +57,11 @@ export default {
   },
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
-    transpile: ['vuetify/lib', 'tiptap-vuetify'],
-    standalone: true,
+    extractCSS: true,
+    extend(config, { isClient, isServer, isDev }) {
+      if (isServer && !isDev) {
+        config.devtool = 'hidden-source-map';
+      }
+    },
   },
 };
