@@ -140,6 +140,7 @@
     },
     methods: {
       githubRedirect() {
+        console.log(`${process.env.baseUrl}/auth/github`);
         window.location.href = `${process.env.baseUrl}/auth/github`;
       },
       googleRedirect() {
@@ -152,6 +153,12 @@
             break;
           case 'github':
             this.githubRedirect();
+            break;
+          case 'facebook':
+            this.$dialog.notify.warning('추가 예정 기능입니다.', {
+              position: 'top-right',
+              timeout: 5000,
+            });
             break;
           default:
             break;
@@ -175,6 +182,15 @@
             });
         }
       },
+    },
+    mounted() {
+      const { error } = this.$route.query;
+      if (error) {
+        this.$dialog.notify.error(error, {
+          position: 'top-right',
+          timeout: 5000,
+        });
+      }
     },
     middleware: 'anonymous',
   };
