@@ -24,9 +24,6 @@
             userId: this.me && this.me.id,
           })
           .then(res => {
-            console.log(res.status);
-            console.log(res.data);
-            this.$;
             this.$router.push({ path: '/' });
           })
           .catch(err => {

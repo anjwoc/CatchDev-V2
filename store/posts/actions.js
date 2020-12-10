@@ -130,7 +130,6 @@ const actions = {
   },
   async loadPost({ dispatch, commit }, payload) {
     try {
-      console.log('loadPost');
       const res = await this.$axios.get(`/post/${payload}`);
       const post = res.data;
       if (post.hashtags.length > 0) {

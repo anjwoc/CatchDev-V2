@@ -162,7 +162,6 @@ export const actions = {
           },
         )
         .then(res => {
-          console.log(res.status);
           if (res.status === 200) {
             commit('setMe', res.data);
             resolve(res.status);

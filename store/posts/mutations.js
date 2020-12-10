@@ -54,7 +54,6 @@ const mutations = {
     state.hasMorePost = payload.data.length === 10;
   },
   loadComments(state, payload) {
-    console.log('loadComments');
     if (payload.data.length == 0) return;
     const index = state.mainPosts.findIndex(v => v.id === payload.postId);
 
