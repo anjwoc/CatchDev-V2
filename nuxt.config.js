@@ -1,8 +1,5 @@
 import dotenv from 'dotenv';
 const config = dotenv.config({ path: `.env.${process.env.NODE_ENV}` }).parsed;
-if (!config) {
-  config = process.env;
-}
 export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
@@ -43,24 +40,24 @@ export default {
     'nuxt-material-design-icons',
   ],
   axios: {
-    browserBaseURL: config.browserBaseURL,
-    baseURL: config.baseURL,
+    browserBaseURL: config.browserBaseURL || process.env.browserBaseURL,
+    baseURL: config.baseURL || process.env.baseURL,
   },
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     treeshake: true,
   },
   env: {
-    baseUrl: config.baseUrl,
-    default_img: config.default_img,
-    no_img: config.no_img,
-    default_cover: config.default_cover,
-    WS_URL: config.WS_URL,
+    baseUrl: config.baseUrl || process.env.baseUrl,
+    default_img: config.default_img || process.env.default_img,
+    no_img: config.no_img || process.env.no_img,
+    default_cover: config.default_cover || process.env.default_cover,
+    WS_URL: config.WS_URL || process.env.WS_URL,
   },
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
     extractCSS: true,
-    extend(config, { isClient, isServer, isDev }) {
+    extend(config, { isServer, isDev }) {
       if (isServer && !isDev) {
         config.devtool = 'hidden-source-map';
       }
