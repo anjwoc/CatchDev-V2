@@ -1,6 +1,8 @@
 import dotenv from 'dotenv';
 const config = dotenv.config({ path: `.env.${process.env.NODE_ENV}` }).parsed;
-
+if (!config) {
+  config = process.env;
+}
 export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
