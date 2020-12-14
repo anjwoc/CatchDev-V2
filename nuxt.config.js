@@ -1,9 +1,9 @@
 import dotenv from 'dotenv';
 const config = dotenv.config({ path: `.env.${process.env.NODE_ENV}` }).parsed;
-console.log(config.browserBaseURL || process.env.browserBaseURL);
-// webhook test..
 console.log(config);
 console.log(process.env);
+console.log(config.browserBaseURL || process.env.browserBaseURL);
+// webhook test..
 
 export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
