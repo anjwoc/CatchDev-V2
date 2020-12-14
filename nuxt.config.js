@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
-const config = dotenv.config({ path: `.env.${process.env.NODE_ENV}` }).parsed;
+let config = dotenv.config({ path: `.env.${process.env.NODE_ENV}` }).parsed;
+if (!config) config = process.env;
 console.log(config);
 console.log(process.env);
 console.log(config.browserBaseURL || process.env.browserBaseURL);
