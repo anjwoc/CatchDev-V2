@@ -1,9 +1,6 @@
 import dotenv from 'dotenv';
 let config = dotenv.config({ path: `.env.${process.env.NODE_ENV}` }).parsed;
 if (!config) config = process.env;
-console.log(config);
-console.log(process.env);
-console.log(config.browserBaseURL || process.env.browserBaseURL);
 // webhook test..
 
 export default {
@@ -46,19 +43,19 @@ export default {
     'nuxt-material-design-icons',
   ],
   axios: {
-    browserBaseURL: config.browserBaseURL || process.env.browserBaseURL,
-    baseURL: config.baseURL || process.env.baseURL,
+    browserBaseURL: config.browserBaseURL,
+    baseURL: config.baseURL,
   },
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     treeshake: true,
   },
   env: {
-    baseUrl: config.baseUrl || process.env.baseUrl,
-    default_img: config.default_img || process.env.default_img,
-    no_img: config.no_img || process.env.no_img,
-    default_cover: config.default_cover || process.env.default_cover,
-    WS_URL: config.WS_URL || process.env.WS_URL,
+    baseUrl: config.baseUrl,
+    default_img: config.default_img,
+    no_img: config.no_img,
+    default_cover: config.default_cover,
+    WS_URL: config.WS_URL,
   },
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
