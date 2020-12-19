@@ -133,6 +133,11 @@
         return this.$store.state.users.me;
       },
     },
+    head() {
+      return {
+        title: '최근 게시글',
+      };
+    },
   };
 </script>
 <style lang="scss" scoped>

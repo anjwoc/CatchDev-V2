@@ -1,17 +1,26 @@
 import dotenv from 'dotenv';
 let config = dotenv.config({ path: `.env.${process.env.NODE_ENV}` }).parsed;
 if (!config) config = process.env;
-// webhook test..
 
 export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
     titleTemplate: '%s',
-    title: 'Catch Dev',
+    title: 'CatchStudy',
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' },
+      {
+        name: 'viewport',
+        content:
+          'width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover',
+      },
+      { 'http-equiv': 'X-UA-Compatible', content: 'IE=edge' },
+      { hid: 'description', name: 'description', content: 'CatchStudy' },
+      { hid: 'ogtitle', name: 'og:title', content: 'CatchStudy' },
+      { hid: 'ogdescription', name: 'og:description', content: 'CatchStudy' },
+      { hid: 'ogtype', name: 'og:type', content: 'website' },
+      { hid: 'ogiamge', name: 'og:image', content: '' },
+      { hid: 'ogurl', name: 'og:url', content: '' },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },

@@ -66,6 +66,11 @@
         return this.$store.state.users.me;
       },
     },
+    head() {
+      return {
+        title: '프로필 수정',
+      };
+    },
   };
 </script>
 <style scoped>

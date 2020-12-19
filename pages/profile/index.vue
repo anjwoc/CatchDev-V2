@@ -19,6 +19,7 @@
   import ProfileCard from '@/components/ProfileCard';
   export default {
     layout: 'profile',
+    middleware: 'authenticated',
     components: {
       ProfileCard,
     },

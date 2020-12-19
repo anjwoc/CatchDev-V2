@@ -24,16 +24,36 @@
         store.dispatch('posts/loadComments', parseInt(params.id)),
       ]);
     },
-    data() {
-      return {};
-    },
-    methods: {},
     computed: {
       ...mapState({
         post: state => state.posts.mainPosts[0],
         me: state => state.users.me,
         relatedPosts: state => state.posts.relatedPosts,
       }),
+    },
+    head() {
+      return {
+        title: `${this.post.title}`,
+        meta: [
+          {
+            hid: 'description',
+            name: 'description',
+            content: this.post.content,
+          },
+          { hid: 'ogtitle', property: 'og:title', content: this.post.title },
+          {
+            hid: 'ogdescription',
+            property: 'og:description',
+            content: this.post.content,
+          },
+          { hid: 'ogimage', property: 'og:image', content: this.post.coverImg },
+          {
+            hid: 'ogurl',
+            property: 'og:url',
+            content: `https://www.catchstudy.online/post/${this.post.id}`,
+          },
+        ],
+      };
     },
   };
 </script>

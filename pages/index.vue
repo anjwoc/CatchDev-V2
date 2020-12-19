@@ -96,6 +96,24 @@
     beforeDestroy() {
       window.removeEventListener('scroll', this.onScroll);
     },
+    head() {
+      return {
+        metaInfo: {
+          title: '전체 게시글',
+          titleTemplate: '%s',
+          // <html> 요소의 속성 설정
+          htmlAttrs: {
+            // 주 언어 명시
+            lang: 'ko-KR',
+            dir: 'ltr',
+          },
+          meta: [
+            { charset: 'utf-8' },
+            { hid: 'description', name: 'description', content: '전체 게시글' },
+          ],
+        },
+      };
+    },
   };
 </script>
 <style scoped></style>
