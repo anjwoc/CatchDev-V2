@@ -2,12 +2,6 @@
   "name": "v2-front",
   "version": "1.0.0",
   "private": true,
-  "config": {
-    "nuxt": {
-      "host": "0.0.0.0",
-      "port": "3000"
-    }
-  },
   "scripts": {
     "dev": "nuxt",
     "docker": "NODE_ENV=docker nuxt",
