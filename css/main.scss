@@ -4,6 +4,10 @@
 //     'Noto Sans KR', sans-serif !important;
 // }
 
+// * {
+//   background-color: #f8f9fa;
+// }
+
 input:focus {
   outline: none !important;
 }
@@ -73,21 +77,25 @@ input:focus {
 
 .user {
   padding-left: 15px;
-  background: url('/user2.png') no-repeat left 3px/14px;
+  background: url("/user2.png") no-repeat left 3px/14px;
 }
 .star {
   padding-left: 17px;
-  background: url('/star.png') no-repeat left 3px/13px;
+  background: url("/star.png") no-repeat left 3px/13px;
 }
 .heart {
   padding-left: 16px;
-  background: url('/heart3.png') no-repeat left 3px/13px;
+  background: url("/heart3.png") no-repeat left 3px/13px;
 }
 
 .vertical-center {
   display: flex;
   align-items: center;
   // justify-content: center;
+}
+
+.text-center {
+  text-align: center;
 }
 
 .post_sticky_area {
@@ -151,7 +159,7 @@ input:focus {
       width: 220px;
       color: #333;
       font-size: 16px;
-      font-family: 'Noto Sans KR', sans-serif !important;
+      font-family: "Noto Sans KR", sans-serif !important;
       padding: 14px;
       font-weight: 900 !important;
     }

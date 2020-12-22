@@ -20,6 +20,14 @@
     <v-container>
       <div class="text-center justify-center mt-6 mb-6">
         <div class="text-h5 font-weight-bold">최근 게시글</div>
+        <div>
+          <v-btn icon @click="$router.push('/recruit')">
+            <div class="caption font-weight-bold pink--text">
+              전체 게시글 보기
+            </div>
+            <v-icon class="pink--text">mdi-send</v-icon>
+          </v-btn>
+        </div>
       </div>
       <v-row>
         <v-col

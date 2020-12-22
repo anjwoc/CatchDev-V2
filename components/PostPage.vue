@@ -2,12 +2,14 @@
   <v-container>
     <div class="post_content_container mt-4">
       <v-img
+        v-if="post.coverImg"
         class="mb-5"
         contain
         max-height="442"
-        :src="cover"
+        :src="post.coverImg"
         style="border-radius: 10px"
       ></v-img>
+      <h1 v-else>📂</h1>
 
       <v-card class="subtitle-1 pb-4 mt-6" elevation="0">
         <v-chip
@@ -231,10 +233,10 @@
           postId: this.post.id,
         });
       },
-      onApplySutdy() {
-        if (!this.me) {
-        }
-      },
+      // onApplySutdy() {
+      //   if (!this.me) {
+      //   }
+      // },
     },
     computed: {
       isMe() {
@@ -254,9 +256,6 @@
           return tags[0];
         }
         return null;
-      },
-      cover() {
-        return this.post.coverImg || process.env.default_cover;
       },
     },
   };

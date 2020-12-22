@@ -1,5 +1,6 @@
 <template>
   <v-card
+    class="white"
     :elevation="hover ? 10 : 1"
     :ripple="false"
     nuxt
@@ -42,7 +43,7 @@
 
 <script>
   export default {
-    name: "PostImageCard",
+    name: 'PostImageCard',
     props: {
       height: [String, Number],
       post: {

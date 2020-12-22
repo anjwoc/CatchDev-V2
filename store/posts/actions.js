@@ -1,11 +1,11 @@
-import throttle from 'lodash.throttle';
+import throttle from "lodash.throttle";
 
 const actions = {
   add({ commit, state }, payload) {
     return new Promise((resolve, reject) => {
       this.$axios
         .post(
-          '/post',
+          "/post",
           {
             ...payload,
             image: state.imagePaths,
@@ -15,7 +15,7 @@ const actions = {
           },
         )
         .then(res => {
-          commit('addMainPost', res.data);
+          commit("addMainPost", res.data);
           resolve(res.data.id);
         })
         .catch(err => {
@@ -37,7 +37,7 @@ const actions = {
           },
         )
         .then(res => {
-          commit('updateMainPost', res.data);
+          commit("updateMainPost", res.data);
           resolve(res.data.id);
         })
         .catch(err => {
@@ -51,7 +51,7 @@ const actions = {
         withCredentials: true,
       })
       .then(res => {
-        commit('removeMainPost', payload);
+        commit("removeMainPost", payload);
       })
       .catch(err => {
         console.error(err);
@@ -73,7 +73,7 @@ const actions = {
           },
         )
         .then(res => {
-          commit('addComment', res.data);
+          commit("addComment", res.data);
           resolve(res);
         })
         .catch(err => {
@@ -96,7 +96,7 @@ const actions = {
           },
         )
         .then(res => {
-          commit('deleteComment', {
+          commit("deleteComment", {
             id: res.data,
             postId: payload.postId,
           });
@@ -120,7 +120,7 @@ const actions = {
           },
         )
         .then(res => {
-          commit('updateComment', res.data);
+          commit("updateComment", res.data);
           resolve(res);
         })
         .catch(err => {
@@ -133,25 +133,25 @@ const actions = {
       const res = await this.$axios.get(`/post/${payload}`);
       const post = res.data;
       if (post.hashtags.length > 0) {
-        let tags = '';
+        let tags = "";
         post.hashtags.forEach(tag => {
           tags += `${tag.name},`;
         });
         tags = tags.slice(0, tags.length - 1);
-        commit('loadPost', post);
-        return dispatch('loadRelatedPosts', {
+        commit("loadPost", post);
+        return dispatch("loadRelatedPosts", {
           tags: tags,
           postId: payload,
         });
       }
-      commit('loadPost', post);
+      commit("loadPost", post);
     } catch (err) {
       console.error(err);
     }
   },
   async loadRelatedPosts({ commit }, payload) {
     const res = await this.$axios.get(`/posts/tags?tags=${payload.tags}`);
-    commit('loadRelatedPosts', {
+    commit("loadRelatedPosts", {
       newPosts: res.data,
       currentPostId: payload.postId,
     });
@@ -159,7 +159,7 @@ const actions = {
   async loadUpdatePost({ commit, state }, postId) {
     try {
       const res = await this.$axios.get(`/post/history/${postId}`);
-      commit('loadPost', res.data);
+      commit("loadPost", res.data);
     } catch (err) {
       console.error(err);
     }
@@ -172,7 +172,7 @@ const actions = {
           `/posts/category?category=${category}`,
         );
 
-        commit('loadPosts', {
+        commit("loadPosts", {
           data: res.data,
           reset: true,
         });
@@ -186,7 +186,7 @@ const actions = {
             lastPost && lastPost.id
           }&limit=10`,
         );
-        commit('loadPosts', {
+        commit("loadPosts", {
           data: res.data,
         });
         return;
@@ -199,7 +199,7 @@ const actions = {
     try {
       if (payload && payload.reset) {
         const res = await this.$axios.get(`/posts/trendingPosts`);
-        commit('loadPosts', {
+        commit("loadPosts", {
           data: res.data,
           reset: true,
         });
@@ -211,7 +211,7 @@ const actions = {
         const res = await this.$axios.get(
           `/posts?lastId=${lastPost && lastPost.id}&limit=10`,
         );
-        commit('loadPosts', {
+        commit("loadPosts", {
           data: res.data,
         });
         return;
@@ -224,7 +224,7 @@ const actions = {
     try {
       if (payload && payload.reset) {
         const res = await this.$axios.get(`/posts`);
-        commit('loadPosts', {
+        commit("loadPosts", {
           data: res.data,
           reset: true,
         });
@@ -236,7 +236,7 @@ const actions = {
         const res = await this.$axios.get(
           `/posts?lastId=${lastPost && lastPost.id}&limit=10`,
         );
-        commit('loadPosts', {
+        commit("loadPosts", {
           data: res.data,
         });
         return;
@@ -248,7 +248,7 @@ const actions = {
   loadTagsPosts: throttle(async function ({ commit }, payload) {
     if (payload && payload.reset) {
       const res = await this.$axios.get(`/posts/tags/${payload.tag}`);
-      commit('loadPosts', {
+      commit("loadPosts", {
         data: res.data,
         reset: true,
       });
@@ -259,7 +259,7 @@ const actions = {
       const res = await this.$axios.get(
         `/posts/tags/${payload.tag}?lastId=${lastPost && lastPost.id}&limit=10`,
       );
-      commit('loadPosts', {
+      commit("loadPosts", {
         data: res.data,
       });
       return;
@@ -269,7 +269,7 @@ const actions = {
     await this.$axios
       .get(`/comment/${postId}`)
       .then(res => {
-        commit('loadComments', {
+        commit("loadComments", {
           postId: postId,
           data: res.data,
         });
@@ -288,7 +288,7 @@ const actions = {
         },
       )
       .then(res => {
-        commit('likePost', {
+        commit("likePost", {
           userId: res.data.userId,
           postId: payload.postId,
         });
@@ -303,7 +303,7 @@ const actions = {
         withCredentials: true,
       })
       .then(res => {
-        commit('unlikePost', {
+        commit("unlikePost", {
           userId: res.data.userId,
           postId: payload.postId,
         });
@@ -324,7 +324,7 @@ const actions = {
         },
       )
       .then(res => {
-        commit('updatePostStatus', {
+        commit("updatePostStatus", {
           postId: payload.postId,
           status: res.data,
         });
@@ -336,7 +336,7 @@ const actions = {
   async loadSearchPosts({ commit }, payload) {
     if (payload && payload.reset) {
       const res = await this.$axios.get(`/posts/search/${payload.word}`);
-      commit('loadPosts', {
+      commit("loadPosts", {
         data: res.data,
         reset: true,
       });
@@ -350,16 +350,16 @@ const actions = {
           lastPost && lastPost.id
         }&limit=10`,
       );
-      commit('loadPosts', {
+      commit("loadPosts", {
         data: res.data,
       });
       return;
     }
   },
-  async loadAllHashtags({ commit }) {
+  async loadHashtags({ commit }) {
     try {
-      const res = await this.$axios.get(`/posts/allTags`);
-      commit('loadHashtags', {
+      const res = await this.$axios.get(`/tags`);
+      commit("loadHashtags", {
         data: res.data,
       });
     } catch (err) {

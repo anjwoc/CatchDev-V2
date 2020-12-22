@@ -1,4 +1,4 @@
-import Vue from 'vue';
+import Vue from "vue";
 
 const mutations = {
   addMainPost(state, payload) {
@@ -57,7 +57,7 @@ const mutations = {
     if (payload.data.length == 0) return;
     const index = state.mainPosts.findIndex(v => v.id === payload.postId);
 
-    Vue.set(state.mainPosts[index], 'Comments', payload.data);
+    Vue.set(state.mainPosts[index], "Comments", payload.data);
   },
   updateComment(state, payload) {
     const index = state.mainPosts[0].Comments.findIndex(
