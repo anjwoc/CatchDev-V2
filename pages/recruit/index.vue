@@ -20,7 +20,7 @@
             ></v-select>
           </v-col>
           <v-col cols="1">
-            <v-btn class="ma-2 vertical-center" outlined large fab color="pink">
+            <v-btn class="vertical-center" fab color="pink" dark outlined>
               <v-icon>mdi-magnify</v-icon>
             </v-btn>
           </v-col>
@@ -31,19 +31,8 @@
     <v-container>
       <div class="text-h5 hashtag_title">추천 해시태그</div>
       <div class="d-flex">
-        <v-chip-group
-          v-model="tags"
-          mandatory
-          multiple
-          active-class="primary--text"
-        >
-          <v-chip
-            v-for="tag in hashtags"
-            :key="tag"
-            color="blue"
-            label
-            outlined
-          >
+        <v-chip-group v-model="tags" multiple active-class="pink--text">
+          <v-chip v-for="tag in hashtags" class="" :key="tag" outlined label>
             {{ tag }}
           </v-chip>
         </v-chip-group>
