@@ -339,7 +339,6 @@ const actions = {
       .map(e => e.join("="))
       .join("&");
 
-    console.log(queryString);
     if (payload && payload.reset) {
       const res = await this.$axios.get(`/posts/search?${queryString}`);
       commit("loadPosts", {
