@@ -126,37 +126,36 @@
   export default {
     data() {
       return {
-        valid: '',
-        email: '',
-        password: '',
-        socialIcons: ['mdi-facebook', 'mdi-github', 'mdi-google'],
-        socials: ['facebook', 'github', 'google'],
+        valid: "",
+        email: "",
+        password: "",
+        socialIcons: ["mdi-facebook", "mdi-github", "mdi-google"],
+        socials: ["facebook", "github", "google"],
         emailRules: [
-          v => !!v || '이메일을 입력해주세요.',
-          v => /.+@.+/.test(v) || '이메일이 유효하지 않습니다.',
+          v => !!v || "이메일을 입력해주세요.",
+          v => /.+@.+/.test(v) || "이메일이 유효하지 않습니다.",
         ],
-        passwordRules: [v => !!v || '비밀번호를 입력해주세요.'],
+        passwordRules: [v => !!v || "비밀번호를 입력해주세요."],
       };
     },
     methods: {
       githubRedirect() {
-        console.log(`${process.env.baseUrl}/auth/github`);
-        window.location.href = `${process.env.baseUrl}/auth/github`;
+        window.location.href = `${process.env.baseUrl}/api/auth/github`;
       },
       googleRedirect() {
-        window.location.href = `${process.env.baseUrl}/auth/google`;
+        window.location.href = `${process.env.baseUrl}/api/auth/google`;
       },
       onSocialLogin(type) {
         switch (type) {
-          case 'google':
+          case "google":
             this.googleRedirect();
             break;
-          case 'github':
+          case "github":
             this.githubRedirect();
             break;
-          case 'facebook':
-            this.$dialog.notify.warning('추가 예정 기능입니다.', {
-              position: 'top-right',
+          case "facebook":
+            this.$dialog.notify.warning("추가 예정 기능입니다.", {
+              position: "top-right",
               timeout: 5000,
             });
             break;
@@ -167,16 +166,16 @@
       onSubmitForm() {
         if (this.$refs.form.validate()) {
           this.$store
-            .dispatch('users/logIn', {
+            .dispatch("users/logIn", {
               email: this.email,
               password: this.password,
             })
             .then(res => {
-              this.$router.push({ path: '/' });
+              this.$router.push({ path: "/" });
             })
             .catch(err => {
               this.$dialog.notify.warning(err.response.data, {
-                position: 'top-right',
+                position: "top-right",
                 timeout: 5000,
               });
             });
@@ -187,12 +186,12 @@
       const { error } = this.$route.query;
       if (error) {
         this.$dialog.notify.error(error, {
-          position: 'top-right',
+          position: "top-right",
           timeout: 5000,
         });
       }
     },
-    middleware: 'anonymous',
+    middleware: "anonymous",
   };
 </script>
 
