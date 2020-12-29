@@ -334,8 +334,14 @@ const actions = {
       });
   },
   async loadSearchPosts({ commit }, payload) {
+    const queryString = Object.entries(payload)
+      .filter(e => e[1].length > 0 || e.includes("reset"))
+      .map(e => e.join("="))
+      .join("&");
+
+    console.log(queryString);
     if (payload && payload.reset) {
-      const res = await this.$axios.get(`/posts/search/${payload.word}`);
+      const res = await this.$axios.get(`/posts/search?${queryString}`);
       commit("loadPosts", {
         data: res.data,
         reset: true,
@@ -343,12 +349,14 @@ const actions = {
       return;
     }
     if (state.hasMorePost) {
+      /*
+      아직 구현 X
+      */
       const lastPost = state.mainPosts[state.mainPosts.length - 1];
-      //lastPost가 존재하는지 체크하고 lastPost.id를 넘김
       const res = await this.$axios.get(
         `/posts/search/${payload.word}?lastId=${
           lastPost && lastPost.id
-        }&limit=10`,
+        }&limit=10&${queryString}`,
       );
       commit("loadPosts", {
         data: res.data,

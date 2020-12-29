@@ -6,12 +6,13 @@
         <v-row>
           <v-col class="vertical-center" cols="5">
             <v-icon x-large>mdi-magnify</v-icon>
-            <input type="text" placeholder="검색어" />
+            <input v-model="word" type="text" placeholder="검색어" />
           </v-col>
           <v-col class="vertical-center" cols="6">
             <v-icon x-large>mdi-map-marker</v-icon>
             <v-select
               class="location_list elevation-0"
+              v-model="location"
               :items="locations"
               flat
               solo
@@ -20,7 +21,14 @@
             ></v-select>
           </v-col>
           <v-col cols="1">
-            <v-btn class="vertical-center" fab color="pink" dark outlined>
+            <v-btn
+              class="vertical-center"
+              @click="onSearchPosts"
+              fab
+              color="pink"
+              dark
+              outlined
+            >
               <v-icon>mdi-magnify</v-icon>
             </v-btn>
           </v-col>
@@ -29,7 +37,11 @@
     </v-container>
 
     <v-container>
-      <div class="text-h5 hashtag_title">추천 해시태그</div>
+      <div class="text-h5 hashtag_title">
+        <v-icon class="pb-1">mdi-tag</v-icon>
+        <span>추천 해시태그</span>
+        <v-icon x-small>mdi-infomation</v-icon>
+      </div>
       <div class="d-flex">
         <v-chip-group v-model="tags" multiple active-class="pink--text">
           <v-chip v-for="tag in hashtags" class="" :key="tag" outlined label>
@@ -41,7 +53,7 @@
 
     <v-container>
       <div class="text-center justify-center mt-6 mb-6">
-        <div class="text-h5 font-weight-bold">최근 게시글</div>
+        <div class="text-h5 font-weight-bold">검색 결과</div>
       </div>
       <v-row>
         <v-col
@@ -87,7 +99,10 @@
         closeDelay: "0",
         value: false,
         tags: [],
+        word: "",
+        location: "",
         locations: [
+          "",
           "서울",
           "수원",
           "인천",
@@ -99,19 +114,17 @@
           "제주",
           "기타",
         ],
-        colors: [
-          "indigo",
-          "warning",
-          "pink darken-2",
-          "red lighten-1",
-          "deep-purple accent-4",
-        ],
-        slides: ["First", "Second", "Third", "Fourth", "Fifth"],
       };
     },
     methods: {
-      test() {
-        console.log("test clicked");
+      onSearchPosts() {
+        const selectedTags = this.tags.map(idx => this.hashtags[idx]);
+        this.$store.dispatch("posts/loadSearchPosts", {
+          reset: true,
+          word: this.word,
+          location: this.location,
+          tags: selectedTags,
+        });
       },
       onScroll() {
         if (
@@ -137,24 +150,24 @@
     beforeDestroy() {
       window.removeEventListener("scroll", this.onScroll);
     },
-    // head() {
-    //   return {
-    //     metaInfo: {
-    //       title: '전체 게시글',
-    //       titleTemplate: '%s',
-    //       // <html> 요소의 속성 설정
-    //       htmlAttrs: {
-    //         // 주 언어 명시
-    //         lang: 'ko-KR',
-    //         dir: 'ltr',
-    //       },
-    //       meta: [
-    //         { charset: 'utf-8' },
-    //         { hid: 'description', name: 'description', content: '전체 게시글' },
-    //       ],
-    //     },
-    //   };
-    // },
+    head() {
+      return {
+        metaInfo: {
+          title: "검색 결과",
+          titleTemplate: "%s",
+          // <html> 요소의 속성 설정
+          htmlAttrs: {
+            // 주 언어 명시
+            lang: "ko-KR",
+            dir: "ltr",
+          },
+          meta: [
+            { charset: "utf-8" },
+            { hid: "description", name: "description", content: "검색 결과" },
+          ],
+        },
+      };
+    },
   };
 </script>
 <style scoped>
