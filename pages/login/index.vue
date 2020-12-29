@@ -140,10 +140,10 @@
     },
     methods: {
       githubRedirect() {
-        window.location.href = `${process.env.baseUrl}/api/auth/github`;
+        window.location.href = `${process.env.baseUrl}/auth/github`;
       },
       googleRedirect() {
-        window.location.href = `${process.env.baseUrl}/api/auth/google`;
+        window.location.href = `${process.env.baseUrl}/auth/google`;
       },
       onSocialLogin(type) {
         switch (type) {
