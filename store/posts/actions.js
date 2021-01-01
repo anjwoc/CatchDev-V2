@@ -150,7 +150,9 @@ const actions = {
     }
   },
   async loadRelatedPosts({ commit }, payload) {
-    const res = await this.$axios.get(`/posts/tags?tags=${payload.tags}`);
+    const res = await this.$axios.get(
+      `/posts/tags?tags=${encodeURIComponent(payload.tags)}`,
+    );
     commit("loadRelatedPosts", {
       newPosts: res.data,
       currentPostId: payload.postId,

@@ -46,7 +46,7 @@
             <div class="caption heart">{{ post.like }}</div>
           </div>
 
-          <v-menu offset-x rounded elevation="1">
+          <v-menu v-if="isMe" offset-x rounded elevation="1">
             <template v-slot:activator="{ on, attrs }">
               <v-btn icon small class="ml-2 mt-0 pb-2" v-bind="attrs" v-on="on">
                 <v-icon>mdi-dots-horizontal</v-icon>
@@ -161,7 +161,7 @@
 </template>
 
 <script>
-  import RelatedPostList from '@/components/RelatedPostList';
+  import RelatedPostList from "@/components/RelatedPostList";
   export default {
     props: {
       post: {
@@ -176,12 +176,12 @@
     },
     data() {
       return {
-        menuItems: [{ name: '수정하기' }, { name: '삭제하기' }],
+        menuItems: [{ name: "수정하기" }, { name: "삭제하기" }],
       };
     },
     methods: {
       updatePost() {
-        this.$store.commit('posts/setWritingPost', {
+        this.$store.commit("posts/setWritingPost", {
           id: this.post.id,
           category: this.post.category,
           content: this.post.content,
@@ -202,41 +202,37 @@
         }
 
         this.$store
-          .dispatch('posts/remove', {
+          .dispatch("posts/remove", {
             postId: this.post.id,
             hashtags: this.hashtags,
           })
           .then(res => {
-            this.$router.push({ path: '/' });
+            this.$router.push({ path: "/" });
           });
       },
       onUpdateStatus() {
         this.$store
-          .dispatch('posts/updatePostStatus', {
+          .dispatch("posts/updatePostStatus", {
             postId: this.post.id,
             status: this.post.status,
           })
           .then(res => {
-            this.$router.push('/');
+            this.$router.push("/");
           });
       },
       onClickHeart() {
         if (!this.me) {
-          return alert('로그인이 필요합니다');
+          return alert("로그인이 필요합니다");
         }
         if (this.liked) {
-          return this.$store.dispatch('posts/unlikePost', {
+          return this.$store.dispatch("posts/unlikePost", {
             postId: this.post.id,
           });
         }
-        return this.$store.dispatch('posts/likePost', {
+        return this.$store.dispatch("posts/likePost", {
           postId: this.post.id,
         });
       },
-      // onApplySutdy() {
-      //   if (!this.me) {
-      //   }
-      // },
     },
     computed: {
       isMe() {
@@ -247,7 +243,7 @@
         return !!(this.post.Likers || []).find(v => v.id === (me && me.id));
       },
       heartIcon() {
-        return this.liked ? 'mdi-heart' : 'mdi-heart-outline';
+        return this.liked ? "mdi-heart" : "mdi-heart-outline";
       },
       hashtags() {
         if (this.post && this.post.hashtags) {

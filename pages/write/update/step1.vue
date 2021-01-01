@@ -47,7 +47,7 @@
           <b class="pink--text font-weight-black">*</b>
         </div>
         <div class="content">
-          <v-radio-group v-model="studyType" row>
+          <v-radio-group v-model="type" row>
             <v-radio label="온라인" value="온라인"></v-radio>
             <v-radio label="오프라인" value="오프라인"></v-radio>
           </v-radio-group>
@@ -138,20 +138,20 @@
     data() {
       return {
         valid: false,
-        coverImagePath: '',
+        coverImagePath: "",
         files: [],
-        categorys: ['어학', '취업', '고시', '자격증', '프로그래밍', '기타'],
+        categorys: ["어학", "취업", "고시", "자격증", "프로그래밍", "기타"],
         locations: [
-          '서울',
-          '수원',
-          '인천',
-          '부산',
-          '강원',
-          '천안',
-          '울산',
-          '광주',
-          '제주',
-          '기타',
+          "서울",
+          "수원",
+          "인천",
+          "부산",
+          "강원",
+          "천안",
+          "울산",
+          "광주",
+          "제주",
+          "기타",
         ],
       };
     },
@@ -159,8 +159,7 @@
       uploadCoverImage() {
         if (this.files && this.files.length === 0) return;
         const formData = new FormData();
-        // formData.append('postId', postId);
-        formData.append('image', this.files[0]);
+        formData.append("image", this.files[0]);
         this.$axios
           .post(`/post/thumbnail`, formData, {
             withCredentials: true,
@@ -174,16 +173,27 @@
       },
       toNextPage() {
         if (this.$refs.form.validate()) {
-          this.$router.push('/write/update/step2');
+          this.$store.commit("posts/setWritingPost", {
+            id: this.writingPost.id,
+            category: this.category || this.writingPost.category,
+            location: this.location || this.writingPost.location,
+            type: this.type || this.writingPost.type,
+            numPeople: this.numPeople || this.writingPost.numPeople,
+            title: this.title || this.writingPost.title,
+            questions: this.writingPost.questions,
+            hashtags: this.writingPost.hashtags,
+            content: this.writingPost.content,
+          });
+          this.$router.push("/write/update/step2");
         }
       },
     },
     computed: {
       numPeople() {
-        return this.minPeople + '-' + this.maxPeople;
+        return this.minPeople + "-" + this.maxPeople;
       },
       coverImg() {
-        return this.coverImagePath !== ''
+        return this.coverImagePath !== ""
           ? this.coverImagePath
           : process.env.default_cover;
       },
@@ -194,17 +204,15 @@
     created() {
       this.category = this.writingPost.category
         ? this.writingPost.category
-        : '';
+        : "";
       this.location = this.writingPost.location
         ? this.writingPost.location
-        : '';
-      this.studyType = this.writingPost.studyType
-        ? this.writingPost.studyType
-        : '오프라인';
+        : "";
+      this.type = this.writingPost.type ? this.writingPost.type : "오프라인";
       [this.minPeople, this.maxPeople] = this.writingPost.numPeople
-        ? this.writingPost.numPeople.split('-')
+        ? this.writingPost.numPeople.split("-")
         : [0, 0];
-      this.title = this.writingPost.title ? this.writingPost.title : '';
+      this.title = this.writingPost.title ? this.writingPost.title : "";
     },
   };
 </script>

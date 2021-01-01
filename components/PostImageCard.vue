@@ -3,8 +3,6 @@
     class="white"
     :elevation="hover ? 10 : 1"
     :ripple="false"
-    nuxt
-    link
     :to="`/post/${post.id}`"
   >
     <template slot="progress">
@@ -43,7 +41,7 @@
 
 <script>
   export default {
-    name: 'PostImageCard',
+    name: "PostImageCard",
     props: {
       height: [String, Number],
       post: {
@@ -54,16 +52,6 @@
         type: Boolean,
         // required: true,
       },
-    },
-    computed: {
-      // coverImg() {
-      //   if (this.post) {
-      //     return this.post.coverImg
-      //       ? this.post.coverImg
-      //       : process.env.default_cover;
-      //   }
-      //   return process.env.default_cover;
-      // },
     },
   };
 </script>

@@ -5,8 +5,6 @@
     :ripple="false"
     :to="`/post/${post.id}`"
     height="322"
-    nuxt
-    link
   >
     <template slot="progress">
       <v-progress-linear
@@ -41,7 +39,7 @@
 
 <script>
   export default {
-    name: 'PostEmojiCard',
+    name: "PostEmojiCard",
     props: {
       height: [String, Number],
       post: {
@@ -54,7 +52,7 @@
     computed: {
       content() {
         const content = this.post.content.slice(0, 50);
-        const result = content.replace(/(<([^>]+)>)/gi, '') + '...';
+        const result = content.replace(/(<([^>]+)>)/gi, "") + "...";
         return result;
       },
     },
