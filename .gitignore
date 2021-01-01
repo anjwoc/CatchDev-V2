@@ -9,6 +9,7 @@ yarn-error.log*
 .env.docker
 .env.local
 .env.production
+.env.development
 # Runtime data
 pids
 *.pid

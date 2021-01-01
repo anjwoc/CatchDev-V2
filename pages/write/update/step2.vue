@@ -139,8 +139,8 @@
           "스터디는 이렇게 진행됩니다.",
           "이런 분들과 함께 하고싶어요!",
         ],
-        qFieldNumbers: [1, 1, 1],
-        qFields: [[], [], []],
+        qFieldNumbers: [],
+        qFields: [],
         content: "",
         hashtags: [],
         extensions: [
@@ -216,10 +216,9 @@
 
       for (let i = 0; i < length; i++) {
         const data = questionValues[this.questions[i]];
-        this.qFields[i] = [...data];
-        this.qFieldNumbers[i] = data.length;
+        this.qFields.push([...data]);
+        this.qFieldNumbers.push(data.length);
       }
-
       const tags = this.writingPost.tagHistory;
       if (tags) {
         this.hashtags = tags.map(tag => tag.name);
