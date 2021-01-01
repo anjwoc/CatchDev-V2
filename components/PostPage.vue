@@ -186,7 +186,7 @@
           category: this.post.category,
           content: this.post.content,
           coverImg: this.post.coverImg,
-          hashtags: this.post.hashtags,
+          tagHistory: this.post.hashtags,
           location: this.post.location,
           numPeople: this.post.numPeople,
           questions: this.post.questions,

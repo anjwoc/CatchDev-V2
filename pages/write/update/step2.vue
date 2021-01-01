@@ -127,7 +127,7 @@
     HorizontalRule,
     History,
     Image,
-  } from 'tiptap-vuetify';
+  } from "tiptap-vuetify";
   export default {
     components: {
       TiptapVuetify,
@@ -135,13 +135,13 @@
     data() {
       return {
         questions: [
-          '어떤 스터디인가요?',
-          '스터디는 이렇게 진행됩니다.',
-          '이런 분들과 함께 하고싶어요!',
+          "어떤 스터디인가요?",
+          "스터디는 이렇게 진행됩니다.",
+          "이런 분들과 함께 하고싶어요!",
         ],
         qFieldNumbers: [1, 1, 1],
         qFields: [[], [], []],
-        content: '',
+        content: "",
         hashtags: [],
         extensions: [
           History,
@@ -194,11 +194,11 @@
           questions: data,
         };
         this.$store
-          .dispatch('posts/update', payload)
+          .dispatch("posts/update", payload)
           .then(postId => {
-            this.content = '';
+            this.content = "";
             this.$router.push({ path: `/post/${postId}` });
-            this.$store.commit('posts/setWritingPost', {});
+            this.$store.commit("posts/setWritingPost", {});
           })
           .catch(err => {
             console.erorr(err);
@@ -220,11 +220,11 @@
         this.qFieldNumbers[i] = data.length;
       }
 
-      const tags = this.writingPost.hashtags;
+      const tags = this.writingPost.tagHistory;
       if (tags) {
         this.hashtags = tags.map(tag => tag.name);
       }
-      this.content = this.writingPost.content || '';
+      this.content = this.writingPost.content || "";
     },
   };
 </script>
@@ -256,7 +256,7 @@
         width: 300px;
         color: #333;
         font-size: 18px;
-        font-family: 'Noto Sans KR', sans-serif !important;
+        font-family: "Noto Sans KR", sans-serif !important;
         padding: 14px;
         font-weight: 900 !important;
       }

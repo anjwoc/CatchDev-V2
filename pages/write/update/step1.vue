@@ -172,18 +172,19 @@
           });
       },
       toNextPage() {
+        const payload = {
+          id: this.writingPost.id,
+          category: this.category || this.writingPost.category,
+          location: this.location || this.writingPost.location,
+          type: this.type || this.writingPost.type,
+          numPeople: this.numPeople || this.writingPost.numPeople,
+          title: this.title || this.writingPost.title,
+          questions: this.writingPost.questions,
+          tagHistory: this.writingPost.tagHistory,
+          content: this.writingPost.content,
+        };
         if (this.$refs.form.validate()) {
-          this.$store.commit("posts/setWritingPost", {
-            id: this.writingPost.id,
-            category: this.category || this.writingPost.category,
-            location: this.location || this.writingPost.location,
-            type: this.type || this.writingPost.type,
-            numPeople: this.numPeople || this.writingPost.numPeople,
-            title: this.title || this.writingPost.title,
-            questions: this.writingPost.questions,
-            hashtags: this.writingPost.hashtags,
-            content: this.writingPost.content,
-          });
+          this.$store.commit("posts/setWritingPost", payload);
           this.$router.push("/write/update/step2");
         }
       },
