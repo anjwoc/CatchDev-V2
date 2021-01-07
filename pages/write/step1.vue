@@ -20,9 +20,9 @@
           <v-select
             v-model="category"
             full-wdith
-            hide-details
-            :items="categorys"
             outlined
+            :items="categorys"
+            :rules="rules.category"
           ></v-select>
         </div>
       </div>
@@ -35,9 +35,9 @@
           <v-select
             v-model="location"
             full-wdith
-            hide-details
-            :items="locations"
             outlined
+            :items="locations"
+            :rules="rules.location"
           ></v-select>
         </div>
       </div>
@@ -61,16 +61,16 @@
         <div class="content">
           <v-select
             v-model="minPeople"
-            hide-details
             label="최소"
             :items="Array.from({ length: 20 }, (_, i) => i + 1)"
+            :rules="rules.minPeople"
             outlined
           ></v-select>
           <v-select
             v-model="maxPeople"
-            hide-details
             label="최대"
             :items="Array.from({ length: 20 }, (_, i) => i + 1)"
+            :rules="rules.maxPeople"
             outlined
           >
           </v-select>
@@ -86,9 +86,9 @@
           <v-text-field
             v-model="title"
             class="my-1"
-            hide-details
             dense
             outlined
+            :rules="rules.title"
           ></v-text-field>
         </div>
       </div>
@@ -140,20 +140,47 @@
     data() {
       return {
         valid: false,
-        coverImagePath: '',
+        coverImagePath: "",
         file: [],
-        categorys: ['어학', '취업', '고시', '자격증', '프로그래밍', '기타'],
+        minPeople: "",
+        maxPeople: "",
+        rules: {
+          title: [v => !!v || "제목을 입력해주세요."],
+          category: [v => !!v || "카테고리를 선택해주세요."],
+          location: [v => !!v || "지역을 선택해주세요."],
+          minPeople: [
+            v => {
+              if (!this.minPeople || !this.maxPeople)
+                return "참여 인원을 선택해주세요.";
+              return (
+                (!!v && parseInt(v, 10) < parseInt(this.maxPeople, 10)) ||
+                "최소, 최대 인원수를 확인해주세요."
+              );
+            },
+          ],
+          maxPeople: [
+            v => {
+              if (!this.minPeople || !this.maxPeople)
+                return "참여 인원을 선택해주세요.";
+              return (
+                (!!v && parseInt(v, 10) > parseInt(this.minPeople, 10)) ||
+                "최소, 최대 인원수를 확인해주세요."
+              );
+            },
+          ],
+        },
+        categorys: ["어학", "취업", "고시", "자격증", "프로그래밍", "기타"],
         locations: [
-          '서울',
-          '수원',
-          '인천',
-          '부산',
-          '강원',
-          '천안',
-          '울산',
-          '광주',
-          '제주',
-          '기타',
+          "서울",
+          "수원",
+          "인천",
+          "부산",
+          "강원",
+          "천안",
+          "울산",
+          "광주",
+          "제주",
+          "기타",
         ],
       };
     },
@@ -161,7 +188,7 @@
       uploadCoverImage() {
         if (!this.file) return;
         const formData = new FormData();
-        formData.append('image', this.file);
+        formData.append("image", this.file);
 
         this.$axios
           .post(`/post/thumbnail`, formData, {
@@ -174,72 +201,36 @@
             console.error(err);
           });
       },
-      validate() {
-        const items = [
-          this.category.length,
-          this.location.length,
-          this.numPeople.length,
-          this.title.length,
-        ];
-        let isValidate = true;
-        for (const item of items)
-          if (item === 0) {
-            isValidate = false;
-            break;
-          }
-
-        if (!isValidate) {
-          this.$dialog.notify.warning('필수정보를 모두 입력해주세요.', {
-            position: 'top-right',
-            timeout: 5000,
-          });
-          return false;
-        }
-        return true;
-      },
       toNextPage() {
         // vuex에 데이터 저장하고 페이지 이동하기
         const payload = {
           title: this.title,
-          coverImg: this.coverImagePath || '',
-          numPeople: this.numPeople,
+          coverImg: this.coverImagePath || "",
+          numPeople: `${this.minPeople}-${this.maxPeople}`,
+          minPeople: this.minPeople,
+          maxPeople: this.maxPeople,
           type: this.studyType,
           location: this.location,
           category: this.category,
         };
-        if (this.$refs.form.validate() && this.validate()) {
-          this.$store.commit('posts/setWritingPost', payload);
-          this.$router.push('/write/step2');
+        if (this.$refs.form.validate()) {
+          this.$store.commit("posts/setWritingPost", payload);
+          this.$router.push("/write/step2");
         }
       },
     },
     computed: {
-      numPeople() {
-        return this.minPeople + '-' + this.maxPeople;
-      },
-      // coverImg() {
-      //   return this.coverImagePath !== ''
-      //     ? this.coverImagePath
-      //     : process.env.default_cover;
-      // },
       writingPost() {
         return this.$store.state.posts.writingPost;
       },
     },
     created() {
-      this.category = this.writingPost.category
-        ? this.writingPost.category
-        : '';
-      this.location = this.writingPost.location
-        ? this.writingPost.location
-        : '';
-      this.studyType = this.writingPost.studyType
-        ? this.writingPost.studyType
-        : '오프라인';
-      [this.minPeople, this.maxPeople] = this.writingPost.numPeople
-        ? this.writingPost.numPeople.split('-')
-        : [0, 0];
-      this.title = this.writingPost.title ? this.writingPost.title : '';
+      this.category = this.writingPost.category || "";
+      this.location = this.writingPost.location || "";
+      this.studyType = this.writingPost.studyType || "오프라인";
+      this.minPeople = this.writingPost.minPeople || "";
+      this.maxPeople = this.writingPost.maxPeople || "";
+      this.title = this.writingPost.title || "";
     },
   };
 </script>

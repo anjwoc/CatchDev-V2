@@ -64,9 +64,6 @@ const actions = {
           `/comment/${payload.postId}`,
           {
             ...payload,
-            // postId: payload.postId,
-            // content: payload.content,
-            // isPrivate: payload.isPrivate,
           },
           {
             withCredentials: true,
@@ -84,17 +81,9 @@ const actions = {
   deleteComment({ commit }, payload) {
     return new Promise((resolve, reject) => {
       this.$axios
-        .delete(
-          `/comment/${payload.id}`,
-          {
-            data: {
-              postId: payload.postId,
-            },
-          },
-          {
-            withCredentials: true,
-          },
-        )
+        .delete(`/comment/${payload.id}?postId=${payload.postId}`, {
+          withCredentials: true,
+        })
         .then(res => {
           commit("deleteComment", {
             id: res.data,
@@ -139,10 +128,10 @@ const actions = {
         });
         tags = tags.slice(0, tags.length - 1);
         commit("loadPost", post);
-        return dispatch("loadRelatedPosts", {
-          tags: tags,
-          postId: payload,
-        });
+        // return dispatch("loadRelatedPosts", {
+        //   tags: tags,
+        //   postId: payload,
+        // });
       }
       commit("loadPost", post);
     } catch (err) {

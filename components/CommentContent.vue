@@ -16,7 +16,7 @@
 
           <div style="display: inline-block">
             <p class="ma-0 pa-0 subtitle-1 font-weight-black">
-              {{ c.user && c.user.email && c.user.email.split('@')[0] }}
+              {{ c.user.name }}
             </p>
             <p class="ma-0 pa-0 subtitle-2" style="opacity: 0.5">
               {{ $moment(c.createdAt).fromNow() }}
@@ -29,6 +29,7 @@
         </v-container>
         <div align="end">
           <v-btn
+            v-if="c.userId === me.id"
             class="ma-0 pa-0"
             color="red darken-3"
             @click.prevent="onDeleteComment(c.id)"
@@ -36,8 +37,9 @@
             outlined
             bottom
             right
-            >삭제</v-btn
           >
+            삭제
+          </v-btn>
         </div>
       </v-container>
     </v-card>
@@ -46,7 +48,7 @@
 </template>
 
 <script>
-  import CommentForm from '~/components/CommentForm';
+  import CommentForm from "~/components/CommentForm";
   export default {
     props: {
       postId: {
@@ -65,34 +67,33 @@
     data() {
       return {
         updateOpened: false,
-        updatedValue: '',
+        updatedValue: "",
       };
     },
     methods: {
       onConvertContent(comment) {
-        if (comment.isPrivate && comment.id !== this.me.id) {
-          return '비밀 댓글입니다.';
+        if (
+          comment.isPrivate &&
+          this.me.id !== this.postId &&
+          comment.userId !== this.me.id
+        ) {
+          return "비밀 댓글입니다.";
         }
         return comment.content;
       },
       onDeleteComment(id) {
-        this.$store.dispatch('posts/deleteComment', {
+        const payload = {
           id: id,
           postId: this.postId,
-        });
+        };
+
+        this.$store.dispatch("posts/deleteComment", payload);
       },
     },
     components: {
       CommentForm,
     },
     computed: {
-      nickname() {
-        return (
-          this.comments.user &&
-          this.comments.user.email &&
-          this.comments.user.email.split('@')[0]
-        );
-      },
       me() {
         return this.$store.state.users.me;
       },
