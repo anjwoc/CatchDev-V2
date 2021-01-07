@@ -128,10 +128,10 @@ const actions = {
         });
         tags = tags.slice(0, tags.length - 1);
         commit("loadPost", post);
-        // return dispatch("loadRelatedPosts", {
-        //   tags: tags,
-        //   postId: payload,
-        // });
+        return dispatch("loadRelatedPosts", {
+          tags: tags,
+          postId: payload,
+        });
       }
       commit("loadPost", post);
     } catch (err) {
