@@ -21,8 +21,9 @@
             v-model="category"
             full-wdith
             hide-details
-            :items="categorys"
             outlined
+            :items="categorys"
+            :rules="rules.category"
           ></v-select>
         </div>
       </div>
@@ -35,9 +36,9 @@
           <v-select
             v-model="location"
             full-wdith
-            hide-details
-            :items="locations"
             outlined
+            :items="locations"
+            :rules="rules.location"
           ></v-select>
         </div>
       </div>
@@ -47,7 +48,7 @@
           <b class="pink--text font-weight-black">*</b>
         </div>
         <div class="content">
-          <v-radio-group v-model="type" row>
+          <v-radio-group v-model="studyType" row>
             <v-radio label="온라인" value="온라인"></v-radio>
             <v-radio label="오프라인" value="오프라인"></v-radio>
           </v-radio-group>
@@ -61,16 +62,16 @@
         <div class="content">
           <v-select
             v-model="minPeople"
-            hide-details
-            :label="minPeople || '최소'"
+            label="최소"
             :items="Array.from({ length: 20 }, (_, i) => i + 1)"
+            :rules="rules.minPeople"
             outlined
           ></v-select>
           <v-select
             v-model="maxPeople"
-            hide-details
-            :label="maxPeople || '최대'"
+            label="최대"
             :items="Array.from({ length: 20 }, (_, i) => i + 1)"
+            :rules="rules.maxPeople"
             outlined
           >
           </v-select>
@@ -86,9 +87,9 @@
           <v-text-field
             v-model="title"
             class="my-1"
-            hide-details
             dense
             outlined
+            :rules="rules.title"
           ></v-text-field>
         </div>
       </div>
@@ -100,17 +101,16 @@
 
         <div class="content">
           <v-file-input
+            v-model="file"
             color="deep-purple accent-4"
             label="File input"
             placeholder="Select your files"
             prepend-icon="mdi-paperclip"
             outlined
             accept="image/png, image/jpeg, image/jpg"
+            @change="uploadCoverImage"
           >
           </v-file-input>
-          <div class="ml-9 details caption pink--text">
-            커버 이미지를 등록하지 않으면 기본 이미지로 적용 됩니다.
-          </div>
         </div>
       </div>
     </v-form>
@@ -139,7 +139,32 @@
       return {
         valid: false,
         coverImagePath: "",
-        files: [],
+        file: [],
+        rules: {
+          title: [v => !!v || "제목을 입력해주세요."],
+          category: [v => !!v || "카테고리를 선택해주세요."],
+          location: [v => !!v || "지역을 선택해주세요."],
+          minPeople: [
+            v => {
+              if (!this.minPeople || !this.maxPeople)
+                return "참여 인원을 선택해주세요.";
+              return (
+                (!!v && parseInt(v, 10) < parseInt(this.maxPeople, 10)) ||
+                "최소, 최대 인원수를 확인해주세요."
+              );
+            },
+          ],
+          maxPeople: [
+            v => {
+              if (!this.minPeople || !this.maxPeople)
+                return "참여 인원을 선택해주세요.";
+              return (
+                (!!v && parseInt(v, 10) > parseInt(this.minPeople, 10)) ||
+                "최소, 최대 인원수를 확인해주세요."
+              );
+            },
+          ],
+        },
         categorys: ["어학", "취업", "고시", "자격증", "프로그래밍", "기타"],
         locations: [
           "서울",
@@ -157,9 +182,10 @@
     },
     methods: {
       uploadCoverImage() {
-        if (this.files && this.files.length === 0) return;
+        if (!this.file) return;
         const formData = new FormData();
-        formData.append("image", this.files[0]);
+        formData.append("image", this.file);
+
         this.$axios
           .post(`/post/thumbnail`, formData, {
             withCredentials: true,
@@ -177,7 +203,8 @@
           category: this.category || this.writingPost.category,
           location: this.location || this.writingPost.location,
           type: this.type || this.writingPost.type,
-          numPeople: this.numPeople || this.writingPost.numPeople,
+          minPeople: this.minPeople || this.writingPost.minPeople,
+          maxPeople: this.maxPeople || this.writingPost.maxPeople,
           title: this.title || this.writingPost.title,
           questions: this.writingPost.questions,
           tagHistory: this.writingPost.tagHistory,
@@ -190,9 +217,6 @@
       },
     },
     computed: {
-      numPeople() {
-        return this.minPeople + "-" + this.maxPeople;
-      },
       coverImg() {
         return this.coverImagePath !== ""
           ? this.coverImagePath
@@ -203,17 +227,13 @@
       },
     },
     created() {
-      this.category = this.writingPost.category
-        ? this.writingPost.category
-        : "";
-      this.location = this.writingPost.location
-        ? this.writingPost.location
-        : "";
-      this.type = this.writingPost.type ? this.writingPost.type : "오프라인";
-      [this.minPeople, this.maxPeople] = this.writingPost.numPeople
-        ? this.writingPost.numPeople.split("-")
-        : [0, 0];
-      this.title = this.writingPost.title ? this.writingPost.title : "";
+      this.category = this.writingPost.category || "";
+      this.location = this.writingPost.location || "";
+      this.studyType = this.writingPost.studyType || "오프라인";
+      this.minPeople = this.writingPost.minPeople || "";
+      this.maxPeople = this.writingPost.maxPeople || "";
+      this.numPeople = this.writingPost.numPeople || "";
+      this.title = this.writingPost.title || "";
     },
   };
 </script>

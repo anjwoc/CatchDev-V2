@@ -188,6 +188,8 @@
           coverImg: this.post.coverImg,
           tagHistory: this.post.hashtags,
           location: this.post.location,
+          minPeople: this.post.minPeople,
+          maxPeople: this.post.maxPeople,
           numPeople: this.post.numPeople,
           questions: this.post.questions,
           title: this.post.title,
