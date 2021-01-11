@@ -109,6 +109,7 @@
             outlined
             accept="image/png, image/jpeg, image/jpg"
             @change="uploadCoverImage"
+            @click:clear="clearCoverImage"
           >
           </v-file-input>
         </div>
@@ -138,32 +139,15 @@
     data() {
       return {
         valid: false,
-        coverImagePath: "",
         file: [],
+        coverImg: "",
+        coverImagePath: "",
         rules: {
           title: [v => !!v || "제목을 입력해주세요."],
           category: [v => !!v || "카테고리를 선택해주세요."],
           location: [v => !!v || "지역을 선택해주세요."],
-          minPeople: [
-            v => {
-              if (!this.minPeople || !this.maxPeople)
-                return "참여 인원을 선택해주세요.";
-              return (
-                (!!v && parseInt(v, 10) < parseInt(this.maxPeople, 10)) ||
-                "최소, 최대 인원수를 확인해주세요."
-              );
-            },
-          ],
-          maxPeople: [
-            v => {
-              if (!this.minPeople || !this.maxPeople)
-                return "참여 인원을 선택해주세요.";
-              return (
-                (!!v && parseInt(v, 10) > parseInt(this.minPeople, 10)) ||
-                "최소, 최대 인원수를 확인해주세요."
-              );
-            },
-          ],
+          minPeople: [v => !!v || "참여 인원을 선택해주세요."],
+          maxPeople: [v => !!v || "참여 인원을 선택해주세요."],
         },
         categorys: ["어학", "취업", "고시", "자격증", "프로그래밍", "기타"],
         locations: [
@@ -197,9 +181,13 @@
             console.error(err);
           });
       },
+      clearCoverImage() {
+        this.coverImagePath = "";
+      },
       toNextPage() {
         const payload = {
           id: this.writingPost.id,
+          coverImg: this.coverImagePath || "",
           category: this.category || this.writingPost.category,
           location: this.location || this.writingPost.location,
           type: this.type || this.writingPost.type,
@@ -217,11 +205,6 @@
       },
     },
     computed: {
-      coverImg() {
-        return this.coverImagePath !== ""
-          ? this.coverImagePath
-          : process.env.default_cover;
-      },
       writingPost() {
         return this.$store.state.posts.writingPost;
       },
@@ -234,6 +217,10 @@
       this.maxPeople = this.writingPost.maxPeople || "";
       this.numPeople = this.writingPost.numPeople || "";
       this.title = this.writingPost.title || "";
+      this.file =
+        new File([this.writingPost.coverImg], `${this.writingPost.coverImg}`, {
+          type: "image/jpeg",
+        }) || "";
     },
   };
 </script>

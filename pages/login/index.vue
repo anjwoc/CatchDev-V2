@@ -109,9 +109,9 @@
                 @click="onSocialLogin(socials[idx - 1])"
               >
                 <v-avatar class="elevation-3 pa-2 white" size="40">
-                  <v-icon color="blue lighten-1">{{
-                    socialIcons[idx - 1]
-                  }}</v-icon>
+                  <v-icon color="blue lighten-1">
+                    {{ socialIcons[idx - 1] }}
+                  </v-icon>
                 </v-avatar>
               </v-btn>
             </v-card-actions>

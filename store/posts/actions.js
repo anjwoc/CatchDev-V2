@@ -339,9 +339,6 @@ const actions = {
       return;
     }
     if (state.hasMorePost) {
-      /*
-      아직 구현 X
-      */
       const lastPost = state.mainPosts[state.mainPosts.length - 1];
       const res = await this.$axios.get(
         `/posts/search/${payload.word}?lastId=${

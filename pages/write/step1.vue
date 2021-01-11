@@ -148,26 +148,8 @@
           title: [v => !!v || "제목을 입력해주세요."],
           category: [v => !!v || "카테고리를 선택해주세요."],
           location: [v => !!v || "지역을 선택해주세요."],
-          minPeople: [
-            v => {
-              if (!this.minPeople || !this.maxPeople)
-                return "참여 인원을 선택해주세요.";
-              return (
-                (!!v && parseInt(v, 10) < parseInt(this.maxPeople, 10)) ||
-                "최소, 최대 인원수를 확인해주세요."
-              );
-            },
-          ],
-          maxPeople: [
-            v => {
-              if (!this.minPeople || !this.maxPeople)
-                return "참여 인원을 선택해주세요.";
-              return (
-                (!!v && parseInt(v, 10) > parseInt(this.minPeople, 10)) ||
-                "최소, 최대 인원수를 확인해주세요."
-              );
-            },
-          ],
+          minPeople: [v => !!v || "참여 인원을 선택해주세요."],
+          maxPeople: [v => !!v || "참여 인원을 선택해주세요."],
         },
         categorys: ["어학", "취업", "고시", "자격증", "프로그래밍", "기타"],
         locations: [

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>
+    <!-- <div>
       <v-carousel
         cycle
         height="300"
@@ -11,12 +11,12 @@
           <v-sheet :color="colors[i]" height="100%">
             <v-row class="fill-height" align="center" justify="center">
               <div class="display-3">{{ slide }} Slide</div>
-              <!-- <v-img src="/c-logo.png" contain cover></v-img> -->
             </v-row>
           </v-sheet>
         </v-carousel-item>
       </v-carousel>
-    </div>
+    </div> -->
+
     <v-container>
       <div class="text-center justify-center mt-6 mb-6">
         <div class="text-h5 font-weight-bold">최근 게시글</div>
@@ -54,12 +54,12 @@
 </template>
 
 <script>
-  import PostCard from '@/components/PostCard';
-  import { mapState } from 'vuex';
+  import PostCard from "@/components/PostCard";
+  import { mapState } from "vuex";
   export default {
-    layout: 'main',
+    layout: "main",
     middleware({ store, redirect }) {
-      return store.dispatch('posts/loadPosts', { reset: true });
+      return store.dispatch("posts/loadPosts", { reset: true });
     },
     components: {
       PostCard,
@@ -67,17 +67,17 @@
     data() {
       return {
         disabled: false,
-        openDelay: '0',
-        closeDelay: '0',
+        openDelay: "0",
+        closeDelay: "0",
         value: false,
         colors: [
-          'indigo',
-          'warning',
-          'pink darken-2',
-          'red lighten-1',
-          'deep-purple accent-4',
+          "indigo",
+          "warning",
+          "pink darken-2",
+          "red lighten-1",
+          "deep-purple accent-4",
         ],
-        slides: ['First', 'Second', 'Third', 'Fourth', 'Fifth'],
+        slides: ["First", "Second", "Third", "Fourth", "Fifth"],
       };
     },
     methods: {
@@ -87,7 +87,7 @@
             document.documentElement.scrollHeight - 300 &&
           this.hasMorePost
         ) {
-          this.$store.dispatch('posts/loadPosts');
+          this.$store.dispatch("posts/loadPosts");
         }
       },
     },
@@ -99,25 +99,25 @@
       }),
     },
     mounted() {
-      window.addEventListener('scroll', this.onScroll);
+      window.addEventListener("scroll", this.onScroll);
     },
     beforeDestroy() {
-      window.removeEventListener('scroll', this.onScroll);
+      window.removeEventListener("scroll", this.onScroll);
     },
     head() {
       return {
         metaInfo: {
-          title: '전체 게시글',
-          titleTemplate: '%s',
+          title: "전체 게시글",
+          titleTemplate: "%s",
           // <html> 요소의 속성 설정
           htmlAttrs: {
             // 주 언어 명시
-            lang: 'ko-KR',
-            dir: 'ltr',
+            lang: "ko-KR",
+            dir: "ltr",
           },
           meta: [
-            { charset: 'utf-8' },
-            { hid: 'description', name: 'description', content: '전체 게시글' },
+            { charset: "utf-8" },
+            { hid: "description", name: "description", content: "전체 게시글" },
           ],
         },
       };

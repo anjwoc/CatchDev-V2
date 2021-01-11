@@ -75,7 +75,7 @@
 </template>
 
 <script>
-  import UserProfileMenu from '@/components/UserProfileMenu';
+  import UserProfileMenu from "@/components/UserProfileMenu";
   export default {
     components: {
       UserProfileMenu,
@@ -83,34 +83,34 @@
     data() {
       return {
         search: false,
-        tab: '',
+        tab: "",
         tabs: [
-          '전체',
-          '어학',
-          '고시/공무원',
-          '취미/교양',
-          '프로그래밍',
-          '자율',
-          '기타',
+          "전체",
+          "어학",
+          "고시/공무원",
+          "취미/교양",
+          "프로그래밍",
+          "자율",
+          "기타",
         ],
       };
     },
     methods: {
       toSearchPage(e) {
         const word = e.target.value;
-        if (word.includes('#')) {
-          this.$router.push(`/search/tag/${word.split('#')[1]}`);
+        if (word.includes("#")) {
+          this.$router.push(`/search/tag/${word.split("#")[1]}`);
           return;
         }
         this.$router.push(`/search/${word}`);
       },
       onChangeTabs(category) {
         switch (category) {
-          case '전체':
-            return this.$store.dispatch('posts/loadPosts', { reset: true });
+          case "전체":
+            return this.$store.dispatch("posts/loadPosts", { reset: true });
             break;
           default:
-            return this.$store.dispatch('posts/loadCategoryPosts', {
+            return this.$store.dispatch("posts/loadCategoryPosts", {
               reset: true,
               category: category,
             });
@@ -119,9 +119,9 @@
       },
       onLogout() {
         this.$store
-          .dispatch('users/logOut')
+          .dispatch("users/logOut")
           .then(() => {
-            this.$router.push({ path: '/' });
+            this.$router.push({ path: "/" });
           })
           .catch(err => {
             console.error(err);
@@ -135,12 +135,41 @@
     },
     head() {
       return {
-        title: '최근 게시글',
+        title: "최근 게시글",
       };
     },
   };
 </script>
 <style lang="scss" scoped>
+  .header_text_top {
+    font-size: 36px !important;
+    font-weight: 300 !important;
+    letter-spacing: -2.15px !important;
+  }
+
+  .header_in_text {
+    margin-top: 150px !important;
+    height: 224px !important;
+    font-family: "Noto Sans KR", sans-serif !important;
+    font-size: 45px !important;
+    font-weight: 500 !important;
+    font-style: normal !important;
+    font-stretch: normal !important;
+    line-height: 1.48 !important;
+    letter-spacing: -2.7px !important;
+    text-align: left !important;
+    color: #ffffff !important;
+  }
+
+  .header-svg {
+    height: 200px;
+    background-image: url("/education.svg");
+  }
+  .header-left-svg {
+    height: 200px;
+    background-image: url("/post-card.svg");
+  }
+
   .search_box {
     border: 1px solid grey;
     border-radius: 3px;

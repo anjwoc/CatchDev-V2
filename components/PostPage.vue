@@ -192,6 +192,7 @@
           maxPeople: this.post.maxPeople,
           numPeople: this.post.numPeople,
           questions: this.post.questions,
+          coverImg: this.post.coverImg,
           title: this.post.title,
           type: this.post.type,
         });
